@@ -1,0 +1,166 @@
+{
+  "site": {
+    "title": "Bonvera.food - Türkische Mezze, İçli Köfte und Sarmalar in Straßburg | Frische Produktion",
+    "description": "Bonvera.food bietet täglich frische türkische Mezze, İçli Köfte und Sarmalar in Straßburg. Online-Bestellung und Lieferung. Qualitätszutaten, handwerkliches Können.",
+    "keywords": "bonvera.food, türkische Küche Straßburg, Mezze Straßburg, içli köfte Straßburg, sarmalar Straßburg, türkische Küche Straßburg, frische Mezze, traditionelle türkische Aromen, Online-Bestellung Straßburg"
+  },
+  "navigation": {
+    "mezeler": "Mezze",
+    "icli_kofte": "İçli Köfte",
+    "sarmalar": "Sarmalar",
+    "hakkimizda": "Über Uns",
+    "iletisim": "Kontakt",
+    "sepet": "Warenkorb",
+    "siparis": "Bestellung"
+  },
+  "hero": {
+    "title1": "Frisches Cacık",
+    "title2": "Scharfes Ezme",
+    "title3": "Scharfer Hummus",
+    "subtitle1": "Mezze mit frischen Zutaten zubereitet",
+    "subtitle2": "Traditionelle Rezepte zubereitete Gerichte",
+    "subtitle3": "İçli köfte und besondere Aromen"
+  },
+  "products": {
+    "cacik": {
+      "name": "Cacık",
+      "description": "Ein erfrischendes Mezze mit Joghurt und geriebener Gurke zubereitet, mit Knoblauch und Minze gewürzt. Perfekte Vorspeise für die Sommermonate."
+    },
+    "ezme": {
+      "name": "Ezme",
+      "description": "Ein perfektes Mezze für Schärfe-Liebhaber, mit Tomaten, Paprika, Zwiebeln und Gewürzen zubereitet. Traditioneller Geschmack mit Olivenöl vermischt."
+    },
+    "acili_humus": {
+      "name": "Scharfer Hummus",
+      "description": "Eines der beliebten Mezze der nahöstlichen Küche, mit Kichererbsen, Tahini, Zitronensaft und Olivenöl zubereitet. Ein Geschmack, der mit seiner scharfen Version auf der Zunge bleibt."
+    },
+    "amerikan_salatasi": {
+      "name": "Amerikanischer Salat",
+      "description": "Ein klassischer Salat mit Kartoffeln, Karotten, Erbsen und Mayonnaise zubereitet, auch von Kindern geliebt. Eine farbenfrohe und nahrhafte Vorspeise."
+    },
+    "barbunya_salatasi": {
+      "name": "Borlotti-Bohnen-Salat",
+      "description": "Ein proteinreiches, sättigendes Mezze mit Borlotti-Bohnen, Zwiebeln, Petersilie und Olivenöl zubereitet. Gesund und lecker."
+    },
+    "domates_kurusu": {
+      "name": "Getrocknete Tomaten",
+      "description": "Ein intensives und aromatisches Mezze mit getrockneten Tomaten, Olivenöl und frischen Kräutern zubereitet. Ein unverzichtbarer Teil der mediterranen Küche."
+    },
+    "fava": {
+      "name": "Fava",
+      "description": "Ein proteinreiches Mezze, das mit der ägäischen und griechischen Küche identifiziert wird, mit getrockneten Saubohnen zubereitet. Mit Olivenöl, Zitrone und frischen Kräutern gewürzt."
+    },
+    "grek_salatasi": {
+      "name": "Griechischer Salat",
+      "description": "Einer der beliebtesten Salate der mediterranen Küche, mit Tomaten, Gurken, Oliven, Zwiebeln und weißem Käse zubereitet. Frisch und gesund."
+    },
+    "mantar_salatasi": {
+      "name": "Pilzsalat",
+      "description": "Ein natürliches und aromatisches Mezze mit frischen Pilzen, Zwiebeln, Petersilie und Olivenöl zubereitet. Favorit der Pilzliebhaber."
+    },
+    "mor_lahana": {
+      "name": "Rotkohl",
+      "description": "Ein farbenfrohes und vitaminreiches Mezze mit Rotkohl, Karotten, Petersilie und Zitronensaft zubereitet. Gesund und erfrischend."
+    },
+    "muammara": {
+      "name": "Muammara",
+      "description": "Ein aromatisches Mezze aus der syrischen Küche, mit Walnüssen, roten Paprika, Brot und Olivenöl zubereitet. Reicher und sättigender Geschmack."
+    },
+    "muhteber": {
+      "name": "Muhteber",
+      "description": "Ein traditionelles Mezze aus der Hatay-Küche, mit Auberginen, Tomaten, Zwiebeln und Gewürzen zubereitet. Reich aromatisch und sättigend."
+    },
+    "pancar_salatasi": {
+      "name": "Rote-Bete-Salat",
+      "description": "Ein farbenfrohes und nahrhaftes Mezze mit gekochten Rüben, Walnüssen, Petersilie und Olivenöl zubereitet. Ein Geschmack, der mit seiner natürlichen Süße hervorsticht."
+    },
+    "patlicanli_humus": {
+      "name": "Auberginen-Hummus",
+      "description": "Ein besonderes Mezze, das durch Hinzufügen von gegrillten Auberginen zum klassischen Hummus zubereitet wird und mit seinem rauchigen Aroma hervorsticht. Anders und lecker."
+    },
+    "saksuka": {
+      "name": "Şakşuka",
+      "description": "Eines der beliebten Mezze der türkischen Küche, mit Auberginen, Tomaten, Paprika, Zwiebeln und Eiern zubereitet. Farbenfroh und sättigend."
+    },
+    "tarator": {
+      "name": "Tarator",
+      "description": "Ein erfrischendes Mezze aus der Balkan-Küche, mit Walnüssen, Brot, Knoblauch, Olivenöl und Zitrone zubereitet. Intensiv aromatisch und nahrhaft."
+    },
+    "kizarmis_icli_kofte": {
+      "name": "Gebratenes İçli Köfte",
+      "description": "İçli köfte nach traditionellem Rezept zubereitet, gebraten serviert. Ein besonderer Geschmack, der mit seiner knusprigen äußeren Struktur und leckeren Füllung hervorsticht."
+    },
+    "cig_icli_kofte": {
+      "name": "Rohes İçli Köfte",
+      "description": "İçli köfte nach traditionellem Rezept zubereitet, roh serviert. Eine gesunde und leckere Option mit frischen und natürlichen Zutaten."
+    },
+    "yaprak_sarma": {
+      "name": "Weinblatt-Sarma",
+      "description": "Traditionelles Sarma mit Weinblättern, Reis, Zwiebeln und Gewürzen zubereitet. Einer der beliebtesten Geschmäcker der türkischen Küche."
+    },
+    "kabak_sarma": {
+      "name": "Zucchini-Sarma",
+      "description": "Leckeres Sarma mit Zucchiniblättern, Reis, Zwiebeln und Gewürzen zubereitet. Leicht und gesund, ein besonderer Geschmack, der in den Sommermonaten bevorzugt wird."
+    },
+    "patlican_sarma": {
+      "name": "Auberginen-Sarma",
+      "description": "Besonderes Sarma mit Auberginenblättern, Reis, Zwiebeln und Gewürzen zubereitet. Favorit der Auberginenliebhaber, aromatisch und lecker."
+    }
+  },
+  "sections": {
+    "mezeler": "Mezze",
+    "icli_kofte": "İçli Köfte",
+    "sarmalar": "Sarmalar",
+    "hakkimizda": "Über Uns",
+    "iletisim": "Kontakt"
+  },
+  "about": {
+    "title": "Über Uns",
+    "description": "Bonvera ist ein geschlossenes Küchen-Technologie-Startup, das gegründet wurde, um Ihnen Mezze und Hausmannskost mit einem täglichen frischen Produktionsansatz zu liefern und eine einfache und schnelle Bestellerfahrung zu bieten.",
+    "feature1_title": "Tägliche Produktion in Straßburg",
+    "feature1_desc": "Das Herz unserer Aromen schlägt in Straßburg, einem der multikulturellen Gastronomiezentren Europas. Jedes unserer Produkte wird täglich und frisch zubereitet.",
+    "feature2_title": "Geheime Rezepte der türkischen Küche",
+    "feature2_desc": "Unsere Mezze, die mit den geheimen Rezepten der türkischen Küche zubereitet werden, die von Generation zu Generation weitergegeben werden, verbinden traditionelle Aromen mit modernen Hygienestandards.",
+    "feature3_title": "Frisches Gemüse und Qualitätszutaten",
+    "feature3_desc": "Wir verwenden frisches Gemüse und natürliche Zutaten in unserer Produktion. Unsere Produkte, die nur mit natürlichen Methoden ohne Konservierungsstoffe zubereitet werden.",
+    "feature4_title": "Tägliche und frische Produktion",
+    "feature4_desc": "Wir folgen dem Prinzip 'gleicher Tag Vorbereitung, gleicher Tag Service' in der Produktion. Jedes unserer Produkte wird täglich in unserer Küche in Straßburg zubereitet."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "location": "Standort: Straßburg, Frankreich",
+    "email": "E-Mail: bonvera.food@gmail.com",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "quick_message": "Schnelle Nachrichten"
+  },
+  "cart": {
+    "title": "Warenkorb",
+    "empty": "Ihr Warenkorb ist leer",
+    "discover": "Entdecken Sie unsere leckeren Mezze!",
+    "go_to_mezeler": "Zu Mezze gehen",
+    "complete_order": "Bestellung abschließen",
+    "view": "Anzeigen",
+    "total_mezeler": "Gesamt Mezze:",
+    "total_icli_kofte": "Gesamt İçli Köfte:",
+    "total_sarmalar": "Gesamt Sarmalar:",
+    "general_total": "Gesamtsumme:"
+  },
+  "footer": {
+    "copyright": "© 2024 Bonvera - Alle Rechte vorbehalten",
+    "pilot_note": "Nur für vertraglich gebundene Restaurants (Pilot).",
+    "kvkk": "DSGVO",
+    "privacy": "Datenschutzrichtlinie"
+  },
+  "language": {
+    "select": "Sprache auswählen",
+    "turkish": "Türkçe",
+    "english": "English",
+    "french": "Français",
+    "german": "Deutsch"
+  }
+}
+
+
+
+

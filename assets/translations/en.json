@@ -1,0 +1,165 @@
+{
+  "site": {
+    "title": "Bonvera.food - Turkish Mezze, İçli Köfte and Sarmalar in Strasbourg | Fresh Production",
+    "description": "Bonvera.food offers daily fresh Turkish mezze, içli köfte and sarmalar in Strasbourg. Online ordering and delivery. Quality ingredients, master craftsmanship.",
+    "keywords": "bonvera.food, Strasbourg Turkish food, mezze Strasbourg, içli köfte Strasbourg, sarmalar Strasbourg, Turkish cuisine Strasbourg, fresh mezze, traditional Turkish flavors, online order Strasbourg"
+  },
+  "navigation": {
+    "mezeler": "Mezze",
+    "icli_kofte": "İçli Köfte",
+    "sarmalar": "Sarmalar",
+    "hakkimizda": "About Us",
+    "iletisim": "Contact",
+    "sepet": "Cart",
+    "siparis": "Order"
+  },
+  "hero": {
+    "title1": "Fresh Cacık",
+    "title2": "Spicy Ezme",
+    "title3": "Spicy Hummus",
+    "subtitle1": "Mezze prepared with fresh ingredients",
+    "subtitle2": "Traditional recipes prepared dishes",
+    "subtitle3": "İçli köfte and special flavors"
+  },
+  "products": {
+    "cacik": {
+      "name": "Cacık",
+      "description": "A refreshing mezze prepared with yogurt and grated cucumber, flavored with garlic and mint. Perfect starter for summer months."
+    },
+    "ezme": {
+      "name": "Ezme",
+      "description": "A perfect mezze for spice lovers, prepared with tomatoes, peppers, onions and spices. Traditional flavor blended with olive oil."
+    },
+    "acili_humus": {
+      "name": "Spicy Hummus",
+      "description": "One of the beloved mezze of Middle Eastern cuisine, prepared with chickpeas, tahini, lemon juice and olive oil. A flavor that leaves a mark on the palate with its spicy version."
+    },
+    "amerikan_salatasi": {
+      "name": "American Salad",
+      "description": "A classic salad prepared with potatoes, carrots, peas and mayonnaise, loved by children too. A colorful and nutritious starter."
+    },
+    "barbunya_salatasi": {
+      "name": "Borlotti Bean Salad",
+      "description": "A protein-rich, satisfying mezze prepared with borlotti beans, onions, parsley and olive oil. Healthy and delicious."
+    },
+    "domates_kurusu": {
+      "description": "An intense and aromatic mezze prepared with sun-dried tomatoes, olive oil and fresh herbs. An indispensable part of Mediterranean cuisine."
+    },
+    "fava": {
+      "name": "Fava",
+      "description": "A protein-rich mezze identified with Aegean and Greek cuisine, prepared with dried broad beans. Flavored with olive oil, lemon and fresh herbs."
+    },
+    "grek_salatasi": {
+      "name": "Greek Salad",
+      "description": "One of the most beloved salads of Mediterranean cuisine, prepared with tomatoes, cucumbers, olives, onions and white cheese. Fresh and healthy."
+    },
+    "mantar_salatasi": {
+      "name": "Mushroom Salad",
+      "description": "A natural and aromatic mezze prepared with fresh mushrooms, onions, parsley and olive oil. Favorite of mushroom lovers."
+    },
+    "mor_lahana": {
+      "name": "Purple Cabbage",
+      "description": "A colorful and vitamin-rich mezze prepared with purple cabbage, carrots, parsley and lemon juice. Healthy and refreshing."
+    },
+    "muammara": {
+      "name": "Muammara",
+      "description": "An aromatic mezze from Syrian cuisine, prepared with walnuts, red peppers, bread and olive oil. Rich and satisfying flavor."
+    },
+    "muhteber": {
+      "name": "Muhteber",
+      "description": "A traditional mezze from Hatay cuisine, prepared with eggplant, tomatoes, onions and spices. Richly aromatic and satisfying."
+    },
+    "pancar_salatasi": {
+      "name": "Beetroot Salad",
+      "description": "A colorful and nutritious mezze prepared with boiled beets, walnuts, parsley and olive oil. A flavor that stands out with its natural sweetness."
+    },
+    "patlicanli_humus": {
+      "name": "Eggplant Hummus",
+      "description": "A special mezze prepared by adding grilled eggplant to classic hummus, standing out with its smoky aroma. Different and delicious."
+    },
+    "saksuka": {
+      "name": "Şakşuka",
+      "description": "One of the beloved mezze of Turkish cuisine, prepared with eggplant, tomatoes, peppers, onions and eggs. Colorful and satisfying."
+    },
+    "tarator": {
+      "name": "Tarator",
+      "description": "A refreshing mezze from Balkan cuisine, prepared with walnuts, bread, garlic, olive oil and lemon. Intensely aromatic and nutritious."
+    },
+    "kizarmis_icli_kofte": {
+      "name": "Fried İçli Köfte",
+      "description": "İçli köfte prepared with traditional recipe, served fried. A special flavor that stands out with its crispy outer structure and delicious filling."
+    },
+    "cig_icli_kofte": {
+      "name": "Raw İçli Köfte",
+      "description": "İçli köfte prepared with traditional recipe, served raw. A healthy and delicious option made with fresh and natural ingredients."
+    },
+    "yaprak_sarma": {
+      "name": "Grape Leaf Sarma",
+      "description": "Traditional sarma prepared with grape leaves, rice, onions and spices. One of the most beloved flavors of Turkish cuisine."
+    },
+    "kabak_sarma": {
+      "name": "Zucchini Sarma",
+      "description": "Delicious sarma prepared with zucchini leaves, rice, onions and spices. Light and healthy, a special flavor preferred in summer months."
+    },
+    "patlican_sarma": {
+      "name": "Eggplant Sarma",
+      "description": "Special sarma prepared with eggplant leaves, rice, onions and spices. Favorite of eggplant lovers, aromatic and delicious."
+    }
+  },
+  "sections": {
+    "mezeler": "Mezze",
+    "icli_kofte": "İçli Köfte",
+    "sarmalar": "Sarmalar",
+    "hakkimizda": "About Us",
+    "iletisim": "Contact"
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Bonvera is a closed-circuit kitchen-technology startup established to provide you with mezze and home-cooked meals with a daily fresh production approach, offering a simple and fast ordering experience.",
+    "feature1_title": "Daily Production in Strasbourg",
+    "feature1_desc": "The heart of our flavors beats in Strasbourg, one of Europe's multicultural gastronomy centers. Each of our products is prepared daily and fresh.",
+    "feature2_title": "Secret Recipes of Turkish Cuisine",
+    "feature2_desc": "Our mezze prepared with the secret recipes of Turkish cuisine passed down from generation to generation brings together traditional flavors with modern hygiene standards.",
+    "feature3_title": "Fresh Vegetables and Quality Ingredients",
+    "feature3_desc": "We use fresh vegetables and natural ingredients in our production. Our products prepared only with natural methods without using any preservatives.",
+    "feature4_title": "Daily and Fresh Production",
+    "feature4_desc": "We follow the principle of 'same day preparation, same day service' in production. Each of our products is prepared daily in our kitchen in Strasbourg."
+  },
+  "contact": {
+    "title": "Contact",
+    "location": "Location: Strasbourg, France",
+    "email": "Email: bonvera.food@gmail.com",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "quick_message": "Quick messaging"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "discover": "Discover our delicious mezze!",
+    "go_to_mezeler": "Go to Mezze",
+    "complete_order": "Complete Order",
+    "view": "View",
+    "total_mezeler": "Total Mezze:",
+    "total_icli_kofte": "Total İçli Köfte:",
+    "total_sarmalar": "Total Sarmalar:",
+    "general_total": "General Total:"
+  },
+  "footer": {
+    "copyright": "© 2024 Bonvera - All rights reserved",
+    "pilot_note": "Only for contracted restaurants (pilot).",
+    "kvkk": "GDPR",
+    "privacy": "Privacy Policy"
+  },
+  "language": {
+    "select": "Select Language",
+    "turkish": "Türkçe",
+    "english": "English",
+    "french": "Français",
+    "german": "Deutsch"
+  }
+}
+
+
+
+

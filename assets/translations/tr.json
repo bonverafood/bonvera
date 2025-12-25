@@ -1,0 +1,166 @@
+{
+  "site": {
+    "title": "Bonvera.food - Strasbourg'da Türk Mezeleri, İçli Köfte ve Sarmalar | Taze Üretim",
+    "description": "Bonvera.food Strasbourg'da günlük taze üretim Türk mezeleri, içli köfte ve sarmalar. Online sipariş ve teslimat. Kaliteli malzemeler, usta işi lezzet.",
+    "keywords": "bonvera.food, Strasbourg Türk yemekleri, mezeler Strasbourg, içli köfte Strasbourg, sarma Strasbourg, Türk mutfağı Strasbourg, taze mezeler, geleneksel Türk lezzetleri, online sipariş Strasbourg"
+  },
+  "navigation": {
+    "mezeler": "Mezeler",
+    "icli_kofte": "İçli Köfte",
+    "sarmalar": "Sarmalar",
+    "hakkimizda": "Hakkımızda",
+    "iletisim": "İletişim",
+    "sepet": "Sepet",
+    "siparis": "Sipariş"
+  },
+  "hero": {
+    "title1": "Taze Cacık",
+    "title2": "Acılı Ezme", 
+    "title3": "Acılı Humus",
+    "subtitle1": "Taze malzemelerle hazırlanan mezeler",
+    "subtitle2": "Geleneksel tariflerle hazırlanan yemekler",
+    "subtitle3": "İçli köfte ve özel lezzetler"
+  },
+  "products": {
+    "cacik": {
+      "name": "Cacık",
+      "description": "Yoğurt ve rendelenmiş salatalıkla hazırlanan, sarımsak ve nane eklenerek lezzetlendirilmiş serinletici bir meze. Yaz aylarında mükemmel bir başlangıç."
+    },
+    "ezme": {
+      "name": "Ezme",
+      "description": "Domates, biber, soğan ve baharatlarla hazırlanan, acı sevenler için mükemmel bir meze. Zeytinyağı ile harmanlanmış geleneksel lezzet."
+    },
+    "acili_humus": {
+      "name": "Acılı Humus",
+      "description": "Nohut, tahin, limon suyu ve zeytinyağı ile hazırlanan, Orta Doğu mutfağının sevilen mezelerinden. Acılı versiyonu ile damaklarda iz bırakan lezzet."
+    },
+    "amerikan_salatasi": {
+      "name": "Amerikan Salatası",
+      "description": "Patates, havuç, bezelye ve mayonez ile hazırlanan, çocukların da sevdiği klasik salata. Renkli ve besleyici bir başlangıç."
+    },
+    "barbunya_salatasi": {
+      "name": "Barbunya Salatası",
+      "description": "Barbunya fasulyesi, soğan, maydanoz ve zeytinyağı ile hazırlanan protein bakımından zengin, doyurucu bir meze. Sağlıklı ve lezzetli."
+    },
+    "domates_kurusu": {
+      "name": "Domates Kurusu",
+      "description": "Kurutulmuş domates, zeytinyağı ve taze otlarla hazırlanan, yoğun lezzetli ve aromatik bir meze. Akdeniz mutfağının vazgeçilmezi."
+    },
+    "fava": {
+      "name": "Fava",
+      "description": "Ege ve Yunan mutfağıyla özdeşleşen, kuru bakla ile hazırlanan protein bakımından zengin bir meze. Zeytinyağı, limon ve taze otlarla lezzetlendirilmiş."
+    },
+    "grek_salatasi": {
+      "name": "Grek Salatası",
+      "description": "Domates, salatalık, zeytin, soğan ve beyaz peynir ile hazırlanan, Akdeniz mutfağının en sevilen salatalarından. Taze ve sağlıklı."
+    },
+    "mantar_salatasi": {
+      "name": "Mantar Salatası",
+      "description": "Taze mantar, soğan, maydanoz ve zeytinyağı ile hazırlanan, doğal ve aromatik bir meze. Mantar severlerin favorisi."
+    },
+    "mor_lahana": {
+      "name": "Mor Lahana",
+      "description": "Mor lahana, havuç, maydanoz ve limon suyu ile hazırlanan, renkli ve vitamin bakımından zengin bir meze. Sağlıklı ve ferah."
+    },
+    "muammara": {
+      "name": "Muammara",
+      "description": "Ceviz, kırmızı biber, ekmek ve zeytinyağı ile hazırlanan, Suriye mutfağından gelen aromatik bir meze. Zengin ve doyurucu lezzet."
+    },
+    "muhteber": {
+      "name": "Muhteber",
+      "description": "Patlıcan, domates, soğan ve baharatlarla hazırlanan, Hatay mutfağından gelen geleneksel bir meze. Zengin aromalı ve doyurucu."
+    },
+    "pancar_salatasi": {
+      "name": "Pancar Salatası",
+      "description": "Haşlanmış pancar, ceviz, maydanoz ve zeytinyağı ile hazırlanan, renkli ve besleyici bir meze. Doğal tatlılığı ile öne çıkan lezzet."
+    },
+    "patlicanli_humus": {
+      "name": "Patlıcanlı Humus",
+      "description": "Klasik humusa köz patlıcan eklenerek hazırlanan, dumanlı aroması ile öne çıkan özel bir meze. Farklı ve lezzetli."
+    },
+    "saksuka": {
+      "name": "Şakşuka",
+      "description": "Patlıcan, domates, biber, soğan ve yumurta ile hazırlanan, Türk mutfağının sevilen mezelerinden. Renkli ve doyurucu."
+    },
+    "tarator": {
+      "name": "Tarator",
+      "description": "Ceviz, ekmek, sarımsak, zeytinyağı ve limon ile hazırlanan, Balkan mutfağından gelen serinletici bir meze. Yoğun aromalı ve besleyici."
+    },
+    "kizarmis_icli_kofte": {
+      "name": "Kızarmış İçli Köfte",
+      "description": "Geleneksel tarifle hazırlanan, kızartılarak servis edilen içli köfte. Çıtır dış yapısı ve lezzetli iç harcı ile öne çıkan özel lezzet."
+    },
+    "cig_icli_kofte": {
+      "name": "Çiğ İçli Köfte",
+      "description": "Çiğ olarak servis edilen, geleneksel tarifle hazırlanan içli köfte. Taze ve doğal malzemelerle yapılan, sağlıklı ve lezzetli seçenek."
+    },
+    "yaprak_sarma": {
+      "name": "Yaprak Sarma",
+      "description": "Asma yaprağı, pirinç, soğan ve baharatlarla hazırlanan geleneksel sarma. Türk mutfağının en sevilen lezzetlerinden biri."
+    },
+    "kabak_sarma": {
+      "name": "Kabak Sarma",
+      "description": "Kabak yaprağı, pirinç, soğan ve baharatlarla hazırlanan lezzetli sarma. Hafif ve sağlıklı, yaz aylarında tercih edilen özel lezzet."
+    },
+    "patlican_sarma": {
+      "name": "Patlıcan Sarma",
+      "description": "Patlıcan yaprağı, pirinç, soğan ve baharatlarla hazırlanan özel sarma. Patlıcan severlerin favorisi, aromatik ve lezzetli."
+    }
+  },
+  "sections": {
+    "mezeler": "Mezeler",
+    "icli_kofte": "İçli Köfte",
+    "sarmalar": "Sarmalar",
+    "hakkimizda": "Hakkımızda",
+    "iletisim": "İletişim"
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "description": "Bonvera, mezeleri ve ev yemeklerini günlük taze üretim anlayışıyla sizlere ulaştıran, sade ve hızlı bir sipariş deneyimi sunmak için kurulmuş kapalı devre bir mutfak-teknoloji girişimidir.",
+    "feature1_title": "Strasbourg'da Günlük Üretim",
+    "feature1_desc": "Lezzetlerimizin kalbi, Avrupa'nın çok kültürlü gastronomi merkezlerinden Strasbourg'da atıyor. Her bir ürünümüz günlük ve taze olarak hazırlanır.",
+    "feature2_title": "Türk Mutfağının Gizli Tarifleri",
+    "feature2_desc": "Nesilden nesile aktarılan Türk mutfağının gizli tarifleri ile hazırladığımız mezelerimiz, geleneksel lezzetleri modern hijyen standartlarıyla buluşturur.",
+    "feature3_title": "Taze Sebzeler ve Kaliteli Malzemeler",
+    "feature3_desc": "Üretimimizde taze sebzeler ve doğal malzemeler kullanırız. Hiçbir koruyucu madde kullanmadan, sadece doğal yöntemlerle hazırlanan ürünlerimiz.",
+    "feature4_title": "Günlük ve Taze Üretim",
+    "feature4_desc": "Üretimde 'aynı gün hazırlık, aynı gün servis' prensibini izleriz. Her ürünümüz Strasbourg'daki mutfağımızda günlük olarak hazırlanır."
+  },
+  "contact": {
+    "title": "İletişim",
+    "location": "Konum: Strasbourg, France",
+    "email": "E-posta: bonvera.food@gmail.com",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "quick_message": "Hızlı mesajlaşma"
+  },
+  "cart": {
+    "title": "Sepet",
+    "empty": "Sepetiniz boş",
+    "discover": "Lezzetli mezelerimizi keşfedin!",
+    "go_to_mezeler": "Mezelere Git",
+    "complete_order": "Siparişi Tamamla",
+    "view": "Görüntüle",
+    "total_mezeler": "Toplam Meze:",
+    "total_icli_kofte": "Toplam İçli Köfte:",
+    "total_sarmalar": "Toplam Sarma:",
+    "general_total": "Genel Toplam:"
+  },
+  "footer": {
+    "copyright": "© 2024 Bonvera - Tüm hakları saklıdır",
+    "pilot_note": "Sadece anlaşmalı restoranlar içindir (pilot).",
+    "kvkk": "KVKK",
+    "privacy": "Gizlilik Politikası"
+  },
+  "language": {
+    "select": "Dil Seçin",
+    "turkish": "Türkçe",
+    "english": "English",
+    "french": "Français",
+    "german": "Deutsch"
+  }
+}
+
+
+
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    
+    <!-- Turkish (Default) -->
+    <url>
+        <loc>https://bonvera.food/</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://bonvera.food/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://bonvera.food/en/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://bonvera.food/fr/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://bonvera.food/de/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://bonvera.food/"/>
+    </url>
+    
+    <!-- English -->
+    <url>
+        <loc>https://bonvera.food/en/</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://bonvera.food/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://bonvera.food/en/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://bonvera.food/fr/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://bonvera.food/de/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://bonvera.food/"/>
+    </url>
+    
+    <!-- French -->
+    <url>
+        <loc>https://bonvera.food/fr/</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://bonvera.food/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://bonvera.food/en/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://bonvera.food/fr/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://bonvera.food/de/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://bonvera.food/"/>
+    </url>
+    
+    <!-- German -->
+    <url>
+        <loc>https://bonvera.food/de/</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://bonvera.food/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://bonvera.food/en/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://bonvera.food/fr/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://bonvera.food/de/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://bonvera.food/"/>
+    </url>
+    
+</urlset>

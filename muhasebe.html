@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Bonvera Muhasebe - Şirket İçi Kullanım</title>
+    <link rel="icon" type="image/png" href="pic/logos/fav.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #FFB366 0%, #FF8C42 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+        }
+
+        .login-container {
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            height: 80px;
+            width: auto;
+        }
+
+        h1 {
+            color: #2C1810;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .subtitle {
+            color: #5C4033;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .pin-input-container {
+            margin-bottom: 20px;
+        }
+
+        .pin-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #E8D5C4;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 8px;
+            font-weight: 600;
+            transition: border-color 0.3s ease;
+        }
+
+        .pin-input:focus {
+            outline: none;
+            border-color: #FFB366;
+        }
+
+        .error-message {
+            color: #FF4444;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #FFB366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background: #FF8C42;
+            transform: translateY(-2px);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Dashboard Styles */
+        .dashboard-container {
+            display: none;
+        }
+
+        .dashboard-container.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #E8D5C4;
+        }
+
+        .dashboard-title {
+            color: #2C1810;
+            font-size: 1.5rem;
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: #FF4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #CC0000;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #2C1810;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E8D5C4;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFB366;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .records-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #E8D5C4;
+        }
+
+        .records-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .records-title {
+            color: #2C1810;
+            font-size: 1.3rem;
+        }
+
+        .records-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .record-item {
+            background: #FFF8F0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #FFB366;
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .record-date {
+            color: #5C4033;
+            font-size: 0.85rem;
+        }
+
+        .record-type {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .record-type.gelir {
+            background: #25D366;
+            color: white;
+        }
+
+        .record-type.gider {
+            background: #FF4444;
+            color: white;
+        }
+
+        .record-amount {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2C1810;
+            margin: 8px 0;
+        }
+
+        .record-description {
+            color: #5C4033;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .empty-records {
+            text-align: center;
+            color: #5C4033;
+            padding: 40px 20px;
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .logout-btn {
+                width: 100%;
+            }
+
+            .records-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Container -->
+    <div class="container login-container" id="loginContainer">
+        <div class="logo">
+            <img src="pic/logos/logo2.png" alt="Bonvera Logo">
+        </div>
+        <h1>Muhasebe Paneli</h1>
+        <p class="subtitle">Şirket İçi Kullanım</p>
+        <div class="pin-input-container">
+            <input type="password" 
+                   class="pin-input" 
+                   id="pinInput" 
+                   placeholder="PIN Kodunu Girin" 
+                   maxlength="4"
+                   autocomplete="off">
+            <div class="error-message" id="errorMessage">Hatalı PIN kodu!</div>
+        </div>
+        <button class="login-btn" onclick="checkPin()">Giriş Yap</button>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div class="container dashboard-container" id="dashboardContainer">
+        <div class="dashboard-header">
+            <h2 class="dashboard-title">Muhasebe Kayıtları</h2>
+            <button class="logout-btn" onclick="logout()">Çıkış</button>
+        </div>
+
+        <form id="accountingForm" onsubmit="addRecord(event)">
+            <div class="form-group">
+                <label for="recordType">İşlem Türü *</label>
+                <select id="recordType" required>
+                    <option value="">Seçiniz</option>
+                    <option value="gelir">Gelir</option>
+                    <option value="gider">Gider</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="amount">Tutar (€) *</label>
+                    <input type="number" 
+                           id="amount" 
+                           step="0.01" 
+                           min="0" 
+                           required 
+                           placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="date">Tarih *</label>
+                    <input type="date" 
+                           id="date" 
+                           required 
+                           value="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Kategori</label>
+                <select id="category">
+                    <option value="">Seçiniz</option>
+                    <option value="malzeme">Malzeme</option>
+                    <option value="personel">Personel</option>
+                    <option value="kira">Kira</option>
+                    <option value="fatura">Fatura</option>
+                    <option value="satis">Satış</option>
+                    <option value="diger">Diğer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Açıklama</label>
+                <textarea id="description" 
+                          placeholder="İşlem açıklaması..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Kaydet</button>
+        </form>
+
+        <div class="records-section">
+            <div class="records-header">
+                <h3 class="records-title">Kayıtlar</h3>
+                <button class="logout-btn" onclick="clearRecords()" style="background: #FF8C42; font-size: 0.85rem; padding: 6px 12px;">Tümünü Temizle</button>
+            </div>
+            <div class="records-list" id="recordsList">
+                <div class="empty-records">Henüz kayıt yok</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PIN = '1312';
+        // Google Sheets Web App URL
+        const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbylvD5nfyZhjmslVwDNxpI5zWkh6TtSwmBg0kHqB9pkNVQA7oZqfRjEKeYjPYY8ZvWovQ/exec';
+        
+        let records = JSON.parse(localStorage.getItem('bonvera_accounting_records') || '[]');
+
+        // Set today's date as default (Fransa saatine göre)
+        function setFranceDate() {
+            const now = new Date();
+            const franceTime = new Date(now.toLocaleString('en-US', {timeZone: 'Europe/Paris'}));
+            const year = franceTime.getFullYear();
+            const month = String(franceTime.getMonth() + 1).padStart(2, '0');
+            const day = String(franceTime.getDate()).padStart(2, '0');
+            document.getElementById('date').value = `${year}-${month}-${day}`;
+        }
+        
+        setFranceDate();
+
+        function checkPin() {
+            const pinInput = document.getElementById('pinInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const pin = pinInput.value;
+
+            if (pin === CORRECT_PIN) {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('dashboardContainer').classList.add('active');
+                loadRecords();
+            } else {
+                errorMessage.classList.add('show');
+                pinInput.value = '';
+                pinInput.focus();
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function logout() {
+            if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
+                document.getElementById('loginContainer').style.display = 'block';
+                document.getElementById('dashboardContainer').classList.remove('active');
+                document.getElementById('pinInput').value = '';
+            }
+        }
+
+        async function addRecord(event) {
+            event.preventDefault();
+
+            const record = {
+                id: Date.now(),
+                type: document.getElementById('recordType').value,
+                amount: parseFloat(document.getElementById('amount').value),
+                date: document.getElementById('date').value,
+                category: document.getElementById('category').value,
+                description: document.getElementById('description').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // LocalStorage'a kaydet
+            records.unshift(record);
+            localStorage.setItem('bonvera_accounting_records', JSON.stringify(records));
+
+            // Google Sheets'e kaydet
+            if (GOOGLE_SHEETS_WEB_APP_URL) {
+                try {
+                    const submitBtn = document.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Kaydediliyor...';
+                    submitBtn.disabled = true;
+                    
+                    const response = await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            action: 'add',
+                            record: {
+                                type: record.type,
+                                amount: record.amount,
+                                date: record.date,
+                                category: record.category || '',
+                                description: record.description || ''
+                            }
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    if (result.success) {
+                        console.log('Google Sheets\'e kaydedildi:', result);
+                        submitBtn.textContent = '✓ Kaydedildi!';
+                        submitBtn.style.background = '#25D366';
+                        setTimeout(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.style.background = '';
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    } else {
+                        console.error('Google Sheets hatası:', result.message);
+                        submitBtn.textContent = 'Hata! Tekrar Dene';
+                        submitBtn.style.background = '#FF4444';
+                        setTimeout(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.style.background = '';
+                            submitBtn.disabled = false;
+                        }, 3000);
+                    }
+                } catch (error) {
+                    console.error('Google Sheets bağlantı hatası:', error);
+                    const submitBtn = document.querySelector('.submit-btn');
+                    submitBtn.textContent = 'Bağlantı Hatası';
+                    submitBtn.style.background = '#FF4444';
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Kaydet';
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }
+            }
+
+            document.getElementById('accountingForm').reset();
+            setFranceDate();
+            loadRecords();
+        }
+
+        function loadRecords() {
+            const recordsList = document.getElementById('recordsList');
+            
+            if (records.length === 0) {
+                recordsList.innerHTML = '<div class="empty-records">Henüz kayıt yok</div>';
+                return;
+            }
+
+            recordsList.innerHTML = records.map(record => {
+                const date = new Date(record.date).toLocaleDateString('tr-TR');
+                const amount = record.amount.toFixed(2);
+                const typeClass = record.type === 'gelir' ? 'gelir' : 'gider';
+                const typeText = record.type === 'gelir' ? 'Gelir' : 'Gider';
+                const sign = record.type === 'gelir' ? '+' : '-';
+
+                return `
+                    <div class="record-item">
+                        <div class="record-header">
+                            <span class="record-date">${date}</span>
+                            <span class="record-type ${typeClass}">${typeText}</span>
+                        </div>
+                        <div class="record-amount">${sign}€${amount}</div>
+                        ${record.category ? `<div class="record-description"><strong>Kategori:</strong> ${record.category}</div>` : ''}
+                        ${record.description ? `<div class="record-description">${record.description}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function clearRecords() {
+            if (confirm('Tüm kayıtları silmek istediğinize emin misiniz? Bu işlem geri alınamaz!')) {
+                records = [];
+                localStorage.setItem('bonvera_accounting_records', JSON.stringify(records));
+                loadRecords();
+            }
+        }
+
+        // Enter key to submit PIN
+        document.getElementById('pinInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPin();
+            }
+        });
+
+        // Load records on page load if already logged in (check session)
+        window.addEventListener('load', function() {
+            // Check if user was logged in (simple check - in production use proper session)
+            const wasLoggedIn = sessionStorage.getItem('bonvera_logged_in');
+            if (wasLoggedIn === 'true') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('dashboardContainer').classList.add('active');
+                loadRecords();
+            }
+        });
+
+        // Save login state
+        function checkPin() {
+            const pinInput = document.getElementById('pinInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const pin = pinInput.value;
+
+            if (pin === CORRECT_PIN) {
+                sessionStorage.setItem('bonvera_logged_in', 'true');
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('dashboardContainer').classList.add('active');
+                loadRecords();
+            } else {
+                errorMessage.classList.add('show');
+                pinInput.value = '';
+                pinInput.focus();
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function logout() {
+            if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
+                sessionStorage.removeItem('bonvera_logged_in');
+                document.getElementById('loginContainer').style.display = 'block';
+                document.getElementById('dashboardContainer').classList.remove('active');
+                document.getElementById('pinInput').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
+

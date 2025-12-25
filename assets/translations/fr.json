@@ -1,0 +1,166 @@
+{
+  "site": {
+    "title": "Bonvera.food - Mezzés Turcs, İçli Köfte et Sarmalar à Strasbourg | Production Fraîche",
+    "description": "Bonvera.food propose des mezzés turcs, içli köfte et sarmalar frais quotidiennement à Strasbourg. Commande en ligne et livraison. Ingrédients de qualité, savoir-faire artisanal.",
+    "keywords": "bonvera.food, cuisine turque Strasbourg, mezzés Strasbourg, içli köfte Strasbourg, sarmalar Strasbourg, cuisine turque Strasbourg, mezzés frais, saveurs traditionnelles turques, commande en ligne Strasbourg"
+  },
+  "navigation": {
+    "mezeler": "Mezzés",
+    "icli_kofte": "İçli Köfte",
+    "sarmalar": "Sarmalar",
+    "hakkimizda": "À Propos",
+    "iletisim": "Contact",
+    "sepet": "Panier",
+    "siparis": "Commande"
+  },
+  "hero": {
+    "title1": "Cacık Frais",
+    "title2": "Ezme Épicé",
+    "title3": "Hummus Épicé",
+    "subtitle1": "Mezzés préparés avec des ingrédients frais",
+    "subtitle2": "Plats préparés selon des recettes traditionnelles",
+    "subtitle3": "İçli köfte et saveurs spéciales"
+  },
+  "products": {
+    "cacik": {
+      "name": "Cacık",
+      "description": "Un mezzé rafraîchissant préparé avec du yaourt et du concombre râpé, parfumé à l'ail et à la menthe. Entrée parfaite pour les mois d'été."
+    },
+    "ezme": {
+      "name": "Ezme",
+      "description": "Un mezzé parfait pour les amateurs d'épices, préparé avec des tomates, des poivrons, des oignons et des épices. Saveur traditionnelle mélangée à l'huile d'olive."
+    },
+    "acili_humus": {
+      "name": "Hummus Épicé",
+      "description": "L'un des mezzés préférés de la cuisine moyen-orientale, préparé avec des pois chiches, du tahini, du jus de citron et de l'huile d'olive. Une saveur qui marque le palais avec sa version épicée."
+    },
+    "amerikan_salatasi": {
+      "name": "Salade Américaine",
+      "description": "Une salade classique préparée avec des pommes de terre, des carottes, des pois et de la mayonnaise, également appréciée des enfants. Une entrée colorée et nutritive."
+    },
+    "barbunya_salatasi": {
+      "name": "Salade de Haricots Borlotti",
+      "description": "Un mezzé riche en protéines et satisfaisant, préparé avec des haricots borlotti, des oignons, du persil et de l'huile d'olive. Sain et délicieux."
+    },
+    "domates_kurusu": {
+      "name": "Tomates Séchées",
+      "description": "Un mezzé intense et aromatique préparé avec des tomates séchées, de l'huile d'olive et des herbes fraîches. Un incontournable de la cuisine méditerranéenne."
+    },
+    "fava": {
+      "name": "Fava",
+      "description": "Un mezzé riche en protéines identifié à la cuisine égéenne et grecque, préparé avec des fèves séchées. Parfumé à l'huile d'olive, au citron et aux herbes fraîches."
+    },
+    "grek_salatasi": {
+      "name": "Salade Grecque",
+      "description": "L'une des salades les plus appréciées de la cuisine méditerranéenne, préparée avec des tomates, des concombres, des olives, des oignons et du fromage blanc. Fraîche et saine."
+    },
+    "mantar_salatasi": {
+      "name": "Salade de Champignons",
+      "description": "Un mezzé naturel et aromatique préparé avec des champignons frais, des oignons, du persil et de l'huile d'olive. Favori des amateurs de champignons."
+    },
+    "mor_lahana": {
+      "name": "Chou Rouge",
+      "description": "Un mezzé coloré et riche en vitamines, préparé avec du chou rouge, des carottes, du persil et du jus de citron. Sain et rafraîchissant."
+    },
+    "muammara": {
+      "name": "Muammara",
+      "description": "Un mezzé aromatique de la cuisine syrienne, préparé avec des noix, des poivrons rouges, du pain et de l'huile d'olive. Saveur riche et satisfaisante."
+    },
+    "muhteber": {
+      "name": "Muhteber",
+      "description": "Un mezzé traditionnel de la cuisine de Hatay, préparé avec des aubergines, des tomates, des oignons et des épices. Aromatique et satisfaisant."
+    },
+    "pancar_salatasi": {
+      "name": "Salade de Betterave",
+      "description": "Un mezzé coloré et nutritif préparé avec des betteraves bouillies, des noix, du persil et de l'huile d'olive. Une saveur qui se distingue par sa douceur naturelle."
+    },
+    "patlicanli_humus": {
+      "name": "Hummus aux Aubergines",
+      "description": "Un mezzé spécial préparé en ajoutant des aubergines grillées au hummus classique, se distinguant par son arôme fumé. Différent et délicieux."
+    },
+    "saksuka": {
+      "name": "Şakşuka",
+      "description": "L'un des mezzés préférés de la cuisine turque, préparé avec des aubergines, des tomates, des poivrons, des oignons et des œufs. Coloré et satisfaisant."
+    },
+    "tarator": {
+      "name": "Tarator",
+      "description": "Un mezzé rafraîchissant de la cuisine balkanique, préparé avec des noix, du pain, de l'ail, de l'huile d'olive et du citron. Intensément aromatique et nutritif."
+    },
+    "kizarmis_icli_kofte": {
+      "name": "İçli Köfte Frit",
+      "description": "İçli köfte préparé selon une recette traditionnelle, servi frit. Une saveur spéciale qui se distingue par sa structure extérieure croustillante et sa garniture délicieuse."
+    },
+    "cig_icli_kofte": {
+      "name": "İçli Köfte Cru",
+      "description": "İçli köfte préparé selon une recette traditionnelle, servi cru. Une option saine et délicieuse faite avec des ingrédients frais et naturels."
+    },
+    "yaprak_sarma": {
+      "name": "Sarma aux Feuilles de Vigne",
+      "description": "Sarma traditionnel préparé avec des feuilles de vigne, du riz, des oignons et des épices. L'une des saveurs les plus appréciées de la cuisine turque."
+    },
+    "kabak_sarma": {
+      "name": "Sarma aux Courgettes",
+      "description": "Délicieux sarma préparé avec des feuilles de courgettes, du riz, des oignons et des épices. Léger et sain, une saveur spéciale préférée pendant les mois d'été."
+    },
+    "patlican_sarma": {
+      "name": "Sarma aux Aubergines",
+      "description": "Sarma spécial préparé avec des feuilles d'aubergines, du riz, des oignons et des épices. Favori des amateurs d'aubergines, aromatique et délicieux."
+    }
+  },
+  "sections": {
+    "mezeler": "Mezzés",
+    "icli_kofte": "İçli Köfte",
+    "sarmalar": "Sarmalar",
+    "hakkimizda": "À Propos",
+    "iletisim": "Contact"
+  },
+  "about": {
+    "title": "À Propos",
+    "description": "Bonvera est une startup technologique culinaire en circuit fermé établie pour vous fournir des mezzés et des plats maison avec une approche de production fraîche quotidienne, offrant une expérience de commande simple et rapide.",
+    "feature1_title": "Production Quotidienne à Strasbourg",
+    "feature1_desc": "Le cœur de nos saveurs bat à Strasbourg, l'un des centres gastronomiques multiculturels de l'Europe. Chacun de nos produits est préparé quotidiennement et frais.",
+    "feature2_title": "Recettes Secrètes de la Cuisine Turque",
+    "feature2_desc": "Nos mezzés préparés avec les recettes secrètes de la cuisine turque transmises de génération en génération réunissent les saveurs traditionnelles avec les standards d'hygiène modernes.",
+    "feature3_title": "Légumes Frais et Ingrédients de Qualité",
+    "feature3_desc": "Nous utilisons des légumes frais et des ingrédients naturels dans notre production. Nos produits préparés uniquement avec des méthodes naturelles sans utiliser de conservateurs.",
+    "feature4_title": "Production Quotidienne et Fraîche",
+    "feature4_desc": "Nous suivons le principe de 'préparation le jour même, service le jour même' en production. Chacun de nos produits est préparé quotidiennement dans notre cuisine à Strasbourg."
+  },
+  "contact": {
+    "title": "Contact",
+    "location": "Localisation : Strasbourg, France",
+    "email": "Email : bonvera.food@gmail.com",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "quick_message": "Messagerie rapide"
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide",
+    "discover": "Découvrez nos délicieux mezzés !",
+    "go_to_mezeler": "Aller aux Mezzés",
+    "complete_order": "Finaliser la Commande",
+    "view": "Voir",
+    "total_mezeler": "Total Mezzés :",
+    "total_icli_kofte": "Total İçli Köfte :",
+    "total_sarmalar": "Total Sarmalar :",
+    "general_total": "Total Général :"
+  },
+  "footer": {
+    "copyright": "© 2024 Bonvera - Tous droits réservés",
+    "pilot_note": "Uniquement pour les restaurants contractuels (pilote).",
+    "kvkk": "RGPD",
+    "privacy": "Politique de Confidentialité"
+  },
+  "language": {
+    "select": "Sélectionner la Langue",
+    "turkish": "Türkçe",
+    "english": "English",
+    "french": "Français",
+    "german": "Deutsch"
+  }
+}
+
+
+
+

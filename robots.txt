@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bonvera.food/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow certain file types
+Disallow: *.css$
+Disallow: *.js$
+Disallow: *.json$
+
+# Allow important directories
+Allow: /logos/
+Allow: /Mezeler/
+Allow: /Icli-Kofte/
+Allow: /Sarmalar/
+Allow: /slide/
+Allow: /tabak/
+
+# Block admin or private areas (if any)
+# Disallow: /admin/
+# Disallow: /private/
+Disallow: /muhasebe.html

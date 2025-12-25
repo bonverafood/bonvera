@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonvera.food - Admin Panel</title>
+    <meta name="description" content="Bonvera.food Admin Panel - Ürün ve Sipariş Yönetimi">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #1f4d8f;
+            --secondary-color: #2c5aa0;
+            --accent-color: #f39c12;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-lg: 0 4px 8px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .admin-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .admin-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-header .user-info span {
+            font-weight: 500;
+        }
+
+        .admin-header .logout-btn {
+            background: var(--danger-color);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .admin-header .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 250px;
+            height: calc(100vh - 80px);
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .admin-sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--gray-100);
+            border-left-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .sidebar-nav i {
+            width: 20px;
+            margin-right: 1rem;
+            text-align: center;
+        }
+
+        .sidebar-nav.collapsed a {
+            justify-content: center;
+        }
+
+        .sidebar-nav.collapsed i {
+            margin-right: 0;
+        }
+
+        .sidebar-nav.collapsed span {
+            display: none;
+        }
+
+        /* Main Content */
+        .admin-main {
+            margin-left: 250px;
+            margin-top: 80px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .admin-main.sidebar-collapsed {
+            margin-left: 70px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .section-header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card.success {
+            border-left-color: var(--success-color);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning-color);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger-color);
+        }
+
+        .stat-card.info {
+            border-left-color: var(--info-color);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .stat-label {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .data-table th {
+            background: var(--gray-100);
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .data-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(31, 77, 143, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: var(--white);
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+
+        .btn-secondary {
+            background: var(--gray-500);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-600);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-edit {
+            background: var(--info-color);
+            color: var(--white);
+            padding: 0.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-delete {
+            background: var(--danger-color);
+            color: var(--white);
+            padding: 0.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-edit:hover,
+        .btn-delete:hover {
+            transform: scale(1.1);
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+
+        /* File Upload */
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            background: var(--gray-100);
+            border: 2px dashed var(--gray-400);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-color);
+            background: var(--gray-50);
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-header h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-500);
+        }
+
+        .modal-close:hover {
+            color: var(--gray-700);
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left-color: var(--success-color);
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left-color: var(--danger-color);
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left-color: var(--warning-color);
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left-color: var(--info-color);
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid var(--gray-300);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-sidebar.show {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .admin-header {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-container {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Toggle Button */
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="admin-header">
+        <div>
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Bonvera.food Admin Panel</h1>
+        </div>
+        <div class="user-info">
+            <span id="adminUsername">Admin</span>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Çıkış
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="admin-sidebar" id="sidebar">
+        <ul class="sidebar-nav">
+            <li>
+                <a href="#" onclick="showSection('dashboard')" class="active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('orders')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Siparişler</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('products')">
+                    <i class="fas fa-box"></i>
+                    <span>Ürünler</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('categories')">
+                    <i class="fas fa-tags"></i>
+                    <span>Kategoriler</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('customers')">
+                    <i class="fas fa-users"></i>
+                    <span>Müşteriler</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('analytics')">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analitik</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i>
+                    <span>Ayarlar</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main" id="mainContent">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="section-header">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-value" id="totalOrders">0</div>
+                    <div class="stat-label">Toplam Sipariş</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <div class="stat-value" id="totalRevenue">€0</div>
+                    <div class="stat-label">Toplam Gelir</div>
+                </div>
+                <div class="stat-card danger">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value" id="pendingOrders">0</div>
+                    <div class="stat-label">Bekleyen Sipariş</div>
+                </div>
+                <div class="stat-card info">
+                    <div class="stat-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-value" id="totalProducts">0</div>
+                    <div class="stat-label">Toplam Ürün</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="chart-container">
+                <canvas id="ordersChart"></canvas>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="section-header">
+                <h3><i class="fas fa-clock"></i> Son Siparişler</h3>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sipariş ID</th>
+                            <th>Firma</th>
+                            <th>Toplam</th>
+                            <th>Durum</th>
+                            <th>Tarih</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentOrdersTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-shopping-cart"></i> Sipariş Yönetimi</h2>
+                <button class="btn btn-primary" onclick="refreshOrders()">
+                    <i class="fas fa-sync"></i> Yenile
+                </button>
+            </div>
+
+            <!-- Orders Filter -->
+            <div class="form-group">
+                <label for="orderStatusFilter">Durum Filtresi:</label>
+                <select id="orderStatusFilter" onchange="filterOrders()">
+                    <option value="">Tümü</option>
+                    <option value="pending">Bekliyor</option>
+                    <option value="confirmed">Onaylandı</option>
+                    <option value="delivered">Teslim Edildi</option>
+                    <option value="cancelled">İptal Edildi</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sipariş ID</th>
+                            <th>Firma Adı</th>
+                            <th>Lokasyon</th>
+                            <th>Toplam</th>
+                            <th>Durum</th>
+                            <th>Tarih</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-box"></i> Ürün Yönetimi</h2>
+                <button class="btn btn-primary" onclick="showAddProductModal()">
+                    <i class="fas fa-plus"></i> Yeni Ürün
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ürün Adı</th>
+                            <th>Kategori</th>
+                            <th>Fiyat</th>
+                            <th>Durum</th>
+                            <th>Oluşturulma</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categories" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-tags"></i> Kategori Yönetimi</h2>
+                <button class="btn btn-primary" onclick="showAddCategoryModal()">
+                    <i class="fas fa-plus"></i> Yeni Kategori
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Kategori Adı</th>
+                            <th>Açıklama</th>
+                            <th>Ürün Sayısı</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoriesTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Customers Section -->
+        <section id="customers" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-users"></i> Müşteri Yönetimi</h2>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Firma Adı</th>
+                            <th>E-posta</th>
+                            <th>Telefon</th>
+                            <th>Sipariş Sayısı</th>
+                            <th>Son Sipariş</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customersTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar"></i> Analitik ve Raporlar</h2>
+            </div>
+
+            <!-- Analytics Charts -->
+            <div class="chart-container">
+                <canvas id="revenueChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="productSalesChart"></canvas>
+            </div>
+
+            <!-- Top Products -->
+            <div class="section-header">
+                <h3><i class="fas fa-trophy"></i> En Çok Satan Ürünler</h3>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ürün Adı</th>
+                            <th>Satış Adedi</th>
+                            <th>Toplam Gelir</th>
+                            <th>Ortalama Puan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topProductsTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-cog"></i> Sistem Ayarları</h2>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3>Genel Ayarlar</h3>
+                    <div class="form-group">
+                        <label for="siteName">Site Adı:</label>
+                        <input type="text" id="siteName" value="Bonvera.food">
+                    </div>
+                    <div class="form-group">
+                        <label for="siteEmail">Site E-posta:</label>
+                        <input type="email" id="siteEmail" value="bonvera.food@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="sitePhone">Telefon:</label>
+                        <input type="tel" id="sitePhone" value="+33-XXX-XXX-XXX">
+                    </div>
+                </div>
+
+                <div>
+                    <h3>API Ayarları</h3>
+                    <div class="form-group">
+                        <label for="apiUrl">API URL:</label>
+                        <input type="url" id="apiUrl" value="https://api.bonvera.food">
+                    </div>
+                    <div class="form-group">
+                        <label for="apiKey">API Key:</label>
+                        <input type="password" id="apiKey" placeholder="API anahtarınızı girin">
+                    </div>
+                    <div class="form-group">
+                        <label for="webhookUrl">Webhook URL:</label>
+                        <input type="url" id="webhookUrl" value="https://api.bonvera.food/webhooks">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-success" onclick="saveSettings()">
+                    <i class="fas fa-save"></i> Ayarları Kaydet
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Yeni Ürün Ekle</h3>
+                <button class="modal-close" onclick="closeModal('addProductModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productName">Ürün Adı:</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Kategori:</label>
+                    <select id="productCategory" required>
+                        <option value="">Kategori Seçin</option>
+                        <option value="mezeler">Mezeler</option>
+                        <option value="icliKofte">İçli Köfte</option>
+                        <option value="sarma">Sarma</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Fiyat (€):</label>
+                    <input type="number" id="productPrice" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Açıklama:</label>
+                    <textarea id="productDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Ürün Resmi:</label>
+                    <div class="file-upload">
+                        <input type="file" id="productImage" accept="image/*">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Resim yüklemek için tıklayın</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="productActive" checked>
+                        Ürün aktif
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Ürünü Kaydet
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addProductModal')">
+                        İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Yeni Kategori Ekle</h3>
+                <button class="modal-close" onclick="closeModal('addCategoryModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addCategoryForm">
+                <div class="form-group">
+                    <label for="categoryName">Kategori Adı:</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoryDescription">Açıklama:</label>
+                    <textarea id="categoryDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="categoryActive" checked>
+                        Kategori aktif
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Kategoriyi Kaydet
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addCategoryModal')">
+                        İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Yükleniyor...</p>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alertContainer"></div>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let authToken = null;
+        let ordersChart = null;
+        let revenueChart = null;
+        let productSalesChart = null;
+
+        // API Configuration
+        const API_BASE_URL = 'https://api.bonvera.food';
+        
+        // Initialize the admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAdminPanel();
+        });
+
+        function initializeAdminPanel() {
+            // Check if user is logged in
+            authToken = localStorage.getItem('adminToken');
+            if (!authToken) {
+                showLoginModal();
+                return;
+            }
+
+            // Load dashboard data
+            loadDashboardData();
+            loadOrders();
+            loadProducts();
+            loadCategories();
+            loadCustomers();
+            
+            // Initialize charts
+            initializeCharts();
+        }
+
+        function showLoginModal() {
+            const username = prompt('Kullanıcı adı:');
+            const password = prompt('Şifre:');
+            
+            if (username && password) {
+                login(username, password);
+            } else {
+                alert('Giriş bilgileri gerekli!');
+                showLoginModal();
+            }
+        }
+
+        async function login(username, password) {
+            try {
+                showLoading(true);
+                
+                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    authToken = data.token;
+                    localStorage.setItem('adminToken', authToken);
+                    currentUser = data.user;
+                    document.getElementById('adminUsername').textContent = currentUser.username;
+                    showAlert('Başarıyla giriş yapıldı!', 'success');
+                    loadDashboardData();
+                } else {
+                    showAlert('Giriş başarısız!', 'danger');
+                    showLoginModal();
+                }
+            } catch (error) {
+                showAlert('Giriş sırasında hata oluştu!', 'danger');
+                console.error('Login error:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function logout() {
+            authToken = null;
+            localStorage.removeItem('adminToken');
+            currentUser = null;
+            showLoginModal();
+        }
+
+        async function loadDashboardData() {
+            try {
+                showLoading(true);
+                
+                const response = await fetch(`${API_BASE_URL}/api/stats/dashboard`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateDashboardStats(data.stats);
+                    updateRecentOrders(data.recentOrders);
+                }
+            } catch (error) {
+                showAlert('Dashboard verileri yüklenemedi!', 'danger');
+                console.error('Dashboard error:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function updateDashboardStats(stats) {
+            document.getElementById('totalOrders').textContent = stats.totalOrders || 0;
+            document.getElementById('totalRevenue').textContent = `€${(stats.totalRevenue || 0).toFixed(2)}`;
+            document.getElementById('pendingOrders').textContent = stats.pendingOrders || 0;
+            document.getElementById('totalProducts').textContent = stats.totalProducts || 0;
+        }
+
+        function updateRecentOrders(orders) {
+            const tbody = document.getElementById('recentOrdersTable');
+            tbody.innerHTML = '';
+            
+            if (!orders || orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Henüz sipariş bulunmuyor</td></tr>';
+                return;
+            }
+
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.companyName}</td>
+                    <td>€${order.total.toFixed(2)}</td>
+                    <td><span class="status-badge status-${order.status}">${getStatusText(order.status)}</span></td>
+                    <td>${formatDate(order.createdAt)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="viewOrder('${order.orderId}')" title="Görüntüle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function loadOrders() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateOrdersTable(data.orders);
+                }
+            } catch (error) {
+                showAlert('Siparişler yüklenemedi!', 'danger');
+                console.error('Orders error:', error);
+            }
+        }
+
+        function updateOrdersTable(orders) {
+            const tbody = document.getElementById('ordersTable');
+            tbody.innerHTML = '';
+            
+            if (!orders || orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Henüz sipariş bulunmuyor</td></tr>';
+                return;
+            }
+
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.companyName}</td>
+                    <td>${order.location}</td>
+                    <td>€${order.total.toFixed(2)}</td>
+                    <td><span class="status-badge status-${order.status}">${getStatusText(order.status)}</span></td>
+                    <td>${formatDate(order.createdAt)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="viewOrder('${order.orderId}')" title="Görüntüle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-edit" onclick="editOrderStatus('${order.orderId}')" title="Durum Güncelle">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function loadProducts() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/products`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateProductsTable(data.products);
+                }
+            } catch (error) {
+                showAlert('Ürünler yüklenemedi!', 'danger');
+                console.error('Products error:', error);
+            }
+        }
+
+        function updateProductsTable(products) {
+            const tbody = document.getElementById('productsTable');
+            tbody.innerHTML = '';
+            
+            const allProducts = [
+                ...(products.mezeler || []),
+                ...(products.icliKofte || []),
+                ...(products.sarma || [])
+            ];
+
+            if (allProducts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Henüz ürün bulunmuyor</td></tr>';
+                return;
+            }
+
+            allProducts.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.name}</td>
+                    <td>${getCategoryText(product.category)}</td>
+                    <td>€${product.price.toFixed(2)}</td>
+                    <td><span class="status-badge ${product.isActive ? 'status-delivered' : 'status-cancelled'}">${product.isActive ? 'Aktif' : 'Pasif'}</span></td>
+                    <td>${formatDate(product.createdAt)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="editProduct('${product.id}')" title="Düzenle">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-delete" onclick="deleteProduct('${product.id}')" title="Sil">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function loadCategories() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/categories`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateCategoriesTable(data.categories);
+                }
+            } catch (error) {
+                showAlert('Kategoriler yüklenemedi!', 'danger');
+                console.error('Categories error:', error);
+            }
+        }
+
+        function updateCategoriesTable(categories) {
+            const tbody = document.getElementById('categoriesTable');
+            tbody.innerHTML = '';
+            
+            if (!categories || categories.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Henüz kategori bulunmuyor</td></tr>';
+                return;
+            }
+
+            categories.forEach(category => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${category.name}</td>
+                    <td>${category.description || '-'}</td>
+                    <td>${category.productCount || 0}</td>
+                    <td><span class="status-badge ${category.isActive ? 'status-delivered' : 'status-cancelled'}">${category.isActive ? 'Aktif' : 'Pasif'}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="editCategory('${category.id}')" title="Düzenle">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-delete" onclick="deleteCategory('${category.id}')" title="Sil">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function loadCustomers() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/customers`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateCustomersTable(data.customers);
+                }
+            } catch (error) {
+                showAlert('Müşteriler yüklenemedi!', 'danger');
+                console.error('Customers error:', error);
+            }
+        }
+
+        function updateCustomersTable(customers) {
+            const tbody = document.getElementById('customersTable');
+            tbody.innerHTML = '';
+            
+            if (!customers || customers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Henüz müşteri bulunmuyor</td></tr>';
+                return;
+            }
+
+            customers.forEach(customer => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${customer.companyName}</td>
+                    <td>${customer.email || '-'}</td>
+                    <td>${customer.phone || '-'}</td>
+                    <td>${customer.orderCount || 0}</td>
+                    <td>${customer.lastOrder ? formatDate(customer.lastOrder) : '-'}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="viewCustomer('${customer.id}')" title="Görüntüle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function initializeCharts() {
+            // Orders Chart
+            const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+            ordersChart = new Chart(ordersCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'],
+                    datasets: [{
+                        label: 'Siparişler',
+                        data: [12, 19, 3, 5, 2, 3, 8],
+                        borderColor: '#1f4d8f',
+                        backgroundColor: 'rgba(31, 77, 143, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            revenueChart = new Chart(revenueCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran'],
+                    datasets: [{
+                        label: 'Gelir (€)',
+                        data: [1200, 1900, 3000, 5000, 2000, 3000],
+                        backgroundColor: '#27ae60',
+                        borderColor: '#229954',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Product Sales Chart
+            const productSalesCtx = document.getElementById('productSalesChart').getContext('2d');
+            productSalesChart = new Chart(productSalesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Mezeler', 'İçli Köfte', 'Sarma'],
+                    datasets: [{
+                        data: [45, 30, 25],
+                        backgroundColor: ['#1f4d8f', '#27ae60', '#f39c12'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Navigation functions
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('sidebar-collapsed');
+        }
+
+        // Modal functions
+        function showAddProductModal() {
+            document.getElementById('addProductModal').classList.add('show');
+        }
+
+        function showAddCategoryModal() {
+            document.getElementById('addCategoryModal').classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // Form submission handlers
+        document.getElementById('addProductForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('name', document.getElementById('productName').value);
+            formData.append('description', document.getElementById('productDescription').value);
+            formData.append('price', document.getElementById('productPrice').value);
+            formData.append('category', document.getElementById('productCategory').value);
+            formData.append('isActive', document.getElementById('productActive').checked);
+            
+            const imageFile = document.getElementById('productImage').files[0];
+            if (imageFile) {
+                formData.append('image', imageFile);
+            }
+
+            try {
+                showLoading(true);
+                
+                const response = await fetch(`${API_BASE_URL}/api/products`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('Ürün başarıyla eklendi!', 'success');
+                    closeModal('addProductModal');
+                    loadProducts();
+                    document.getElementById('addProductForm').reset();
+                } else {
+                    showAlert('Ürün eklenirken hata oluştu!', 'danger');
+                }
+            } catch (error) {
+                showAlert('Ürün eklenirken hata oluştu!', 'danger');
+                console.error('Add product error:', error);
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        document.getElementById('addCategoryForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const categoryData = {
+                name: document.getElementById('categoryName').value,
+                description: document.getElementById('categoryDescription').value,
+                isActive: document.getElementById('categoryActive').checked
+            };
+
+            try {
+                showLoading(true);
+                
+                const response = await fetch(`${API_BASE_URL}/api/categories`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(categoryData)
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('Kategori başarıyla eklendi!', 'success');
+                    closeModal('addCategoryModal');
+                    loadCategories();
+                    document.getElementById('addCategoryForm').reset();
+                } else {
+                    showAlert('Kategori eklenirken hata oluştu!', 'danger');
+                }
+            } catch (error) {
+                showAlert('Kategori eklenirken hata oluştu!', 'danger');
+                console.error('Add category error:', error);
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // Utility functions
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('show', show);
+        }
+
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'Bekliyor',
+                'confirmed': 'Onaylandı',
+                'delivered': 'Teslim Edildi',
+                'cancelled': 'İptal Edildi'
+            };
+            return statusMap[status] || status;
+        }
+
+        function getCategoryText(category) {
+            const categoryMap = {
+                'mezeler': 'Mezeler',
+                'icliKofte': 'İçli Köfte',
+                'sarma': 'Sarma'
+            };
+            return categoryMap[category] || category;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('tr-TR') + ' ' + date.toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'});
+        }
+
+        function refreshOrders() {
+            loadOrders();
+            showAlert('Siparişler yenilendi!', 'success');
+        }
+
+        function filterOrders() {
+            const statusFilter = document.getElementById('orderStatusFilter').value;
+            // Implement filtering logic here
+            loadOrders();
+        }
+
+        function viewOrder(orderId) {
+            alert(`Sipariş ${orderId} detayları görüntüleniyor...`);
+        }
+
+        function editOrderStatus(orderId) {
+            const newStatus = prompt('Yeni durum (pending/confirmed/delivered/cancelled):');
+            if (newStatus) {
+                updateOrderStatus(orderId, newStatus);
+            }
+        }
+
+        async function updateOrderStatus(orderId, status) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('Sipariş durumu güncellendi!', 'success');
+                    loadOrders();
+                } else {
+                    showAlert('Sipariş durumu güncellenirken hata oluştu!', 'danger');
+                }
+            } catch (error) {
+                showAlert('Sipariş durumu güncellenirken hata oluştu!', 'danger');
+                console.error('Update order status error:', error);
+            }
+        }
+
+        function editProduct(productId) {
+            alert(`Ürün ${productId} düzenleniyor...`);
+        }
+
+        async function deleteProduct(productId) {
+            if (confirm('Bu ürünü silmek istediğinizden emin misiniz?')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`
+                        }
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        showAlert('Ürün başarıyla silindi!', 'success');
+                        loadProducts();
+                    } else {
+                        showAlert('Ürün silinirken hata oluştu!', 'danger');
+                    }
+                } catch (error) {
+                    showAlert('Ürün silinirken hata oluştu!', 'danger');
+                    console.error('Delete product error:', error);
+                }
+            }
+        }
+
+        function editCategory(categoryId) {
+            alert(`Kategori ${categoryId} düzenleniyor...`);
+        }
+
+        async function deleteCategory(categoryId) {
+            if (confirm('Bu kategoriyi silmek istediğinizden emin misiniz?')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/categories/${categoryId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`
+                        }
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        showAlert('Kategori başarıyla silindi!', 'success');
+                        loadCategories();
+                    } else {
+                        showAlert('Kategori silinirken hata oluştu!', 'danger');
+                    }
+                } catch (error) {
+                    showAlert('Kategori silinirken hata oluştu!', 'danger');
+                    console.error('Delete category error:', error);
+                }
+            }
+        }
+
+        function viewCustomer(customerId) {
+            alert(`Müşteri ${customerId} detayları görüntüleniyor...`);
+        }
+
+        function saveSettings() {
+            showAlert('Ayarlar kaydedildi!', 'success');
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
+

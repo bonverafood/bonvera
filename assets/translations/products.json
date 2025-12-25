@@ -1,0 +1,386 @@
+{
+  "products": {
+    "cacik": {
+      "tr": {
+        "name": "Cacık",
+        "description": "Yoğurt ve rendelenmiş salatalıkla hazırlanan, sarımsak ve nane eklenerek lezzetlendirilmiş serinletici bir meze. Yaz aylarında mükemmel bir başlangıç."
+      },
+      "en": {
+        "name": "Cacık",
+        "description": "A refreshing mezze prepared with yogurt and grated cucumber, flavored with garlic and mint. Perfect starter for summer months."
+      },
+      "fr": {
+        "name": "Cacık",
+        "description": "Un mezzé rafraîchissant préparé avec du yaourt et du concombre râpé, parfumé à l'ail et à la menthe. Entrée parfaite pour les mois d'été."
+      },
+      "de": {
+        "name": "Cacık",
+        "description": "Ein erfrischendes Mezze mit Joghurt und geriebener Gurke zubereitet, mit Knoblauch und Minze gewürzt. Perfekte Vorspeise für die Sommermonate."
+      }
+    },
+    "ezme": {
+      "tr": {
+        "name": "Ezme",
+        "description": "Domates, biber, soğan ve baharatlarla hazırlanan, acı sevenler için mükemmel bir meze. Zeytinyağı ile harmanlanmış geleneksel lezzet."
+      },
+      "en": {
+        "name": "Ezme",
+        "description": "A perfect mezze for spice lovers, prepared with tomatoes, peppers, onions and spices. Traditional flavor blended with olive oil."
+      },
+      "fr": {
+        "name": "Ezme",
+        "description": "Un mezzé parfait pour les amateurs d'épices, préparé avec des tomates, des poivrons, des oignons et des épices. Saveur traditionnelle mélangée à l'huile d'olive."
+      },
+      "de": {
+        "name": "Ezme",
+        "description": "Ein perfektes Mezze für Schärfe-Liebhaber, mit Tomaten, Paprika, Zwiebeln und Gewürzen zubereitet. Traditioneller Geschmack mit Olivenöl vermischt."
+      }
+    },
+    "acili-humus": {
+      "tr": {
+        "name": "Acılı Humus",
+        "description": "Nohut, tahin, limon suyu ve zeytinyağı ile hazırlanan, Orta Doğu mutfağının sevilen mezelerinden. Acılı versiyonu ile damaklarda iz bırakan lezzet."
+      },
+      "en": {
+        "name": "Spicy Hummus",
+        "description": "One of the beloved mezze of Middle Eastern cuisine, prepared with chickpeas, tahini, lemon juice and olive oil. A flavor that leaves a mark on the palate with its spicy version."
+      },
+      "fr": {
+        "name": "Hummus Épicé",
+        "description": "L'un des mezzés préférés de la cuisine moyen-orientale, préparé avec des pois chiches, du tahini, du jus de citron et de l'huile d'olive. Une saveur qui marque le palais avec sa version épicée."
+      },
+      "de": {
+        "name": "Scharfer Hummus",
+        "description": "Eines der beliebten Mezze der nahöstlichen Küche, mit Kichererbsen, Tahini, Zitronensaft und Olivenöl zubereitet. Ein Geschmack, der mit seiner scharfen Version auf der Zunge bleibt."
+      }
+    },
+    "amerikan-salatasi": {
+      "tr": {
+        "name": "Amerikan Salatası",
+        "description": "Patates, havuç, bezelye ve mayonez ile hazırlanan, çocukların da sevdiği klasik salata. Renkli ve besleyici bir başlangıç."
+      },
+      "en": {
+        "name": "American Salad",
+        "description": "A classic salad prepared with potatoes, carrots, peas and mayonnaise, loved by children too. A colorful and nutritious starter."
+      },
+      "fr": {
+        "name": "Salade Américaine",
+        "description": "Une salade classique préparée avec des pommes de terre, des carottes, des pois et de la mayonnaise, également appréciée des enfants. Une entrée colorée et nutritive."
+      },
+      "de": {
+        "name": "Amerikanischer Salat",
+        "description": "Ein klassischer Salat mit Kartoffeln, Karotten, Erbsen und Mayonnaise zubereitet, auch von Kindern geliebt. Eine farbenfrohe und nahrhafte Vorspeise."
+      }
+    },
+    "barbunya-salatasi": {
+      "tr": {
+        "name": "Barbunya Salatası",
+        "description": "Barbunya fasulyesi, soğan, maydanoz ve zeytinyağı ile hazırlanan protein bakımından zengin, doyurucu bir meze. Sağlıklı ve lezzetli."
+      },
+      "en": {
+        "name": "Borlotti Bean Salad",
+        "description": "A protein-rich, satisfying mezze prepared with borlotti beans, onions, parsley and olive oil. Healthy and delicious."
+      },
+      "fr": {
+        "name": "Salade de Haricots Borlotti",
+        "description": "Un mezzé riche en protéines et satisfaisant, préparé avec des haricots borlotti, des oignons, du persil et de l'huile d'olive. Sain et délicieux."
+      },
+      "de": {
+        "name": "Borlotti-Bohnen-Salat",
+        "description": "Ein proteinreiches, sättigendes Mezze mit Borlotti-Bohnen, Zwiebeln, Petersilie und Olivenöl zubereitet. Gesund und lecker."
+      }
+    },
+    "domates-kurusu": {
+      "tr": {
+        "name": "Domates Kurusu",
+        "description": "Kurutulmuş domates, zeytinyağı ve taze otlarla hazırlanan, yoğun lezzetli ve aromatik bir meze. Akdeniz mutfağının vazgeçilmezi."
+      },
+      "en": {
+        "name": "Sun-Dried Tomatoes",
+        "description": "An intense and aromatic mezze prepared with sun-dried tomatoes, olive oil and fresh herbs. An indispensable part of Mediterranean cuisine."
+      },
+      "fr": {
+        "name": "Tomates Séchées",
+        "description": "Un mezzé intense et aromatique préparé avec des tomates séchées, de l'huile d'olive et des herbes fraîches. Un incontournable de la cuisine méditerranéenne."
+      },
+      "de": {
+        "name": "Getrocknete Tomaten",
+        "description": "Ein intensives und aromatisches Mezze mit getrockneten Tomaten, Olivenöl und frischen Kräutern zubereitet. Ein unverzichtbarer Teil der mediterranen Küche."
+      }
+    },
+    "fava": {
+      "tr": {
+        "name": "Fava",
+        "description": "Ege ve Yunan mutfağıyla özdeşleşen, kuru bakla ile hazırlanan protein bakımından zengin bir meze. Zeytinyağı, limon ve taze otlarla lezzetlendirilmiş."
+      },
+      "en": {
+        "name": "Fava",
+        "description": "A protein-rich mezze identified with Aegean and Greek cuisine, prepared with dried broad beans. Flavored with olive oil, lemon and fresh herbs."
+      },
+      "fr": {
+        "name": "Fava",
+        "description": "Un mezzé riche en protéines identifié à la cuisine égéenne et grecque, préparé avec des fèves séchées. Parfumé à l'huile d'olive, au citron et aux herbes fraîches."
+      },
+      "de": {
+        "name": "Fava",
+        "description": "Ein proteinreiches Mezze, das mit der ägäischen und griechischen Küche identifiziert wird, mit getrockneten Saubohnen zubereitet. Mit Olivenöl, Zitrone und frischen Kräutern gewürzt."
+      }
+    },
+    "grek-salatasi": {
+      "tr": {
+        "name": "Grek Salatası",
+        "description": "Domates, salatalık, zeytin, soğan ve beyaz peynir ile hazırlanan, Akdeniz mutfağının en sevilen salatalarından. Taze ve sağlıklı."
+      },
+      "en": {
+        "name": "Greek Salad",
+        "description": "One of the most beloved salads of Mediterranean cuisine, prepared with tomatoes, cucumbers, olives, onions and white cheese. Fresh and healthy."
+      },
+      "fr": {
+        "name": "Salade Grecque",
+        "description": "L'une des salades les plus appréciées de la cuisine méditerranéenne, préparée avec des tomates, des concombres, des olives, des oignons et du fromage blanc. Fraîche et saine."
+      },
+      "de": {
+        "name": "Griechischer Salat",
+        "description": "Einer der beliebtesten Salate der mediterranen Küche, mit Tomaten, Gurken, Oliven, Zwiebeln und weißem Käse zubereitet. Frisch und gesund."
+      }
+    },
+    "mantar-salatasi": {
+      "tr": {
+        "name": "Mantar Salatası",
+        "description": "Taze mantar, soğan, maydanoz ve zeytinyağı ile hazırlanan, doğal ve aromatik bir meze. Mantar severlerin favorisi."
+      },
+      "en": {
+        "name": "Mushroom Salad",
+        "description": "A natural and aromatic mezze prepared with fresh mushrooms, onions, parsley and olive oil. Favorite of mushroom lovers."
+      },
+      "fr": {
+        "name": "Salade de Champignons",
+        "description": "Un mezzé naturel et aromatique préparé avec des champignons frais, des oignons, du persil et de l'huile d'olive. Favori des amateurs de champignons."
+      },
+      "de": {
+        "name": "Pilzsalat",
+        "description": "Ein natürliches und aromatisches Mezze mit frischen Pilzen, Zwiebeln, Petersilie und Olivenöl zubereitet. Favorit der Pilzliebhaber."
+      }
+    },
+    "mor-lahana": {
+      "tr": {
+        "name": "Mor Lahana",
+        "description": "Mor lahana, havuç, maydanoz ve limon suyu ile hazırlanan, renkli ve vitamin bakımından zengin bir meze. Sağlıklı ve ferah."
+      },
+      "en": {
+        "name": "Purple Cabbage",
+        "description": "A colorful and vitamin-rich mezze prepared with purple cabbage, carrots, parsley and lemon juice. Healthy and refreshing."
+      },
+      "fr": {
+        "name": "Chou Rouge",
+        "description": "Un mezzé coloré et riche en vitamines, préparé avec du chou rouge, des carottes, du persil et du jus de citron. Sain et rafraîchissant."
+      },
+      "de": {
+        "name": "Rotkohl",
+        "description": "Ein farbenfrohes und vitaminreiches Mezze mit Rotkohl, Karotten, Petersilie und Zitronensaft zubereitet. Gesund und erfrischend."
+      }
+    },
+    "muammara": {
+      "tr": {
+        "name": "Muammara",
+        "description": "Ceviz, kırmızı biber, ekmek ve zeytinyağı ile hazırlanan, Suriye mutfağından gelen aromatik bir meze. Zengin ve doyurucu lezzet."
+      },
+      "en": {
+        "name": "Muammara",
+        "description": "An aromatic mezze from Syrian cuisine, prepared with walnuts, red peppers, bread and olive oil. Rich and satisfying flavor."
+      },
+      "fr": {
+        "name": "Muammara",
+        "description": "Un mezzé aromatique de la cuisine syrienne, préparé avec des noix, des poivrons rouges, du pain et de l'huile d'olive. Saveur riche et satisfaisante."
+      },
+      "de": {
+        "name": "Muammara",
+        "description": "Ein aromatisches Mezze aus der syrischen Küche, mit Walnüssen, roten Paprika, Brot und Olivenöl zubereitet. Reicher und sättigender Geschmack."
+      }
+    },
+    "muhteber": {
+      "tr": {
+        "name": "Muhteber",
+        "description": "Patlıcan, domates, soğan ve baharatlarla hazırlanan, Hatay mutfağından gelen geleneksel bir meze. Zengin aromalı ve doyurucu."
+      },
+      "en": {
+        "name": "Muhteber",
+        "description": "A traditional mezze from Hatay cuisine, prepared with eggplant, tomatoes, onions and spices. Richly aromatic and satisfying."
+      },
+      "fr": {
+        "name": "Muhteber",
+        "description": "Un mezzé traditionnel de la cuisine de Hatay, préparé avec des aubergines, des tomates, des oignons et des épices. Aromatique et satisfaisant."
+      },
+      "de": {
+        "name": "Muhteber",
+        "description": "Ein traditionelles Mezze aus der Hatay-Küche, mit Auberginen, Tomaten, Zwiebeln und Gewürzen zubereitet. Reich aromatisch und sättigend."
+      }
+    },
+    "pancar-salatasi": {
+      "tr": {
+        "name": "Pancar Salatası",
+        "description": "Haşlanmış pancar, ceviz, maydanoz ve zeytinyağı ile hazırlanan, renkli ve besleyici bir meze. Doğal tatlılığı ile öne çıkan lezzet."
+      },
+      "en": {
+        "name": "Beetroot Salad",
+        "description": "A colorful and nutritious mezze prepared with boiled beets, walnuts, parsley and olive oil. A flavor that stands out with its natural sweetness."
+      },
+      "fr": {
+        "name": "Salade de Betterave",
+        "description": "Un mezzé coloré et nutritif préparé avec des betteraves bouillies, des noix, du persil et de l'huile d'olive. Une saveur qui se distingue par sa douceur naturelle."
+      },
+      "de": {
+        "name": "Rote-Bete-Salat",
+        "description": "Ein farbenfrohes und nahrhaftes Mezze mit gekochten Rüben, Walnüssen, Petersilie und Olivenöl zubereitet. Ein Geschmack, der mit seiner natürlichen Süße hervorsticht."
+      }
+    },
+    "patlicanli-humus": {
+      "tr": {
+        "name": "Patlıcanlı Humus",
+        "description": "Klasik humusa köz patlıcan eklenerek hazırlanan, dumanlı aroması ile öne çıkan özel bir meze. Farklı ve lezzetli."
+      },
+      "en": {
+        "name": "Eggplant Hummus",
+        "description": "A special mezze prepared by adding grilled eggplant to classic hummus, standing out with its smoky aroma. Different and delicious."
+      },
+      "fr": {
+        "name": "Hummus aux Aubergines",
+        "description": "Un mezzé spécial préparé en ajoutant des aubergines grillées au hummus classique, se distinguant par son arôme fumé. Différent et délicieux."
+      },
+      "de": {
+        "name": "Auberginen-Hummus",
+        "description": "Ein besonderes Mezze, das durch Hinzufügen von gegrillten Auberginen zum klassischen Hummus zubereitet wird und mit seinem rauchigen Aroma hervorsticht. Anders und lecker."
+      }
+    },
+    "saksuka": {
+      "tr": {
+        "name": "Şakşuka",
+        "description": "Patlıcan, domates, biber, soğan ve yumurta ile hazırlanan, Türk mutfağının sevilen mezelerinden. Renkli ve doyurucu."
+      },
+      "en": {
+        "name": "Şakşuka",
+        "description": "One of the beloved mezze of Turkish cuisine, prepared with eggplant, tomatoes, peppers, onions and eggs. Colorful and satisfying."
+      },
+      "fr": {
+        "name": "Şakşuka",
+        "description": "L'un des mezzés préférés de la cuisine turque, préparé avec des aubergines, des tomates, des poivrons, des oignons et des œufs. Coloré et satisfaisant."
+      },
+      "de": {
+        "name": "Şakşuka",
+        "description": "Eines der beliebten Mezze der türkischen Küche, mit Auberginen, Tomaten, Paprika, Zwiebeln und Eiern zubereitet. Farbenfroh und sättigend."
+      }
+    },
+    "tarator": {
+      "tr": {
+        "name": "Tarator",
+        "description": "Ceviz, ekmek, sarımsak, zeytinyağı ve limon ile hazırlanan, Balkan mutfağından gelen serinletici bir meze. Yoğun aromalı ve besleyici."
+      },
+      "en": {
+        "name": "Tarator",
+        "description": "A refreshing mezze from Balkan cuisine, prepared with walnuts, bread, garlic, olive oil and lemon. Intensely aromatic and nutritious."
+      },
+      "fr": {
+        "name": "Tarator",
+        "description": "Un mezzé rafraîchissant de la cuisine balkanique, préparé avec des noix, du pain, de l'ail, de l'huile d'olive et du citron. Intensément aromatique et nutritif."
+      },
+      "de": {
+        "name": "Tarator",
+        "description": "Ein erfrischendes Mezze aus der Balkan-Küche, mit Walnüssen, Brot, Knoblauch, Olivenöl und Zitrone zubereitet. Intensiv aromatisch und nahrhaft."
+      }
+    },
+    "kizarmis-icli-kofte": {
+      "tr": {
+        "name": "Kızarmış İçli Köfte",
+        "description": "Geleneksel tarifle hazırlanan, kızartılarak servis edilen içli köfte. Çıtır dış yapısı ve lezzetli iç harcı ile öne çıkan özel lezzet."
+      },
+      "en": {
+        "name": "Fried İçli Köfte",
+        "description": "İçli köfte prepared with traditional recipe, served fried. A special flavor that stands out with its crispy outer structure and delicious filling."
+      },
+      "fr": {
+        "name": "İçli Köfte Frit",
+        "description": "İçli köfte préparé selon une recette traditionnelle, servi frit. Une saveur spéciale qui se distingue par sa structure extérieure croustillante et sa garniture délicieuse."
+      },
+      "de": {
+        "name": "Gebratenes İçli Köfte",
+        "description": "İçli köfte nach traditionellem Rezept zubereitet, gebraten serviert. Ein besonderer Geschmack, der mit seiner knusprigen äußeren Struktur und leckeren Füllung hervorsticht."
+      }
+    },
+    "cig-icli-kofte": {
+      "tr": {
+        "name": "Çiğ İçli Köfte",
+        "description": "Çiğ olarak servis edilen, geleneksel tarifle hazırlanan içli köfte. Taze ve doğal malzemelerle yapılan, sağlıklı ve lezzetli seçenek."
+      },
+      "en": {
+        "name": "Raw İçli Köfte",
+        "description": "İçli köfte prepared with traditional recipe, served raw. A healthy and delicious option made with fresh and natural ingredients."
+      },
+      "fr": {
+        "name": "İçli Köfte Cru",
+        "description": "İçli köfte préparé selon une recette traditionnelle, servi cru. Une option saine et délicieuse faite avec des ingrédients frais et naturels."
+      },
+      "de": {
+        "name": "Rohes İçli Köfte",
+        "description": "İçli köfte nach traditionellem Rezept zubereitet, roh serviert. Eine gesunde und leckere Option mit frischen und natürlichen Zutaten."
+      }
+    },
+    "yaprak-sarmasi": {
+      "tr": {
+        "name": "Yaprak Sarma",
+        "description": "Asma yaprağı, pirinç, soğan ve baharatlarla hazırlanan geleneksel sarma. Türk mutfağının en sevilen lezzetlerinden biri."
+      },
+      "en": {
+        "name": "Grape Leaf Sarma",
+        "description": "Traditional sarma prepared with grape leaves, rice, onions and spices. One of the most beloved flavors of Turkish cuisine."
+      },
+      "fr": {
+        "name": "Sarma aux Feuilles de Vigne",
+        "description": "Sarma traditionnel préparé avec des feuilles de vigne, du riz, des oignons et des épices. L'une des saveurs les plus appréciées de la cuisine turque."
+      },
+      "de": {
+        "name": "Weinblatt-Sarma",
+        "description": "Traditionelles Sarma mit Weinblättern, Reis, Zwiebeln und Gewürzen zubereitet. Einer der beliebtesten Geschmäcker der türkischen Küche."
+      }
+    },
+    "kabak-sarmasi": {
+      "tr": {
+        "name": "Kabak Sarma",
+        "description": "Kabak yaprağı, pirinç, soğan ve baharatlarla hazırlanan lezzetli sarma. Hafif ve sağlıklı, yaz aylarında tercih edilen özel lezzet."
+      },
+      "en": {
+        "name": "Zucchini Sarma",
+        "description": "Delicious sarma prepared with zucchini leaves, rice, onions and spices. Light and healthy, a special flavor preferred in summer months."
+      },
+      "fr": {
+        "name": "Sarma aux Courgettes",
+        "description": "Délicieux sarma préparé avec des feuilles de courgettes, du riz, des oignons et des épices. Léger et sain, une saveur spéciale préférée pendant les mois d'été."
+      },
+      "de": {
+        "name": "Zucchini-Sarma",
+        "description": "Leckeres Sarma mit Zucchiniblättern, Reis, Zwiebeln und Gewürzen zubereitet. Leicht und gesund, ein besonderer Geschmack, der in den Sommermonaten bevorzugt wird."
+      }
+    },
+    "patlican-sarmasi": {
+      "tr": {
+        "name": "Patlıcan Sarma",
+        "description": "Patlıcan yaprağı, pirinç, soğan ve baharatlarla hazırlanan özel sarma. Patlıcan severlerin favorisi, aromatik ve lezzetli."
+      },
+      "en": {
+        "name": "Eggplant Sarma",
+        "description": "Special sarma prepared with eggplant leaves, rice, onions and spices. Favorite of eggplant lovers, aromatic and delicious."
+      },
+      "fr": {
+        "name": "Sarma aux Aubergines",
+        "description": "Sarma spécial préparé avec des feuilles d'aubergines, du riz, des oignons et des épices. Favori des amateurs d'aubergines, aromatique et délicieux."
+      },
+      "de": {
+        "name": "Auberginen-Sarma",
+        "description": "Besonderes Sarma mit Auberginenblättern, Reis, Zwiebeln und Gewürzen zubereitet. Favorit der Auberginenliebhaber, aromatisch und lecker."
+      }
+    }
+  }
+}
+
+
+
+
