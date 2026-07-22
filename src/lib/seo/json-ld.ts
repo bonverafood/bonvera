@@ -1,5 +1,4 @@
 import { siteConfig } from "@/config/site";
-import { getSiteSeoDefaults } from "@/lib/data";
 
 export type OrganizationJsonLd = {
   "@context": "https://schema.org";
@@ -10,33 +9,18 @@ export type OrganizationJsonLd = {
   logo?: string;
 };
 
-export async function getOrganizationJsonLd(): Promise<OrganizationJsonLd> {
-  let name = "Bonvera";
-  let description =
-    "Authentic Turkish Cuisine, Crafted in France.";
-  let logo: string | undefined;
-
-  try {
-    const defaults = await getSiteSeoDefaults();
-    if (defaults) {
-      name = defaults.organizationNameTr.trim() || name;
-      description =
-        defaults.organizationDescriptionTr.trim() || description;
-      if (defaults.defaultOgImageUrl?.trim()) {
-        logo = defaults.defaultOgImageUrl.trim();
-      }
-    }
-  } catch (error) {
-    console.warn("[seo] organization json-ld fallback", error);
-  }
-
+/**
+ * Organization JSON-LD for the public site.
+ * Uses static Bonvera defaults — avoids service-role DB calls in the marketing layout.
+ * SEO Studio site defaults still drive meta tags via generateMetadata.
+ */
+export function getOrganizationJsonLd(): OrganizationJsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name,
-    description,
+    name: "Bonvera",
+    description: "Authentic Turkish Cuisine, Crafted in France.",
     url: siteConfig.canonicalOrigin,
-    ...(logo ? { logo } : {}),
   };
 }
 

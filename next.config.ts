@@ -10,6 +10,15 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   outputFileTracingRoot: projectRoot,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "mazmtuzfiefomruqlkia.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

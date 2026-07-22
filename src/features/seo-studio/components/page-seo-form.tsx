@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import type { SiteSeoPage, SiteSeoPageKey } from "@/lib/data";
+import type { SiteSeoPage, SiteSeoPageKey } from "@/lib/data/types";
 
 import { savePageSeo } from "../actions";
 import { siteSeoPageSchema, type SiteSeoPageInput } from "../schema";

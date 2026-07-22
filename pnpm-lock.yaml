@@ -50,6 +50,9 @@ importers:
       react-hook-form:
         specifier: ^7.82.0
         version: 7.82.0(react@19.1.0)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
       shadcn:
         specifier: ^4.13.1
         version: 4.13.1(supports-color@7.2.0)(typescript@5.9.3)
@@ -96,9 +99,6 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.8.1
         version: 0.8.1(prettier@3.9.6)
-      server-only:
-        specifier: ^0.0.1
-        version: 0.0.1
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3

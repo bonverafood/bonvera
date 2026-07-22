@@ -7,7 +7,10 @@ type StudioAppLayoutProps = {
   children: ReactNode;
 };
 
-/** Studio pages read auth cookies / Supabase — never statically prerender. */
+/**
+ * Studio app shell uses auth cookies on data routes.
+ * Keep this layout dynamic so child pages are not frozen as static HTML.
+ */
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {

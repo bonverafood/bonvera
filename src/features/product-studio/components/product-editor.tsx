@@ -12,7 +12,7 @@ import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { MediaPickerDialog } from "@/features/media-studio";
 import { useRouter } from "@/lib/i18n/navigation";
-import type { Product } from "@/lib/data";
+import type { Product } from "@/lib/data/types";
 
 import { createProduct, updateProduct, archiveProduct } from "../actions";
 import { productInputSchema, type ProductInput } from "../schema";

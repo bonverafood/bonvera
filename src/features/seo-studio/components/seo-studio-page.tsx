@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import type { SiteSeoDefaults, SiteSeoPage } from "@/lib/data";
+import type { SiteSeoDefaults, SiteSeoPage } from "@/lib/data/types";
 
 import type { ProductSeoAuditItem } from "../actions";
 import { PageSeoForm } from "./page-seo-form";

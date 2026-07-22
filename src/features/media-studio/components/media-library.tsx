@@ -12,7 +12,7 @@ import {
 } from "react";
 
 import { Button } from "@/components/ui/button";
-import type { MediaAsset } from "@/lib/data";
+import type { MediaAsset } from "@/lib/data/types";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 

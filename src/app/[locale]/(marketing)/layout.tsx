@@ -17,10 +17,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function MarketingLayout({
-  children,
-}: MarketingLayoutProps) {
-  const organization = await getOrganizationJsonLd();
+export default function MarketingLayout({ children }: MarketingLayoutProps) {
+  const organization = getOrganizationJsonLd();
 
   return (
     <div data-surface="marketing">
