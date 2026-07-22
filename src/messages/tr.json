@@ -1,0 +1,149 @@
+{
+  "StudioOS": {
+    "name": "Studio OS",
+    "tagline": "Markalar icin dijital isletim sistemi"
+  },
+  "Marketing": {
+    "title": "Bonvera",
+    "subtitle": "Studio OS uzerindeki ilk marka"
+  },
+  "Studio": {
+    "title": "Studio",
+    "subtitle": "Yonetim paneli",
+    "welcomeBrand": "Hos geldiniz, {brand}",
+    "replaySetup": "Kurulumu yeniden baslat"
+  },
+  "StudioSetup": {
+    "brandMark": "Studio OS",
+    "loading": "Yukleniyor…",
+    "meta": {
+      "title": "Kurulum — Studio OS",
+      "description": "Studio OS kurulum rehberiyle markanizi olusturun."
+    },
+    "progress": {
+      "label": "Adim {current} / {total}",
+      "aria": "Kurulum ilerlemesi"
+    },
+    "nav": {
+      "back": "Geri",
+      "next": "Devam"
+    },
+    "save": {
+      "saving": "Kaydediliyor…",
+      "saved": "Kaydedildi"
+    },
+    "errors": {
+      "nameMin": "En az 2 karakter.",
+      "nameMax": "Cok uzun.",
+      "descriptionMax": "En fazla 500 karakter.",
+      "companyTypeRequired": "Bir sirket turu secin.",
+      "countryRequired": "Bir ulke secin.",
+      "cityMax": "En fazla 80 karakter.",
+      "addressMax": "En fazla 200 karakter.",
+      "invalidEmail": "Gecersiz e-posta adresi.",
+      "invalidUrl": "Gecersiz URL.",
+      "phoneMax": "En fazla 40 karakter.",
+      "defaultLanguageRequired": "Ana dil secin.",
+      "duplicateLanguages": "Yinelenen diller eklenemez.",
+      "additionalIncludesDefault": "Ek diller ana dili iceremez.",
+      "invalidTime": "Gecersiz saat.",
+      "workingDaysMin": "En az bir gun secin.",
+      "closingAfterOpening": "Kapanis, acilistan sonra olmali.",
+      "logoType": "Kabul edilen formatlar: PNG, JPEG, WebP veya SVG.",
+      "logoSize": "Logo cok buyuk (en fazla 512 KB).",
+      "incompleteDraft": "Bazi adimlar eksik. Formu kontrol edin."
+    },
+    "companyTypes": {
+      "sole_prop": "Sahis sirketi",
+      "llc": "Ltd. / LLC",
+      "corporation": "Anonim sirket",
+      "nonprofit": "Dernek / STK",
+      "other": "Diger"
+    },
+    "weekdays": {
+      "mon": "Pzt",
+      "tue": "Sal",
+      "wed": "Car",
+      "thu": "Per",
+      "fri": "Cum",
+      "sat": "Cmt",
+      "sun": "Paz"
+    },
+    "fields": {
+      "brandName": "Marka adi",
+      "brandLogo": "Logo",
+      "brandLogoHint": "Istege bagli — PNG, JPEG, WebP veya SVG, en fazla 512 KB.",
+      "brandDescription": "Aciklama",
+      "companyName": "Sirket adi",
+      "companyType": "Sirket turu",
+      "country": "Ulke",
+      "city": "Sehir",
+      "address": "Adres",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "whatsapp": "WhatsApp",
+      "website": "Web sitesi",
+      "websiteHint": "https:// ekleyin",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube",
+      "tiktok": "TikTok",
+      "defaultLanguage": "Ana dil",
+      "additionalLanguages": "Ek diller",
+      "additionalLanguagesHint": "Istediginiz kadar dil ekleyebilirsiniz.",
+      "selectLanguage": "Dil secin",
+      "addLanguage": "Ekle",
+      "removeLanguage": "{language} dilini kaldir",
+      "opening": "Acilis",
+      "closing": "Kapanis",
+      "workingDays": "Calisma gunleri"
+    },
+    "summary": {
+      "brand": "Marka",
+      "company": "Sirket",
+      "email": "Iletisim",
+      "languages": "Diller",
+      "hours": "Saatler"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Studio OS'a hos geldiniz",
+        "description": "Markanizi olusturmak icin sakin bir kac adim. Sonradan her seyi degistirebilirsiniz.",
+        "cta": "Basla"
+      },
+      "brand": {
+        "title": "Markaniz",
+        "description": "Musterilerinizin tanıyacagi isim ve kimlik."
+      },
+      "company": {
+        "title": "Sirket",
+        "description": "Yasal ve konum bilgileri."
+      },
+      "contact": {
+        "title": "Iletisim",
+        "description": "Musteriler ve is ortaklari size nasil ulassin."
+      },
+      "social": {
+        "title": "Sosyal medya",
+        "description": "Tum alanlar istege baglidir.",
+        "empty": "Daha sonra ekleyebilirsiniz — hicbir sey engellenmez."
+      },
+      "languages": {
+        "title": "Diller",
+        "description": "Marka icerik dilleri — Studio arayuz dilinden bagimsizdir.",
+        "empty": "Henuz ek dil yok."
+      },
+      "hours": {
+        "title": "Calisma saatleri",
+        "description": "Acik oldugunuz gunler ve saatler."
+      },
+      "finish": {
+        "title": "Tamam",
+        "description": "Ozeti kontrol edin, ardindan Studio'ya gecin.",
+        "ready": "Markaniz hazir.",
+        "cta": "Studio'ya git"
+      }
+    }
+  }
+}

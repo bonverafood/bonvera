@@ -1,0 +1,149 @@
+{
+  "StudioOS": {
+    "name": "Studio OS",
+    "tagline": "Systeme d'exploitation digital pour les marques"
+  },
+  "Marketing": {
+    "title": "Bonvera",
+    "subtitle": "Premiere marque sur Studio OS"
+  },
+  "Studio": {
+    "title": "Studio",
+    "subtitle": "Panneau d'administration",
+    "welcomeBrand": "Bienvenue, {brand}",
+    "replaySetup": "Rejouer la configuration"
+  },
+  "StudioSetup": {
+    "brandMark": "Studio OS",
+    "loading": "Chargement…",
+    "meta": {
+      "title": "Configuration — Studio OS",
+      "description": "Creez votre marque avec le guide de configuration Studio OS."
+    },
+    "progress": {
+      "label": "Etape {current} sur {total}",
+      "aria": "Progression de la configuration"
+    },
+    "nav": {
+      "back": "Retour",
+      "next": "Continuer"
+    },
+    "save": {
+      "saving": "Enregistrement…",
+      "saved": "Enregistre"
+    },
+    "errors": {
+      "nameMin": "Au moins 2 caracteres.",
+      "nameMax": "Trop long.",
+      "descriptionMax": "500 caracteres maximum.",
+      "companyTypeRequired": "Choisissez un type d'entreprise.",
+      "countryRequired": "Choisissez un pays.",
+      "cityMax": "80 caracteres maximum.",
+      "addressMax": "200 caracteres maximum.",
+      "invalidEmail": "Adresse e-mail invalide.",
+      "invalidUrl": "URL invalide.",
+      "phoneMax": "40 caracteres maximum.",
+      "defaultLanguageRequired": "Choisissez une langue principale.",
+      "duplicateLanguages": "Les langues en double ne sont pas autorisees.",
+      "additionalIncludesDefault": "Les langues supplementaires ne doivent pas inclure la langue principale.",
+      "invalidTime": "Heure invalide.",
+      "workingDaysMin": "Selectionnez au moins un jour.",
+      "closingAfterOpening": "La fermeture doit etre apres l'ouverture.",
+      "logoType": "Formats acceptes : PNG, JPEG, WebP ou SVG.",
+      "logoSize": "Logo trop volumineux (max. 512 Ko).",
+      "incompleteDraft": "Certaines etapes sont incompletes. Verifiez le formulaire."
+    },
+    "companyTypes": {
+      "sole_prop": "Entreprise individuelle",
+      "llc": "SARL / LLC",
+      "corporation": "Societe / Corporation",
+      "nonprofit": "Association / Non-profit",
+      "other": "Autre"
+    },
+    "weekdays": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam",
+      "sun": "Dim"
+    },
+    "fields": {
+      "brandName": "Nom de la marque",
+      "brandLogo": "Logo",
+      "brandLogoHint": "Optionnel — PNG, JPEG, WebP ou SVG, max. 512 Ko.",
+      "brandDescription": "Description",
+      "companyName": "Nom de l'entreprise",
+      "companyType": "Type d'entreprise",
+      "country": "Pays",
+      "city": "Ville",
+      "address": "Adresse",
+      "email": "E-mail",
+      "phone": "Telephone",
+      "whatsapp": "WhatsApp",
+      "website": "Site web",
+      "websiteHint": "Incluez https://",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube",
+      "tiktok": "TikTok",
+      "defaultLanguage": "Langue principale",
+      "additionalLanguages": "Langues supplementaires",
+      "additionalLanguagesHint": "Ajoutez autant de langues que necessaire.",
+      "selectLanguage": "Choisir une langue",
+      "addLanguage": "Ajouter",
+      "removeLanguage": "Retirer {language}",
+      "opening": "Ouverture",
+      "closing": "Fermeture",
+      "workingDays": "Jours ouvres"
+    },
+    "summary": {
+      "brand": "Marque",
+      "company": "Entreprise",
+      "email": "Contact",
+      "languages": "Langues",
+      "hours": "Horaires"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Bienvenue sur Studio OS",
+        "description": "Quelques etapes calmes pour creer votre marque. Vous pourrez tout modifier plus tard.",
+        "cta": "Commencer"
+      },
+      "brand": {
+        "title": "Votre marque",
+        "description": "Le nom et l'identite que vos clients reconnaitront."
+      },
+      "company": {
+        "title": "Entreprise",
+        "description": "Les informations legales et de localisation."
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Comment les clients et partenaires peuvent vous joindre."
+      },
+      "social": {
+        "title": "Reseaux sociaux",
+        "description": "Tous les champs sont optionnels.",
+        "empty": "Vous pouvez les ajouter plus tard — rien n'est bloque."
+      },
+      "languages": {
+        "title": "Langues",
+        "description": "Langues de contenu de la marque — independantes de l'interface Studio.",
+        "empty": "Aucune langue supplementaire pour le moment."
+      },
+      "hours": {
+        "title": "Horaires",
+        "description": "Vos jours et heures d'ouverture."
+      },
+      "finish": {
+        "title": "Termine",
+        "description": "Verifiez le resume, puis entrez dans Studio.",
+        "ready": "Votre marque est prete.",
+        "cta": "Aller au Studio"
+      }
+    }
+  }
+}
