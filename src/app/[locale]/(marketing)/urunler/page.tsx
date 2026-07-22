@@ -64,7 +64,7 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
                         src={content.imageUrl}
                         alt={content.name}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        className="object-cover object-[28%_center] transition-transform duration-700 group-hover:scale-[1.03]"
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     ) : null}

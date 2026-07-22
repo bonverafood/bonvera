@@ -119,7 +119,7 @@ export function ProductCardBoard({ initialItems }: ProductCardBoardProps) {
                         src={product.imageUrl}
                         alt={product.nameTr}
                         fill
-                        className="object-cover"
+                        className="object-cover object-[28%_center]"
                         sizes="(max-width: 640px) 100vw, 192px"
                         unoptimized
                       />

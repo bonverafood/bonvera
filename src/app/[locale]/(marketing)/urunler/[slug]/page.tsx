@@ -127,7 +127,7 @@ export default async function ProductDetailPage({
             alt={content.name}
             fill
             priority
-            className="object-cover opacity-80"
+            className="object-cover object-[28%_center] opacity-80"
             sizes="100vw"
           />
         ) : null}
