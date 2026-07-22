@@ -90,7 +90,7 @@ NEXT_PUBLIC_MARKETING_URL=https://bonvera.food
 NEXT_PUBLIC_ADMIN_URL=https://admin.bonvera.food
 NEXT_PUBLIC_DEFAULT_LOCALE=tr
 NEXT_PUBLIC_FALLBACK_LOCALE=tr
-# …Supabase, DATABASE_URL, etc.
+# …Supabase URL, anon key, SERVICE_ROLE_KEY, etc.
 ```
 
 5. Redeploy after env changes so `NEXT_PUBLIC_*` are inlined.

@@ -11,32 +11,30 @@ Set these in **Vercel → Project → Settings → Environment Variables**
 | `NEXT_PUBLIC_MARKETING_URL` | `https://bonvera.food` |
 | `NEXT_PUBLIC_ADMIN_URL` | `https://admin.bonvera.food` |
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://mazmtuzfiefomruqlkia.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | *(Supabase → Settings → API → anon public)* |
-| `DATABASE_URL` | *(Supabase → Database → URI / pooler)* |
-| `SUPABASE_SERVICE_ROLE_KEY` | *(Supabase → API → service_role — Media uploads)* |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | *(Supabase → API → anon public)* |
+| `SUPABASE_SERVICE_ROLE_KEY` | *(Supabase → API → service_role — Studio DB + Storage)* |
 | `NEXT_PUBLIC_DEFAULT_LOCALE` | `tr` |
 | `NEXT_PUBLIC_FALLBACK_LOCALE` | `tr` |
 
-Prefer the **connection pooler** (transaction mode) for `DATABASE_URL` on Vercel.
+**No `DATABASE_URL`.** App talks to Postgres only through the Supabase JS client.
 
 Optional later: `OPENAI_API_KEY`.
 
+## Schema
+
+Run SQL once in Supabase → SQL Editor: [`docs/sql/schema.sql`](./sql/schema.sql).
+
 ## Auth + Media
 
-1. Supabase user: `bonvera@admin.com`  
+1. User: `bonvera@admin.com`  
 2. Login: `https://admin.bonvera.food/studio/login`  
-3. Storage bucket **`media`** (Public) — see [`modules/media-studio.md`](./modules/media-studio.md)  
-4. Product Studio: [`modules/product-studio.md`](./modules/product-studio.md)
+3. Storage bucket **`media`** (Public) — [`modules/media-studio.md`](./modules/media-studio.md)
 
 ## Domains
 
-Same Vercel project (Production):
-
-- `bonvera.food` → marketing (canonical)  
-- `www.bonvera.food` → **redirect to** `bonvera.food`  
+- `bonvera.food` → marketing  
+- `www.bonvera.food` → redirect to apex  
 - `admin.bonvera.food` → studio  
-
-Platform `NOT_FOUND`: [`go-live-p0.md`](./go-live-p0.md).
 
 ## Note
 

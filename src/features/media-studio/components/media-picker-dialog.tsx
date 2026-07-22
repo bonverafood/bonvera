@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
-import type { MediaAsset } from "@/lib/db/schema";
+import type { MediaAsset } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 import { listMedia } from "../actions";

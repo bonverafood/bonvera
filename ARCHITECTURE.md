@@ -17,7 +17,7 @@ The only goal is the best possible platform for Bonvera.
 |------|----------------|
 | Public website | `https://bonvera.food` |
 | Admin panel | `https://admin.bonvera.food` |
-| Stack | Next.js · Supabase · Drizzle · Vercel |
+| Stack | Next.js · Supabase · Vercel |
 | Shape | **One** project · **One** database · **One** brand |
 
 **Decision filter:** every change must answer *“Does this make Bonvera better?”*  
@@ -126,10 +126,10 @@ If a second business ever needs this system: **clone the project**.
 ├── ARCHITECTURE.md
 ├── docs/
 │   ├── deployment.md
+│   ├── sql/                     # Supabase SQL schema (manual apply)
 │   └── modules/
 ├── legacy/                      # Archived static Bonvera site
 ├── public/
-├── drizzle/
 ├── src/
 │   ├── app/                     # Routing + layouts only
 │   ├── components/              # ui / marketing / studio / shared
@@ -137,7 +137,7 @@ If a second business ever needs this system: **clone the project**.
 │   ├── config/                  # locales, bonvera, site, hosts, env
 │   ├── messages/                # next-intl (`tr.json`, `fr.json`, …)
 │   ├── middleware.ts
-│   ├── lib/                     # db, supabase, i18n, hosts, …
+│   ├── lib/                     # data, supabase, i18n, hosts, …
 │   ├── providers/
 │   ├── stores/
 │   └── types/
@@ -182,8 +182,7 @@ Export through `index.ts`.
 | Language       | TypeScript    | Strict contracts                          |
 | Styling        | Tailwind v4   | Tokens in CSS                             |
 | Components     | shadcn/ui     | Accessible primitives                     |
-| Auth / BaaS    | Supabase      | Auth, storage (when needed)               |
-| SQL            | Drizzle       | Schema, migrations, queries               |
+| Auth / BaaS    | Supabase      | Auth, Storage, Postgres (JS client)       |
 | Validation     | Zod           | Shared client/server                      |
 | Forms          | React Hook Form | Form state                              |
 | Server cache   | TanStack Query | Client server-state                     |
@@ -192,12 +191,13 @@ Export through `index.ts`.
 | i18n           | next-intl     | Messages + routing                        |
 | Deploy         | Vercel        | Dual domain, one project                  |
 
-### 5.1 Supabase + Drizzle
+### 5.1 Supabase (only data layer)
 
-- **Supabase** — Auth, Storage, hosted Postgres  
-- **Drizzle** — app schema and queries  
+- **Auth** — Studio login (`@supabase/ssr`)
+- **Storage** — Media uploads (`media` bucket)
+- **Postgres** — tables queried via Supabase JS (`src/lib/data/*`), after `requireStudioUser` + service role
 
-Prefer one query path for business data: **Drizzle**.
+Schema is applied in the Supabase SQL Editor (`docs/sql/schema.sql`). No Drizzle / `DATABASE_URL`.
 
 ### 5.2 State boundaries
 
@@ -241,7 +241,7 @@ Locales stay in `src/config/i18n.ts` + message files — extensible without hard
 | `NEXT_PUBLIC_MARKETING_URL` | Public + canonical (`https://bonvera.food`) |
 | `NEXT_PUBLIC_ADMIN_URL` | Studio (`https://admin.bonvera.food`) |
 | `NEXT_PUBLIC_DEFAULT_LOCALE` / `FALLBACK` | App routing locales |
-| Supabase / `DATABASE_URL` / `OPENAI_API_KEY` | Infra |
+| Supabase URL / anon / `SUPABASE_SERVICE_ROLE_KEY` / `OPENAI_API_KEY` | Infra |
 
 Validated in `src/config/env.ts`.
 
@@ -250,12 +250,12 @@ Validated in `src/config/env.ts`.
 ## 8. Data layer
 
 ```
-src/lib/db/          # Drizzle client + schema
-drizzle/             # Migrations
-src/lib/supabase/    # Browser / server / middleware clients
+src/lib/data/        # Products + media queries (Supabase JS)
+src/lib/supabase/    # Browser / server / middleware / service-role clients
+docs/sql/            # Schema SQL for Supabase SQL Editor
 ```
 
-One database for Bonvera. No tenant_id architecture.
+One database for Bonvera. No tenant_id architecture. No ORM.
 
 ---
 
@@ -324,7 +324,6 @@ pnpm · ESLint · Prettier · Husky · Commitlint · `@/*` aliases
 | Translation priority  | French first                                |
 | Domain organization   | Feature-first under `src/features/`         |
 | Package manager       | pnpm                                        |
-| Auth / hosting        | Supabase                                    |
-| SQL                   | Drizzle                                     |
+| Auth / hosting / data | Supabase (JS client only)                   |
 | Deploy                | Vercel                                      |
 | Another customer later| Clone repo — do not abstract now            |

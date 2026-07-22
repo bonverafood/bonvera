@@ -5,38 +5,24 @@ Admin module for Bonvera products — Turkish source content, SEO fields, publis
 ## Auth
 
 - Studio routes require Supabase Auth (`bonvera@admin.com`).
-- Login: `/studio/login` (outside app shell).
-- Middleware refreshes session and redirects unauthenticated users to login.
+- Login: `/studio/login`
 - Sign-out from the Studio user menu.
 
-### Create the admin user (Supabase Dashboard)
+## Data layer
 
-1. Authentication → Users → Add user  
-2. Email: `bonvera@admin.com`  
-3. Set password; confirm email if required  
+**Supabase JS only** (service role after `requireStudioUser`). No Drizzle / `DATABASE_URL`.
 
-## Database
-
-Table: `products` (Drizzle → Supabase Postgres).
+Table: `products` — create via [`docs/sql/schema.sql`](../sql/schema.sql) in Supabase SQL Editor.
 
 | Column | Notes |
 |--------|--------|
 | `slug` | unique SEO slug |
 | `status` | `draft` \| `published` \| `archived` |
 | `name_tr`, `summary_tr`, `body_tr` | Turkish content |
-| `image_url` | URL until Media Studio |
-| `seo_title_tr`, `seo_description_tr`, `og_image_url` | SEO |
-| `sort_order`, `published_at`, timestamps | |
+| `image_url` | URL (Media Studio picker or manual) |
+| SEO + sort + timestamps | |
 
-### Migrate & seed
-
-```bash
-# Requires DATABASE_URL in .env.local
-pnpm db:migrate
-pnpm db:seed
-```
-
-Migration SQL: `drizzle/0000_*.sql`.
+Code: `src/lib/data/products.ts` · `src/features/product-studio/`
 
 ## Routes
 
@@ -45,13 +31,3 @@ Migration SQL: `drizzle/0000_*.sql`.
 | `/studio/urunler` | List |
 | `/studio/urunler/yeni` | Create |
 | `/studio/urunler/[id]` | Edit + live preview |
-
-## Code
-
-- Feature: `src/features/product-studio/`
-- Auth helpers: `src/lib/supabase/auth.ts`
-- Schema: `src/lib/db/schema/products.ts`
-
-## Out of scope (later sprints)
-
-FR/AI translation · Storage upload · PDF · public site DB read · RLS hardening

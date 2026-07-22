@@ -11,10 +11,6 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:seed": "tsx --tsconfig tsconfig.json src/lib/db/seed.ts",
-    "db:studio": "drizzle-kit studio",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -34,12 +30,10 @@
     "@tanstack/react-query": "^5.101.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.25.0",
     "next": "15.5.20",
     "next-intl": "^4.13.3",
-    "postgres": "^3.4.9",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.82.0",
@@ -57,8 +51,6 @@
     "@types/node": "^20.19.43",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "dotenv": "^17.4.2",
-    "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.5",
     "eslint-config-next": "15.5.20",
     "eslint-config-prettier": "^10.1.8",
@@ -67,7 +59,6 @@
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.1",
     "typescript": "^5.9.3"
   }
 }

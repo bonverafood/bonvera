@@ -1,13 +1,19 @@
 "use server";
 
-import { and, asc, desc, eq, ne } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-import { db } from "@/lib/db";
-import { products, type Product } from "@/lib/db/schema";
+import {
+  archiveProductById,
+  findProductIdBySlug,
+  getProductById,
+  insertProduct,
+  listProducts as listProductsQuery,
+  updateProductById,
+  type Product,
+} from "@/lib/data";
 import { requireStudioUser, UnauthorizedError } from "@/lib/supabase/auth";
 
-import { productInputSchema, emptyToNull, type ProductInput } from "./schema";
+import { emptyToNull, productInputSchema, type ProductInput } from "./schema";
 
 export type ActionResult<T = void> =
   { ok: true; data: T } | { ok: false; error: string };
@@ -16,8 +22,20 @@ function mapError(error: unknown): string {
   if (error instanceof UnauthorizedError) {
     return "Oturum gerekli. Tekrar giris yapin.";
   }
-  if (error instanceof Error && error.message.includes("DATABASE_URL")) {
-    return "Veritabani baglantisi yok. DATABASE_URL ayarlayin.";
+  if (
+    error instanceof Error &&
+    (error.message.includes("SUPABASE_SERVICE_ROLE_KEY") ||
+      error.message.includes("NEXT_PUBLIC_SUPABASE_URL"))
+  ) {
+    return "Supabase yapilandirmasi eksik. URL ve SERVICE_ROLE_KEY ayarlayin.";
+  }
+  if (
+    error &&
+    typeof error === "object" &&
+    "code" in error &&
+    (error as { code?: string }).code === "23505"
+  ) {
+    return "Bu slug zaten kullaniliyor.";
   }
   if (error instanceof Error && /unique|duplicate/i.test(error.message)) {
     return "Bu slug zaten kullaniliyor.";
@@ -36,10 +54,7 @@ function revalidateProducts(id?: string) {
 export async function listProducts(): Promise<ActionResult<Product[]>> {
   try {
     await requireStudioUser();
-    const rows = await db
-      .select()
-      .from(products)
-      .orderBy(asc(products.sortOrder), desc(products.updatedAt));
+    const rows = await listProductsQuery();
     return { ok: true, data: rows };
   } catch (error) {
     return { ok: false, error: mapError(error) };
@@ -51,12 +66,8 @@ export async function getProduct(
 ): Promise<ActionResult<Product | null>> {
   try {
     await requireStudioUser();
-    const [row] = await db
-      .select()
-      .from(products)
-      .where(eq(products.id, id))
-      .limit(1);
-    return { ok: true, data: row ?? null };
+    const row = await getProductById(id);
+    return { ok: true, data: row };
   } catch (error) {
     return { ok: false, error: mapError(error) };
   }
@@ -69,36 +80,30 @@ export async function createProduct(
     await requireStudioUser();
     const parsed = productInputSchema.parse(input);
 
-    const [dup] = await db
-      .select({ id: products.id })
-      .from(products)
-      .where(eq(products.slug, parsed.slug))
-      .limit(1);
-    if (dup) {
+    const dupId = await findProductIdBySlug(parsed.slug);
+    if (dupId) {
       return { ok: false, error: "Bu slug zaten kullaniliyor." };
     }
 
-    const publishedAt = parsed.status === "published" ? new Date() : null;
+    const publishedAt =
+      parsed.status === "published" ? new Date().toISOString() : null;
 
-    const [created] = await db
-      .insert(products)
-      .values({
-        slug: parsed.slug,
-        status: parsed.status,
-        nameTr: parsed.nameTr,
-        summaryTr: parsed.summaryTr,
-        bodyTr: parsed.bodyTr,
-        imageUrl: emptyToNull(parsed.imageUrl),
-        seoTitleTr: emptyToNull(parsed.seoTitleTr),
-        seoDescriptionTr: emptyToNull(parsed.seoDescriptionTr),
-        ogImageUrl: emptyToNull(parsed.ogImageUrl),
-        sortOrder: parsed.sortOrder,
-        publishedAt,
-      })
-      .returning({ id: products.id });
+    const created = await insertProduct({
+      slug: parsed.slug,
+      status: parsed.status,
+      nameTr: parsed.nameTr,
+      summaryTr: parsed.summaryTr,
+      bodyTr: parsed.bodyTr,
+      imageUrl: emptyToNull(parsed.imageUrl),
+      seoTitleTr: emptyToNull(parsed.seoTitleTr),
+      seoDescriptionTr: emptyToNull(parsed.seoDescriptionTr),
+      ogImageUrl: emptyToNull(parsed.ogImageUrl),
+      sortOrder: parsed.sortOrder,
+      publishedAt,
+    });
 
-    revalidateProducts(created!.id);
-    return { ok: true, data: { id: created!.id } };
+    revalidateProducts(created.id);
+    return { ok: true, data: { id: created.id } };
   } catch (error) {
     return { ok: false, error: mapError(error) };
   }
@@ -112,49 +117,38 @@ export async function updateProduct(
     await requireStudioUser();
     const parsed = productInputSchema.parse(input);
 
-    const [existing] = await db
-      .select()
-      .from(products)
-      .where(eq(products.id, id))
-      .limit(1);
+    const existing = await getProductById(id);
     if (!existing) {
       return { ok: false, error: "Urun bulunamadi." };
     }
 
-    const [dup] = await db
-      .select({ id: products.id })
-      .from(products)
-      .where(and(eq(products.slug, parsed.slug), ne(products.id, id)))
-      .limit(1);
-    if (dup) {
+    const dupId = await findProductIdBySlug(parsed.slug, id);
+    if (dupId) {
       return { ok: false, error: "Bu slug zaten kullaniliyor." };
     }
 
     let publishedAt = existing.publishedAt;
     if (parsed.status === "published" && !publishedAt) {
-      publishedAt = new Date();
+      publishedAt = new Date().toISOString();
     }
     if (parsed.status === "archived") {
       publishedAt = null;
     }
 
-    await db
-      .update(products)
-      .set({
-        slug: parsed.slug,
-        status: parsed.status,
-        nameTr: parsed.nameTr,
-        summaryTr: parsed.summaryTr,
-        bodyTr: parsed.bodyTr,
-        imageUrl: emptyToNull(parsed.imageUrl),
-        seoTitleTr: emptyToNull(parsed.seoTitleTr),
-        seoDescriptionTr: emptyToNull(parsed.seoDescriptionTr),
-        ogImageUrl: emptyToNull(parsed.ogImageUrl),
-        sortOrder: parsed.sortOrder,
-        publishedAt,
-        updatedAt: new Date(),
-      })
-      .where(eq(products.id, id));
+    await updateProductById(id, {
+      slug: parsed.slug,
+      status: parsed.status,
+      nameTr: parsed.nameTr,
+      summaryTr: parsed.summaryTr,
+      bodyTr: parsed.bodyTr,
+      imageUrl: emptyToNull(parsed.imageUrl),
+      seoTitleTr: emptyToNull(parsed.seoTitleTr),
+      seoDescriptionTr: emptyToNull(parsed.seoDescriptionTr),
+      ogImageUrl: emptyToNull(parsed.ogImageUrl),
+      sortOrder: parsed.sortOrder,
+      publishedAt,
+      updatedAt: new Date().toISOString(),
+    });
 
     revalidateProducts(id);
     return { ok: true, data: { id } };
@@ -168,14 +162,7 @@ export async function archiveProduct(
 ): Promise<ActionResult<{ id: string }>> {
   try {
     await requireStudioUser();
-    await db
-      .update(products)
-      .set({
-        status: "archived",
-        publishedAt: null,
-        updatedAt: new Date(),
-      })
-      .where(eq(products.id, id));
+    await archiveProductById(id);
     revalidateProducts(id);
     return { ok: true, data: { id } };
   } catch (error) {

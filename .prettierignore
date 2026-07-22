@@ -4,6 +4,5 @@ out
 build
 dist
 coverage
-drizzle/meta
 pnpm-lock.yaml
 *.md

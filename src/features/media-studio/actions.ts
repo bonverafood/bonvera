@@ -1,18 +1,20 @@
 "use server";
 
-import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-import { db } from "@/lib/db";
 import {
+  deleteMediaAssetById,
+  getMediaAssetById,
+  insertMediaAsset,
+  listMediaAssets,
   MEDIA_ALLOWED_MIME,
   MEDIA_BUCKET,
   MEDIA_MAX_BYTES,
-  mediaAssets,
+  updateMediaAssetAlt,
   type MediaAsset,
-} from "@/lib/db/schema";
-import { requireStudioUser, UnauthorizedError } from "@/lib/supabase/auth";
+} from "@/lib/data";
 import { createServiceRoleClient } from "@/lib/supabase/admin";
+import { requireStudioUser, UnauthorizedError } from "@/lib/supabase/auth";
 
 export type ActionResult<T = void> =
   { ok: true; data: T } | { ok: false; error: string };
@@ -27,9 +29,6 @@ function mapError(error: unknown): string {
       error.message.includes("NEXT_PUBLIC_SUPABASE_URL"))
   ) {
     return "Depolama yapilandirmasi eksik. SUPABASE_SERVICE_ROLE_KEY ayarlayin.";
-  }
-  if (error instanceof Error && error.message.includes("DATABASE_URL")) {
-    return "Veritabani baglantisi yok. DATABASE_URL ayarlayin.";
   }
   console.error("[media-studio]", error);
   return "Islem basarisiz. Tekrar deneyin.";
@@ -53,10 +52,7 @@ function sanitizeFileName(name: string) {
 export async function listMedia(): Promise<ActionResult<MediaAsset[]>> {
   try {
     await requireStudioUser();
-    const rows = await db
-      .select()
-      .from(mediaAssets)
-      .orderBy(desc(mediaAssets.createdAt));
+    const rows = await listMediaAssets();
     return { ok: true, data: rows };
   } catch (error) {
     return { ok: false, error: mapError(error) };
@@ -117,21 +113,17 @@ export async function uploadMedia(
       data: { publicUrl },
     } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(storagePath);
 
-    const [created] = await db
-      .insert(mediaAssets)
-      .values({
-        storagePath,
-        publicUrl,
-        fileName: file.name.slice(0, 200),
-        mimeType: file.type,
-        byteSize: file.size,
-        kind: "image",
-        createdBy: user.id,
-      })
-      .returning();
+    const created = await insertMediaAsset({
+      storagePath,
+      publicUrl,
+      fileName: file.name.slice(0, 200),
+      mimeType: file.type,
+      byteSize: file.size,
+      createdBy: user.id,
+    });
 
     revalidateMedia();
-    return { ok: true, data: created! };
+    return { ok: true, data: created };
   } catch (error) {
     return { ok: false, error: mapError(error) };
   }
@@ -142,11 +134,7 @@ export async function deleteMedia(
 ): Promise<ActionResult<{ id: string }>> {
   try {
     await requireStudioUser();
-    const [existing] = await db
-      .select()
-      .from(mediaAssets)
-      .where(eq(mediaAssets.id, id))
-      .limit(1);
+    const existing = await getMediaAssetById(id);
 
     if (!existing) {
       return { ok: false, error: "Medya bulunamadi." };
@@ -159,10 +147,9 @@ export async function deleteMedia(
 
     if (removeError) {
       console.error("[media-studio] remove", removeError);
-      // Continue DB delete if file already gone
     }
 
-    await db.delete(mediaAssets).where(eq(mediaAssets.id, id));
+    await deleteMediaAssetById(id);
     revalidateMedia();
     return { ok: true, data: { id } };
   } catch (error) {
@@ -177,11 +164,10 @@ export async function updateMediaAlt(
   try {
     await requireStudioUser();
     const trimmed = altTr.trim().slice(0, 200);
-    const [updated] = await db
-      .update(mediaAssets)
-      .set({ altTr: trimmed.length > 0 ? trimmed : null })
-      .where(eq(mediaAssets.id, id))
-      .returning();
+    const updated = await updateMediaAssetAlt(
+      id,
+      trimmed.length > 0 ? trimmed : null,
+    );
 
     if (!updated) {
       return { ok: false, error: "Medya bulunamadi." };

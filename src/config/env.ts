@@ -25,7 +25,6 @@ const serverSchema = z.object({
   NODE_ENV: z
     .enum(["development", "test", "production"])
     .default("development"),
-  DATABASE_URL: z.string().min(1).optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
   OPENAI_API_KEY: z.string().min(1).optional(),
 });
@@ -77,7 +76,6 @@ function parseEnv() {
 
   const server = serverSchema.safeParse({
     NODE_ENV: nodeEnv,
-    DATABASE_URL: parseOptionalSecret(process.env.DATABASE_URL),
     SUPABASE_SERVICE_ROLE_KEY: parseOptionalSecret(
       process.env.SUPABASE_SERVICE_ROLE_KEY,
     ),

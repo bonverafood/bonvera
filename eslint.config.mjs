@@ -18,7 +18,6 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "legacy/**",
-      "drizzle/**",
       "src/features/studio-setup/**",
       "next-env.d.ts",
     ],

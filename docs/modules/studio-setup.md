@@ -92,7 +92,7 @@ Brand languages (`languages.defaultLocale` + `additionalLocales[]`) are **indepe
 - `skipHydration: true` + `useSetupHydration` client rehydrate avoids SSR mismatches
 - `partialize` excludes `saveStatus`
 
-Replace with TanStack Query + Server Actions / Drizzle when persistence lands. Keep the same `BrandDraft` shape as the migration target.
+Replace with TanStack Query + Server Actions / Supabase when persistence lands. Keep the same `BrandDraft` shape as the migration target.
 
 ## Validation
 
@@ -143,7 +143,7 @@ Studio home exposes **Replay setup** only when `NODE_ENV === "development"`. It 
 | Ready | Not ready (by design / next phase) |
 |-------|-------------------------------------|
 | 8-step UX, i18n (fr/tr), Zod validation, a11y basics | Auth / ownership |
-| localStorage autosave with flush-on-advance | Server persistence (Drizzle) |
+| localStorage autosave with flush-on-advance | Server persistence (Supabase) |
 | Logo type/size guards for quota safety | Object storage uploads |
 | Finish validates full draft before complete | Multi-device sync |
 

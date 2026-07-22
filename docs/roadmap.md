@@ -26,7 +26,7 @@ Yalnızca **Bonvera** için geliştirilir.
 | Katman | Stack |
 |--------|--------|
 | Frontend | Next.js (App Router), React, TypeScript, Tailwind, shadcn/ui |
-| Backend | Next.js Server Actions, Supabase, Drizzle ORM |
+| Backend | Next.js Server Actions, Supabase |
 | Deploy | Vercel |
 | AI | OpenAI |
 

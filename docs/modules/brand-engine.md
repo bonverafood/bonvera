@@ -289,7 +289,7 @@ Align with Bonvera Studio restraint (Setup language): calm surface, clear hierar
 - Multi-brand ready: every row keyed by `brand_id`.
 - Content columns hold **source language (TR)** only in v1.
 - Translations live in a future `brand_translations` / Translation Engine schema — **not** duplicated columns like `name_fr`.
-- Assets in Supabase Storage; metadata in Postgres via Drizzle.
+- Assets in Supabase Storage; metadata in Postgres via Supabase JS.
 
 ### 3.2 ER overview
 
@@ -457,7 +457,7 @@ Optional later module for tax and regulatory data (e.g. vergi no, vergi dairesi,
 
 | State | Tool | Brand Engine use |
 |-------|------|------------------|
-| Server data | **Drizzle** + Server Components / Server Actions | Load & mutate brand sections |
+| Server data | **Supabase JS** + Server Components / Server Actions | Load & mutate brand sections |
 | Client server-cache | **TanStack Query** | Section forms that need refetch, optimistic UI, asset lists |
 | Form draft | **React Hook Form** + Zod | Per-section edit forms |
 | Ephemeral UI | **Zustand** (minimal) | Sidebar, dirty flags if needed |
@@ -470,7 +470,7 @@ Optional later module for tax and regulatory data (e.g. vergi no, vergi dairesi,
 ```
 RSC page (/studio/marka/iletisim)
   → requireAuth() + resolveActiveBrandId()
-  → drizzle: select brand_contacts
+  → Supabase: select brand_contacts
   → pass initialData to client SectionForm
 
 SectionForm (client)
@@ -479,7 +479,7 @@ SectionForm (client)
   → Kaydet → server action updateBrandContact(brandId, values)
        → zod parse
        → authorize brand ownership
-       → drizzle update
+       → Supabase update
        → revalidatePath / invalidate query
   → toast “Kaydedildi”
 ```
@@ -509,7 +509,7 @@ getBrandContact(brandId)
 
 ### 4.4 Auth & tenancy (dependency)
 
-Brand Engine **requires** authenticated owner (or org member) for mutations. Plan assumes Auth lands with or immediately before Brand Engine persistence. If Auth is deferred, Brand Engine UI may be built against Drizzle with a temporary single-tenant seed — call that out in implementation PR; do not silently keep localStorage as SoT.
+Brand Engine **requires** authenticated owner (or org member) for mutations. Plan assumes Auth lands with or immediately before Brand Engine persistence. If Auth is deferred, Brand Engine UI may be built against Supabase with a temporary single-tenant seed — call that out in implementation PR; do not silently keep localStorage as SoT.
 
 ### 4.5 Caching
 
@@ -568,10 +568,8 @@ src/features/brand-engine/
     storage-paths.ts
     map-setup-draft.ts     # Migration helper from Setup → Engine
 
-src/lib/db/schema/
-  brands.ts
-  brand-profiles.ts
-  …                        # or single brands.ts barrel
+src/lib/data/                 # Supabase JS data layer (types + queries)
+  brands.ts                   # when Brand Engine lands
 
 src/app/[locale]/(studio)/studio/marka/
   layout.tsx               # Section subnav shell
@@ -606,7 +604,7 @@ Introduce a clear split:
 5. **Assets CDN** — Storage → CDN; image transforms without changing FK model.
 6. **Hours v2** — per-day intervals, holidays, timezone if Bonvera needs them.
 7. **Audit log** — when multiple operators edit the same brand.
-8. **RLS** — Supabase RLS alongside Drizzle auth checks.
+8. **RLS** — Supabase RLS alongside server-side auth checks.
 9. **Setup retirement** — Setup writes Brand Engine once; editing only in Marka.
 10. **Public FR** — TR source → Translation Engine → FR publish. Admin stays TR.
 11. **Business Compliance** — tax / regulatory data as a separate optional module if Bonvera needs it.
@@ -619,7 +617,7 @@ Introduce a clear split:
 ### In scope (Brand Engine v1)
 
 - Hub + 8 section screens (Turkish admin UI)
-- Drizzle schema as above
+- SQL schema in Supabase (`docs/sql/schema.sql`) as above
 - Server Actions + Zod validation (Turkish errors)
 - Asset upload for logo/favicon/images/documents
 - Completeness indicator
@@ -641,7 +639,7 @@ Introduce a clear split:
 
 ```
 1. Auth (session + brand ownership)     ─┐
-2. Drizzle brand schema + Storage         ├─▶ Brand Engine UI
+2. Brand SQL schema + Storage             ├─▶ Brand Engine UI
 3. Pin Studio admin UI to Turkish        ─┘
 4. Migrate/bridge Studio Setup → Brand Engine
 5. Translation Engine (later)

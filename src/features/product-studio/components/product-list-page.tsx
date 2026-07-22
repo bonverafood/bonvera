@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/navigation";
-import type { Product } from "@/lib/db/schema";
+import type { Product } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 import { listProducts } from "../actions";
