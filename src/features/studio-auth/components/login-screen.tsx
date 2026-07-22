@@ -17,9 +17,9 @@ export async function LoginScreen({ nextPath }: LoginScreenProps) {
           <Image
             src="/brand/mark.png"
             alt=""
-            width={56}
-            height={56}
-            className="mx-auto size-14 object-contain"
+            width={168}
+            height={168}
+            className="mx-auto size-[10.5rem] object-contain object-top"
             priority
           />
           <p className="text-primary text-xs font-semibold tracking-[0.18em] uppercase">

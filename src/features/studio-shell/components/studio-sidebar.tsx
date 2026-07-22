@@ -26,13 +26,13 @@ export function StudioSidebar({ className }: StudioSidebarProps) {
         className,
       )}
     >
-      <div className="flex h-14 items-center gap-2.5 px-5">
+      <div className="flex h-28 items-center gap-3 px-5">
         <Image
           src="/brand/mark.png"
           alt=""
-          width={32}
-          height={32}
-          className="size-8 shrink-0 object-contain"
+          width={96}
+          height={96}
+          className="size-24 shrink-0 object-contain object-top"
           aria-hidden
         />
         <div className="min-w-0">
