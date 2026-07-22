@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { connection } from "next/server";
 import type { ReactNode } from "react";
 
 import { StudioShell } from "@/features/studio-shell";
+import { ensureStudioDynamic } from "@/lib/studio/dynamic";
 
 type StudioAppLayoutProps = {
   children: ReactNode;
@@ -27,6 +27,6 @@ export const metadata: Metadata = {
 export default async function StudioAppLayout({
   children,
 }: StudioAppLayoutProps) {
-  await connection();
+  await ensureStudioDynamic();
   return <StudioShell>{children}</StudioShell>;
 }

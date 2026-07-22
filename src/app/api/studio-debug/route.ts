@@ -1,6 +1,8 @@
 import { cookies } from "next/headers";
+import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server";
 
+import { listMediaAssets } from "@/lib/data";
 import { getStudioUser } from "@/lib/supabase/auth";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +19,9 @@ export async function GET() {
     hasSbAuthCookie: false,
     getStudioUser: "pending",
     userIdPresent: false,
+    listMediaAssets: "pending",
+    mediaCount: null,
+    getTranslationsMediaStudio: "pending",
   };
 
   try {
@@ -41,6 +46,30 @@ export async function GET() {
   } catch (error) {
     result.ok = false;
     result.getStudioUser =
+      error instanceof Error ? error.message : String(error);
+  }
+
+  try {
+    const rows = await listMediaAssets();
+    result.listMediaAssets = "ok";
+    result.mediaCount = rows.length;
+  } catch (error) {
+    result.ok = false;
+    result.listMediaAssets =
+      error instanceof Error ? error.message : String(error);
+  }
+
+  try {
+    // Explicit locale — route handlers have no next-intl request scope.
+    const t = await getTranslations({
+      locale: "tr",
+      namespace: "MediaStudio",
+    });
+    void t("title");
+    result.getTranslationsMediaStudio = "ok";
+  } catch (error) {
+    result.ok = false;
+    result.getTranslationsMediaStudio =
       error instanceof Error ? error.message : String(error);
   }
 

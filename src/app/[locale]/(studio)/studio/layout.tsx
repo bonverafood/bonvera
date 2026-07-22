@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { connection } from "next/server";
 import type { ReactNode } from "react";
+
+import { ensureStudioDynamic } from "@/lib/studio/dynamic";
 
 type StudioLayoutProps = {
   children: ReactNode;
@@ -29,8 +30,6 @@ export const metadata: Metadata = {
 };
 
 export default async function StudioLayout({ children }: StudioLayoutProps) {
-  // Hard opt-into request-time rendering (segment config can be masked in
-  // build output when a parent uses generateStaticParams).
-  await connection();
+  await ensureStudioDynamic();
   return <div data-surface="studio">{children}</div>;
 }

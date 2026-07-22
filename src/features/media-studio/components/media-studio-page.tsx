@@ -12,23 +12,34 @@ import { MediaLibrary } from "./media-library";
  */
 export async function MediaStudioPage() {
   noStore();
-  const t = await getTranslations("MediaStudio");
 
   try {
+    const t = await getTranslations("MediaStudio");
     const items = await listMediaAssets();
     const safeItems = JSON.parse(JSON.stringify(items)) as typeof items;
     return <MediaLibrary initialItems={safeItems} />;
   } catch (error) {
     console.error("[media-studio] page", error);
+    let title = "Medya";
+    let description = "Gorsel kutuphanesi";
+    try {
+      const t = await getTranslations("MediaStudio");
+      title = t("title");
+      description = t("description");
+    } catch {
+      // keep fallbacks
+    }
+
     const message =
       error instanceof Error
         ? `${error.message}${error.stack ? `\n\n${error.stack}` : ""}`
         : "Medya listesi yuklenemedi.";
+
     return (
       <div className="space-y-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
-          <p className="text-muted-foreground text-sm">{t("description")}</p>
+          <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+          <p className="text-muted-foreground text-sm">{description}</p>
         </div>
         <pre
           className="bg-muted text-destructive overflow-x-auto rounded-lg p-3 text-xs whitespace-pre-wrap"
