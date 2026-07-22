@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { setRequestLocale } from "next-intl/server";
 
 import { StudioShell } from "@/features/studio-shell";
 
 type StudioAppLayoutProps = {
   children: ReactNode;
-  params: Promise<{ locale: string }>;
 };
 
 export const metadata: Metadata = {
@@ -16,11 +14,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function StudioAppLayout({
-  children,
-  params,
-}: StudioAppLayoutProps) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+/**
+ * Locale is already set in `[locale]/layout` via setRequestLocale.
+ * Do not call setRequestLocale again here — nested layout `params`
+ * can omit parent dynamic segments and crash the whole Studio shell.
+ */
+export default function StudioAppLayout({ children }: StudioAppLayoutProps) {
   return <StudioShell>{children}</StudioShell>;
 }

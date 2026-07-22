@@ -1,4 +1,4 @@
-﻿import { connection } from "next/server";
+﻿import { unstable_noStore as noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -18,7 +18,7 @@ function formatDate(value: Date | string | null) {
 }
 
 export async function ProductListPage() {
-  await connection();
+  noStore();
   const t = await getTranslations("ProductStudio");
 
   let items: Product[] = [];

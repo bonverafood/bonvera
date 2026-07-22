@@ -1,4 +1,4 @@
-import { connection } from "next/server";
+import { unstable_noStore as noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 
 import {
@@ -12,7 +12,7 @@ import type { ProductSeoAuditItem } from "../actions";
 import { SeoStudioHub } from "./seo-studio-page";
 
 export async function SeoStudioPage() {
-  await connection();
+  noStore();
   const t = await getTranslations("SeoStudio");
 
   try {
@@ -54,7 +54,11 @@ export async function SeoStudioPage() {
       );
 
     return (
-      <SeoStudioHub defaults={defaults} pages={pages} audit={audit} />
+      <SeoStudioHub
+        defaults={JSON.parse(JSON.stringify(defaults))}
+        pages={JSON.parse(JSON.stringify(pages))}
+        audit={JSON.parse(JSON.stringify(audit))}
+      />
     );
   } catch (error) {
     console.error("[seo-studio] page", error);
@@ -64,9 +68,14 @@ export async function SeoStudioPage() {
           <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
           <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
-        <p className="text-destructive text-sm" role="alert">
-          {error instanceof Error ? error.message : "SEO yuklenemedi."}
-        </p>
+        <pre
+          className="bg-muted text-destructive overflow-x-auto rounded-lg p-3 text-xs whitespace-pre-wrap"
+          role="alert"
+        >
+          {error instanceof Error
+            ? `${error.message}${error.stack ? `\n\n${error.stack}` : ""}`
+            : "SEO yuklenemedi."}
+        </pre>
       </div>
     );
   }

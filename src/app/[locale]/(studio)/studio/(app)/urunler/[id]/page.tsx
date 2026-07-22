@@ -1,5 +1,5 @@
-import { connection } from "next/server";
 import { notFound } from "next/navigation";
+import { unstable_noStore as noStore } from "next/cache";
 import { setRequestLocale } from "next-intl/server";
 
 import { ProductEditor } from "@/features/product-studio";
@@ -15,7 +15,7 @@ export default async function EditProductPage({
 }: EditProductPageProps) {
   const { locale, id } = await params;
   setRequestLocale(locale);
-  await connection();
+  noStore();
 
   const user = await getStudioUser();
   if (!user) {
@@ -27,5 +27,10 @@ export default async function EditProductPage({
     notFound();
   }
 
-  return <ProductEditor mode="edit" product={product} />;
+  return (
+    <ProductEditor
+      mode="edit"
+      product={JSON.parse(JSON.stringify(product))}
+    />
+  );
 }
