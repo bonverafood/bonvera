@@ -43,7 +43,7 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
       <div className="mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4 sm:h-28 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex translate-y-4 items-center gap-3 sm:translate-y-5 sm:gap-4"
+          className="flex items-center gap-3 sm:gap-4"
           aria-label={t("brand")}
         >
           <Image
@@ -52,7 +52,7 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
             width={120}
             height={120}
             className={cn(
-              "size-[6.75rem] object-contain sm:size-[7.5rem]",
+              "size-[6.75rem] translate-y-6 object-contain sm:size-[7.5rem] sm:translate-y-7",
               overHero && "brightness-0 invert",
             )}
             priority
