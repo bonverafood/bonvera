@@ -44,7 +44,7 @@ Marketing placeholder + locale (`/`, `/fr`). Studio path’leri marketing’te a
 | Path | Modül | Durum |
 |------|--------|--------|
 | `/studio` | Dashboard | UI shell ✅ |
-| `/studio/urunler` | Ürünler | Empty UI ✅ |
+| `/studio/urunler` | Ürünler | Product Studio ✅ |
 | `/studio/koleksiyonlar` | Koleksiyonlar | Empty UI ✅ |
 | `/studio/tarifler` | Tarifler | Empty UI ✅ |
 | `/studio/blog` | Blog | Empty UI ✅ |
@@ -65,7 +65,7 @@ Marketing placeholder + locale (`/`, `/fr`). Studio path’leri marketing’te a
 | 1–3 | Foundation · Design System · Setup | ✅ |
 | **4** | **Studio Shell** | ✅ |
 | **5** | **Public Website Shell** | ✅ |
-| 6 | Product Studio | ⬜ |
+| **6** | **Product Studio** | ✅ |
 | 7 | Media Studio | ⬜ |
 | 8 | SEO Studio | ⬜ |
 | 9 | Translation Engine | ⬜ |

@@ -42,6 +42,8 @@ Fill `.env.local` from `.env.example`. Env is validated in `src/config/env.ts`.
 | `pnpm format` | Prettier |
 | `pnpm typecheck` | TypeScript |
 | `pnpm db:generate` | Drizzle migrations |
+| `pnpm db:migrate` | Apply migrations |
+| `pnpm db:seed` | Seed product placeholders |
 | `pnpm db:studio` | Drizzle Studio |
 
 ## Architecture & roadmap

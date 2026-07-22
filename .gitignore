@@ -47,5 +47,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# drizzle
-/drizzle/meta
+# drizzle — keep SQL migrations + meta journal tracked for migrate
+# /drizzle/meta

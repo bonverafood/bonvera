@@ -141,6 +141,66 @@
     "welcomeBrand": "Bienvenue, {brand}",
     "replaySetup": "Rejouer la configuration"
   },
+  "StudioAuth": {
+    "brand": "Bonvera Studio",
+    "title": "Connexion",
+    "subtitle": "Connectez-vous pour acceder au panneau Bonvera.",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "submitting": "Connexion…",
+    "errors": {
+      "invalid": "E-mail ou mot de passe incorrect.",
+      "generic": "Echec de la connexion. Reessayez."
+    }
+  },
+  "ProductStudio": {
+    "listTitle": "Produits",
+    "listDescription": "Contenu produits Bonvera, SEO et statut de publication.",
+    "newProduct": "Nouveau produit",
+    "emptyTitle": "Aucun produit",
+    "emptyDescription": "Creez le premier produit. Langue source : turc.",
+    "createTitle": "Nouveau produit",
+    "editTitle": "Modifier le produit",
+    "editorHint": "Formulaire a gauche, apercu a droite. Source : turc.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Enregistre",
+    "archive": "Archiver",
+    "confirmArchive": "Archiver ce produit ?",
+    "preview": "Apercu en direct",
+    "slugFromName": "Generer le slug",
+    "imageHint": "URL d'image en attendant Media Studio (ex. /brand/...).",
+    "sections": {
+      "content": "Contenu",
+      "media": "Image",
+      "seo": "SEO",
+      "publish": "Publication"
+    },
+    "fields": {
+      "name": "Nom (TR)",
+      "slug": "Slug",
+      "summary": "Resume (TR)",
+      "body": "Description (TR)",
+      "imageUrl": "URL image",
+      "seoTitle": "Meta titre (TR)",
+      "seoDescription": "Meta description (TR)",
+      "ogImage": "URL Open Graph",
+      "status": "Statut",
+      "sortOrder": "Ordre"
+    },
+    "columns": {
+      "name": "Nom",
+      "slug": "Slug",
+      "status": "Statut",
+      "updated": "Maj"
+    },
+    "status": {
+      "draft": "Brouillon",
+      "published": "Publie",
+      "archived": "Archive"
+    }
+  },
   "StudioSetup": {
     "brandMark": "Bonvera Studio",
     "loading": "Chargement…",
@@ -327,14 +387,15 @@
       }
     },
     "user": {
-      "name": "Ayse Yilmaz",
-      "role": "Bonvera operasyon",
-      "close": "Kullanici menusunu kapat",
+      "name": "Bonvera",
+      "role": "Operations Bonvera",
+      "close": "Fermer le menu utilisateur",
       "menu": {
         "profile": "Profil",
-        "preferences": "Tercihler",
-        "help": "Yardim",
-        "signOut": "Cikis (yakinda)"
+        "preferences": "Preferences",
+        "help": "Aide",
+        "signOut": "Se deconnecter",
+        "signingOut": "Deconnexion…"
       }
     },
     "dashboard": {

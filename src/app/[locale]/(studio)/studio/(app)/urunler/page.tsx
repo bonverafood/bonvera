@@ -1,11 +1,15 @@
 import { setRequestLocale } from "next-intl/server";
 
-import { StudioModulePage } from "@/features/studio-shell";
+import { ProductListPage } from "@/features/product-studio";
 
-type PageProps = { params: Promise<{ locale: string }> };
+type ProductsPageProps = {
+  params: Promise<{ locale: string }>;
+};
 
-export default async function ProductsPage({ params }: PageProps) {
+export default async function StudioProductsPage({
+  params,
+}: ProductsPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <StudioModulePage navId="products" />;
+  return <ProductListPage />;
 }

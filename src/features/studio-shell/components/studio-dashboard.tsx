@@ -55,7 +55,7 @@ export function StudioDashboard() {
         description={t("dashboard.description")}
         actions={
           <Link
-            href="/studio/urunler"
+            href="/studio/urunler/yeni"
             className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition-colors"
           >
             {t("dashboard.ctaProduct")}

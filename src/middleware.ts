@@ -7,8 +7,11 @@ import {
   buildAdminUrl,
   detectAppSurface,
   isStudioPath,
+  joinLocalePrefix,
   mapAdminPathToInternal,
+  splitLocalePrefix,
 } from "@/lib/hosts";
+import { updateSession } from "@/lib/supabase/middleware";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -29,7 +32,12 @@ function withSurfaceHeaders(
   return response;
 }
 
-export default function middleware(request: NextRequest) {
+function isStudioLoginPath(pathname: string) {
+  const { pathnameWithoutLocale } = splitLocalePrefix(pathname);
+  return pathnameWithoutLocale === "/studio/login";
+}
+
+export default async function middleware(request: NextRequest) {
   const host = request.headers.get("host") ?? "";
   const surface = detectAppSurface(host);
   const { pathname } = request.nextUrl;
@@ -56,7 +64,6 @@ export default function middleware(request: NextRequest) {
   }
 
   // Admin host: normalize short paths onto `/studio…`, then let next-intl run.
-  // Example: admin.bonvera.food/ → /studio (same host), then locale middleware.
   if (surface === "studio") {
     const internalPath = mapAdminPathToInternal(pathname);
     if (internalPath !== pathname) {
@@ -66,12 +73,38 @@ export default function middleware(request: NextRequest) {
     }
   }
 
-  const response = intlMiddleware(request);
-  return withSurfaceHeaders(response, surface);
+  const intlResponse = withSurfaceHeaders(intlMiddleware(request), surface);
+  const { response, user } = await updateSession(request, intlResponse);
+
+  // Studio auth gate (marketing unaffected).
+  if (surface === "studio" && isStudioPath(pathname)) {
+    const { locale } = splitLocalePrefix(pathname);
+    const onLogin = isStudioLoginPath(pathname);
+
+    if (!user && !onLogin) {
+      const url = request.nextUrl.clone();
+      url.pathname = joinLocalePrefix(locale, "/studio/login");
+      url.search = "";
+      const next = pathname + (request.nextUrl.search || "");
+      url.searchParams.set("next", next);
+      return withSurfaceHeaders(NextResponse.redirect(url), "studio");
+    }
+
+    if (user && onLogin) {
+      const url = request.nextUrl.clone();
+      const next = request.nextUrl.searchParams.get("next");
+      url.pathname =
+        next && next.startsWith("/") && !next.startsWith("//")
+          ? next.split("?")[0]!
+          : joinLocalePrefix(locale, "/studio");
+      url.search = "";
+      return withSurfaceHeaders(NextResponse.redirect(url), "studio");
+    }
+  }
+
+  return response;
 }
 
 export const config = {
-  // Skip API, Next internals, Vercel internals, and static files with extensions.
-  // Explicitly include robots.txt for the admin disallow response.
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)", "/robots.txt"],
 };

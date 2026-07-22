@@ -141,6 +141,66 @@
     "welcomeBrand": "Hos geldiniz, {brand}",
     "replaySetup": "Kurulumu yeniden baslat"
   },
+  "StudioAuth": {
+    "brand": "Bonvera Studio",
+    "title": "Giris yap",
+    "subtitle": "Bonvera yonetim paneline erismek icin giris yapin.",
+    "email": "E-posta",
+    "password": "Sifre",
+    "submit": "Giris yap",
+    "submitting": "Giris yapiliyor…",
+    "errors": {
+      "invalid": "E-posta veya sifre hatali.",
+      "generic": "Giris basarisiz. Tekrar deneyin."
+    }
+  },
+  "ProductStudio": {
+    "listTitle": "Urunler",
+    "listDescription": "Bonvera urun icerikleri, SEO ve yayin durumu.",
+    "newProduct": "Yeni urun",
+    "emptyTitle": "Henuz urun yok",
+    "emptyDescription": "Ilk urunu olusturun. Kaynak dil Turkce.",
+    "createTitle": "Yeni urun",
+    "editTitle": "Urunu duzenle",
+    "editorHint": "Sol form, sagda canli onizleme. Kaynak dil: Turkce.",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor…",
+    "saved": "Kaydedildi",
+    "archive": "Arsivle",
+    "confirmArchive": "Bu urunu arsivlemek istiyor musunuz?",
+    "preview": "Canli onizleme",
+    "slugFromName": "Slug olustur",
+    "imageHint": "Media Studio gelene kadar gorsel URL kullanin (orn. /brand/...).",
+    "sections": {
+      "content": "Icerik",
+      "media": "Gorsel",
+      "seo": "SEO",
+      "publish": "Yayin"
+    },
+    "fields": {
+      "name": "Urun adi (TR)",
+      "slug": "Slug",
+      "summary": "Kisa ozet (TR)",
+      "body": "Uzun aciklama (TR)",
+      "imageUrl": "Gorsel URL",
+      "seoTitle": "Meta baslik (TR)",
+      "seoDescription": "Meta aciklama (TR)",
+      "ogImage": "Open Graph gorsel URL",
+      "status": "Durum",
+      "sortOrder": "Sira"
+    },
+    "columns": {
+      "name": "Ad",
+      "slug": "Slug",
+      "status": "Durum",
+      "updated": "Guncelleme"
+    },
+    "status": {
+      "draft": "Taslak",
+      "published": "Yayinda",
+      "archived": "Arsiv"
+    }
+  },
   "StudioSetup": {
     "brandMark": "Bonvera Studio",
     "loading": "Yukleniyor…",
@@ -325,14 +385,15 @@
       }
     },
     "user": {
-      "name": "Ayse Yilmaz",
+      "name": "Bonvera",
       "role": "Bonvera operasyon",
       "close": "Kullanici menusunu kapat",
       "menu": {
         "profile": "Profil",
         "preferences": "Tercihler",
         "help": "Yardim",
-        "signOut": "Cikis (yakinda)"
+        "signOut": "Cikis yap",
+        "signingOut": "Cikiliyor…"
       }
     },
     "dashboard": {

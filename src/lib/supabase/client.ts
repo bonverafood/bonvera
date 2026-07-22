@@ -1,10 +1,9 @@
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 
 import { publicEnv } from "@/config/env";
 
 /**
- * Browser Supabase client.
- * Requires NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.
+ * Browser Supabase client (cookie-based session for SSR middleware).
  */
 export function createBrowserSupabaseClient() {
   const url = publicEnv.NEXT_PUBLIC_SUPABASE_URL;
@@ -16,5 +15,5 @@ export function createBrowserSupabaseClient() {
     );
   }
 
-  return createClient(url, anonKey);
+  return createBrowserClient(url, anonKey);
 }
