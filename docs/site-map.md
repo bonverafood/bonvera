@@ -48,7 +48,7 @@ Marketing placeholder + locale (`/`, `/fr`). Studio path’leri marketing’te a
 | `/studio/koleksiyonlar` | Koleksiyonlar | Empty UI ✅ |
 | `/studio/tarifler` | Tarifler | Empty UI ✅ |
 | `/studio/blog` | Blog | Empty UI ✅ |
-| `/studio/medya` | Medya | Empty UI ✅ |
+| `/studio/medya` | Medya | Media Studio ✅ |
 | `/studio/seo` | SEO | Empty UI ✅ |
 | `/studio/pdf-katalog` | PDF | Empty UI ✅ |
 | `/studio/ask-bonvera` | Ask Bonvera | Empty UI ✅ |
@@ -66,7 +66,7 @@ Marketing placeholder + locale (`/`, `/fr`). Studio path’leri marketing’te a
 | **4** | **Studio Shell** | ✅ |
 | **5** | **Public Website Shell** | ✅ |
 | **6** | **Product Studio** | ✅ |
-| 7 | Media Studio | ⬜ |
+| **7** | **Media Studio** | ✅ |
 | 8 | SEO Studio | ⬜ |
 | 9 | Translation Engine | ⬜ |
 | 10 | PDF Studio | ⬜ |

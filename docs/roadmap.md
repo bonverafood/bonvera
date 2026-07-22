@@ -135,7 +135,7 @@ Türkçe içerik → AI çeviri → Fransızca → Yayın.
 | 4 | Studio Shell | ✅ |
 | 5 | Public Website Shell (Ana, Ürünler, Blog, Tarifler, İletişim — veri yok, tasarım var) | ✅ |
 | 6 | Product Studio | ✅ Auth + CRUD + live preview |
-| 7 | Media Studio | ⬜ |
+| 7 | Media Studio | ✅ Storage + library + product picker |
 | 8 | SEO Studio | ⬜ |
 | 9 | Translation Engine | ⬜ |
 | 10 | PDF Studio | ⬜ |

@@ -154,6 +154,27 @@
       "generic": "Echec de la connexion. Reessayez."
     }
   },
+  "MediaStudio": {
+    "title": "Medias",
+    "description": "Images produits et contenus. JPEG, PNG ou WebP — 5 Mo max.",
+    "upload": "Televerser",
+    "browse": "Choisir un fichier",
+    "dropTitle": "Deposez les images ici",
+    "dropHint": "ou choisissez un fichier. JPEG / PNG / WebP.",
+    "emptyTitle": "Aucun media",
+    "emptyDescription": "Televersez la premiere image pour demarrer la bibliotheque.",
+    "uploadSuccess": "Televersement termine.",
+    "copied": "URL copiee.",
+    "copyFailed": "Impossible de copier l'URL.",
+    "copyUrl": "Copier l'URL",
+    "delete": "Supprimer",
+    "confirmDelete": "Supprimer ce media ?",
+    "select": "Choisir",
+    "pickerTitle": "Choisir un media",
+    "pickerHint": "Selectionnez une image pour le produit.",
+    "closePicker": "Fermer",
+    "loading": "Chargement…"
+  },
   "ProductStudio": {
     "listTitle": "Produits",
     "listDescription": "Contenu produits Bonvera, SEO et statut de publication.",
@@ -170,7 +191,8 @@
     "confirmArchive": "Archiver ce produit ?",
     "preview": "Apercu en direct",
     "slugFromName": "Generer le slug",
-    "imageHint": "URL d'image en attendant Media Studio (ex. /brand/...).",
+    "imageHint": "Choisissez depuis la mediatheque ou saisissez une URL.",
+    "pickFromMedia": "Choisir depuis Medias",
     "sections": {
       "content": "Contenu",
       "media": "Image",

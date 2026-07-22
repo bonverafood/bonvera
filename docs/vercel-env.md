@@ -12,19 +12,21 @@ Set these in **Vercel → Project → Settings → Environment Variables**
 | `NEXT_PUBLIC_ADMIN_URL` | `https://admin.bonvera.food` |
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://mazmtuzfiefomruqlkia.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | *(Supabase → Settings → API → anon public)* |
-| `DATABASE_URL` | *(Supabase → Settings → Database → URI / pooler)* |
+| `DATABASE_URL` | *(Supabase → Database → URI / pooler)* |
+| `SUPABASE_SERVICE_ROLE_KEY` | *(Supabase → API → service_role — Media uploads)* |
 | `NEXT_PUBLIC_DEFAULT_LOCALE` | `tr` |
 | `NEXT_PUBLIC_FALLBACK_LOCALE` | `tr` |
 
-`DATABASE_URL` is required for Product Studio (Drizzle). Prefer the **connection pooler** (transaction mode) on Vercel.
+Prefer the **connection pooler** (transaction mode) for `DATABASE_URL` on Vercel.
 
-Optional later: `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`.
+Optional later: `OPENAI_API_KEY`.
 
-## Auth
+## Auth + Media
 
-1. Supabase → Authentication → Users → create `bonvera@admin.com`  
-2. Sign in at `https://admin.bonvera.food/studio/login`  
-3. See [`docs/modules/product-studio.md`](./modules/product-studio.md)
+1. Supabase user: `bonvera@admin.com`  
+2. Login: `https://admin.bonvera.food/studio/login`  
+3. Storage bucket **`media`** (Public) — see [`modules/media-studio.md`](./modules/media-studio.md)  
+4. Product Studio: [`modules/product-studio.md`](./modules/product-studio.md)
 
 ## Domains
 

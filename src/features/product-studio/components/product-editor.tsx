@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { MediaPickerDialog } from "@/features/media-studio";
 import { useRouter } from "@/lib/i18n/navigation";
 import type { Product } from "@/lib/db/schema";
 
@@ -55,6 +56,7 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
   const t = useTranslations("ProductStudio");
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [saveState, setSaveState] = useState<
     "idle" | "saving" | "saved" | "error"
   >("idle");
@@ -210,11 +212,21 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
           <h2 className="text-sm font-semibold">{t("sections.media")}</h2>
           <div className="space-y-2">
             <Label htmlFor="imageUrl">{t("fields.imageUrl")}</Label>
-            <Input
-              id="imageUrl"
-              placeholder="/brand/product-icli-kofte.jpg"
-              {...form.register("imageUrl")}
-            />
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Input
+                id="imageUrl"
+                placeholder="/brand/product-icli-kofte.jpg"
+                className="flex-1"
+                {...form.register("imageUrl")}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setPickerOpen(true)}
+              >
+                {t("pickFromMedia")}
+              </Button>
+            </div>
             <p className="text-muted-foreground text-xs">{t("imageHint")}</p>
           </div>
         </section>
@@ -291,6 +303,17 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
           status={values.status ?? "draft"}
         />
       </aside>
+
+      <MediaPickerDialog
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onSelect={(url) => {
+          form.setValue("imageUrl", url, {
+            shouldDirty: true,
+            shouldValidate: true,
+          });
+        }}
+      />
     </div>
   );
 }

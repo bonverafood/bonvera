@@ -154,6 +154,27 @@
       "generic": "Giris basarisiz. Tekrar deneyin."
     }
   },
+  "MediaStudio": {
+    "title": "Medya",
+    "description": "Urun ve icerik gorselleri. JPEG, PNG veya WebP — en fazla 5 MB.",
+    "upload": "Medya yukle",
+    "browse": "Dosya sec",
+    "dropTitle": "Gorselleri buraya birakin",
+    "dropHint": "veya dosya secin. JPEG / PNG / WebP.",
+    "emptyTitle": "Henuz medya yok",
+    "emptyDescription": "Ilk gorseli yukleyerek kutuphaneyi baslatin.",
+    "uploadSuccess": "Yukleme tamam.",
+    "copied": "URL kopyalandi.",
+    "copyFailed": "URL kopyalanamadi.",
+    "copyUrl": "URL kopyala",
+    "delete": "Sil",
+    "confirmDelete": "Bu medyayi silmek istiyor musunuz?",
+    "select": "Sec",
+    "pickerTitle": "Medyadan sec",
+    "pickerHint": "Urun gorseli olarak kullanmak icin bir oge secin.",
+    "closePicker": "Kapat",
+    "loading": "Yukleniyor…"
+  },
   "ProductStudio": {
     "listTitle": "Urunler",
     "listDescription": "Bonvera urun icerikleri, SEO ve yayin durumu.",
@@ -170,7 +191,8 @@
     "confirmArchive": "Bu urunu arsivlemek istiyor musunuz?",
     "preview": "Canli onizleme",
     "slugFromName": "Slug olustur",
-    "imageHint": "Media Studio gelene kadar gorsel URL kullanin (orn. /brand/...).",
+    "imageHint": "Medya kutuphanesinden secin veya dogrudan URL yazin.",
+    "pickFromMedia": "Medya'dan sec",
     "sections": {
       "content": "Icerik",
       "media": "Gorsel",
