@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { LoginForm } from "./login-form";
@@ -12,7 +13,15 @@ export async function LoginScreen({ nextPath }: LoginScreenProps) {
   return (
     <main className="bg-background text-foreground flex min-h-screen flex-col items-center justify-center px-4 py-16">
       <div className="border-border bg-card w-full max-w-md space-y-8 rounded-2xl border p-8 shadow-[var(--studio-shadow)]">
-        <div className="space-y-2 text-center">
+        <div className="space-y-3 text-center">
+          <Image
+            src="/brand/mark.png"
+            alt=""
+            width={56}
+            height={56}
+            className="mx-auto size-14 object-contain"
+            priority
+          />
           <p className="text-primary text-xs font-semibold tracking-[0.18em] uppercase">
             {t("brand")}
           </p>

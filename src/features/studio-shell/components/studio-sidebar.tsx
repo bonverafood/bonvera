@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { Link, usePathname } from "@/lib/i18n/navigation";
@@ -26,12 +27,14 @@ export function StudioSidebar({ className }: StudioSidebarProps) {
       )}
     >
       <div className="flex h-14 items-center gap-2.5 px-5">
-        <div
-          className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-lg text-xs font-semibold tracking-wide"
+        <Image
+          src="/brand/mark.png"
+          alt=""
+          width={32}
+          height={32}
+          className="size-8 shrink-0 object-contain"
           aria-hidden
-        >
-          B
-        </div>
+        />
         <div className="min-w-0">
           <p className="text-foreground truncate text-sm font-semibold tracking-tight">
             {t("brand")}

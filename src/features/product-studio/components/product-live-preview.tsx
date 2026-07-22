@@ -35,7 +35,7 @@ export function ProductLivePreview({
             src={src}
             alt=""
             fill
-            className="object-cover object-[28%_center] opacity-85"
+            className="object-cover object-[39%_center] opacity-85"
             sizes="(max-width: 1024px) 100vw, 40vw"
             unoptimized={src.startsWith("http")}
           />
