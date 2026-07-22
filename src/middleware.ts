@@ -11,6 +11,7 @@ import {
   mapAdminPathToInternal,
   splitLocalePrefix,
 } from "@/lib/hosts";
+import { studioUiLocale } from "@/config/i18n";
 import { updateSession } from "@/lib/supabase/middleware";
 
 const intlMiddleware = createIntlMiddleware(routing);
@@ -84,6 +85,17 @@ export default async function middleware(request: NextRequest) {
       const url = request.nextUrl.clone();
       url.pathname = internalPath;
       return withSurfaceHeaders(NextResponse.redirect(url, 308), "studio");
+    }
+
+    // Public default may be French; Studio UI is always Turkish.
+    if (isStudioPath(pathname)) {
+      const { locale, pathnameWithoutLocale } = splitLocalePrefix(pathname);
+      if (locale !== studioUiLocale) {
+        const url = request.nextUrl.clone();
+        url.pathname = joinLocalePrefix(studioUiLocale, pathnameWithoutLocale);
+        url.search = request.nextUrl.search;
+        return withSurfaceHeaders(NextResponse.redirect(url, 308), "studio");
+      }
     }
   }
 

@@ -126,17 +126,27 @@
       "metaDescription": "Contactez Bonvera : partenariats, catalogues et demandes de devis.",
       "eyebrow": "Contact",
       "title": "Parlons ensemble",
-      "description": "Le formulaire est pour l'instant informatif. L'envoi en direct arrivera bientôt.",
+      "description": "Pour un partenariat, un catalogue ou une question produit, écrivez-nous — votre message arrive à l'équipe.",
       "locationLabel": "Lieu",
       "emailLabel": "E-mail",
-      "note": "Messages et demandes seront bientôt centralisés ici.",
+      "note": "Vos messages sont centralisés dans Studio → Messages.",
       "form": {
         "name": "Nom",
         "email": "E-mail",
         "message": "Message",
-        "submit": "Envoyer (bientôt)",
-        "shellNote": "Formulaire prêt à l'écran ; l'envoi n'est pas encore actif."
+        "submit": "Envoyer",
+        "submitting": "Envoi…",
+        "success": "Merci ! Votre message a bien été transmis."
       }
+    },
+    "chat": {
+      "title": "Ask Bonvera",
+      "subtitle": "Nous sommes là pour vous",
+      "greeting": "Bonjour ! Écrivez-nous à propos des produits, commandes ou partenariats. Votre message est transmis à l'équipe.",
+      "placeholder": "Écrivez votre message…",
+      "send": "Envoyer",
+      "open": "Ouvrir le chat",
+      "close": "Fermer le chat"
     }
   },
   "Studio": {
@@ -598,5 +608,19 @@
         "emptyDescription": "Onaylanan Brand Engine plani uygulandiginda bu bolum canlanacak. Kabuk hazir."
       }
     }
+  },
+  "MessagesStudio": {
+    "title": "Messages",
+    "description": "Conversations Ask Bonvera et formulaires de contact.",
+    "emptyTitle": "Aucun message",
+    "emptyDescription": "Les demandes du chat et du formulaire de contact apparaissent ici.",
+    "sourceAsk": "Ask Bonvera",
+    "sourceContact": "Formulaire contact",
+    "anonymous": "Visiteur",
+    "archive": "Archiver",
+    "loading": "Chargement…",
+    "pickOne": "Choisissez une conversation",
+    "roleVisitor": "Visiteur",
+    "roleSystem": "Système"
   }
 }

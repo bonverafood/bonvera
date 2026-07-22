@@ -6,6 +6,12 @@ export type {
   SiteSeoDefaults,
   SiteSeoPage,
   SiteSeoPageKey,
+  Conversation,
+  ConversationSource,
+  ConversationStatus,
+  ConversationWithMessages,
+  Message,
+  MessageRole,
 } from "./types";
 export {
   MEDIA_ALLOWED_MIME,
@@ -48,3 +54,11 @@ export {
   type SiteSeoDefaultsWrite,
   type SiteSeoPageWrite,
 } from "./site-seo";
+export {
+  appendVisitorMessage,
+  countNewConversations,
+  createConversationWithMessage,
+  getConversationWithMessages,
+  listConversations,
+  updateConversationStatus,
+} from "./messages";

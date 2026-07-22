@@ -126,17 +126,27 @@
       "metaDescription": "Bonvera ile iletişime geçin: iş ortaklığı, katalog ve teklif talepleri.",
       "eyebrow": "İletişim",
       "title": "Bizimle konuşun",
-      "description": "Form şimdilik bilgilendirme amaçlıdır. Canlı gönderim yakında açılacak.",
+      "description": "İş ortaklığı, katalog veya ürün sorularınız için formu doldurun — mesajınız ekibimize ulaşır.",
       "locationLabel": "Konum",
       "emailLabel": "E-posta",
-      "note": "Mesajlar ve talepler yakında İletişim üzerinden toplanacak.",
+      "note": "Mesajlarınız Studio → Mesajlar bölümünde toplanır.",
       "form": {
         "name": "Ad Soyad",
         "email": "E-posta",
         "message": "Mesajınız",
-        "submit": "Gönder (yakında)",
-        "shellNote": "Form görünümü hazır; gönderim henüz aktif değil."
+        "submit": "Gönder",
+        "submitting": "Gönderiliyor…",
+        "success": "Teşekkürler! Mesajınız iletildi."
       }
+    },
+    "chat": {
+      "title": "Ask Bonvera",
+      "subtitle": "Size yardımcı olalım",
+      "greeting": "Merhaba! Ürünler, sipariş veya iş ortaklığı hakkında yazabilirsiniz. Mesajınız ekibimize iletilir.",
+      "placeholder": "Mesajınızı yazın…",
+      "send": "Gönder",
+      "open": "Sohbeti aç",
+      "close": "Sohbeti kapat"
     }
   },
   "Studio": {
@@ -596,5 +606,19 @@
         "emptyDescription": "Onaylanan Brand Engine plani uygulandiginda bu bolum canlanacak. Kabuk hazir."
       }
     }
+  },
+  "MessagesStudio": {
+    "title": "Mesajlar",
+    "description": "Ask Bonvera sohbetleri ve iletişim formu talepleri.",
+    "emptyTitle": "Henüz mesaj yok",
+    "emptyDescription": "Sitedeki chat veya iletişim formundan gelen talepler burada listelenir.",
+    "sourceAsk": "Ask Bonvera",
+    "sourceContact": "İletişim formu",
+    "anonymous": "Ziyaretçi",
+    "archive": "Arşivle",
+    "loading": "Yükleniyor…",
+    "pickOne": "Bir konuşma seçin",
+    "roleVisitor": "Ziyaretçi",
+    "roleSystem": "Sistem"
   }
 }

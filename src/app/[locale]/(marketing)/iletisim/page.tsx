@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { MarketingPageIntro } from "@/features/marketing-site";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { ContactForm } from "@/features/site-messages";
 import { buildPageMetadata } from "@/lib/seo";
 
 type ContactPageProps = {
@@ -54,32 +51,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
           <p className="text-muted-foreground">{t("contact.note")}</p>
         </div>
 
-        <form className="border-border bg-card space-y-5 border p-6 sm:p-8">
-          <div className="space-y-2">
-            <Label htmlFor="name">{t("contact.form.name")}</Label>
-            <Input id="name" name="name" autoComplete="name" disabled />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">{t("contact.form.email")}</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              disabled
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="message">{t("contact.form.message")}</Label>
-            <Textarea id="message" name="message" rows={5} disabled />
-          </div>
-          <Button type="button" disabled>
-            {t("contact.form.submit")}
-          </Button>
-          <p className="text-muted-foreground text-xs">
-            {t("contact.form.shellNote")}
-          </p>
-        </form>
+        <ContactForm />
       </section>
     </>
   );

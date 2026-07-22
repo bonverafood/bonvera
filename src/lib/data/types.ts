@@ -84,3 +84,32 @@ export type SiteSeoPage = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type ConversationSource = "ask" | "contact";
+export type ConversationStatus = "new" | "read" | "archived";
+export type MessageRole = "visitor" | "system";
+
+export type Conversation = {
+  id: string;
+  source: ConversationSource;
+  status: ConversationStatus;
+  locale: string;
+  visitorName: string | null;
+  visitorEmail: string | null;
+  preview: string;
+  lastMessageAt: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Message = {
+  id: string;
+  conversationId: string;
+  role: MessageRole;
+  body: string;
+  createdAt: string;
+};
+
+export type ConversationWithMessages = Conversation & {
+  messages: Message[];
+};

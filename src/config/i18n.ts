@@ -1,11 +1,11 @@
 /**
  * Locale registry — single source of truth for internationalization.
  *
- * App routing default/fallback come from env (`NEXT_PUBLIC_DEFAULT_LOCALE`,
- * `NEXT_PUBLIC_FALLBACK_LOCALE`). Studio Admin UI is Turkish.
+ * Public site: French is the default (unprefixed URLs). Turkish is `/tr/…`.
+ * Studio Admin UI is always Turkish (`studioUiLocale`), regardless of the
+ * public default.
  *
  * Brand *content* source language is separate (Brand Engine: Turkish source).
- * Public customer locales (e.g. Bonvera FR) come later via Translation Engine.
  *
  * To add a language:
  * 1. Append the locale code to `locales`
@@ -15,9 +15,13 @@
 
 import { publicEnv } from "@/config/env";
 
-export const locales = ["tr", "fr"] as const;
+/** Public locales — primary first (switcher / listing order). */
+export const locales = ["fr", "tr"] as const;
 
 export type Locale = (typeof locales)[number];
+
+/** Studio Admin UI language — fixed; no admin language switcher. */
+export const studioUiLocale: Locale = "tr";
 
 function resolveLocale(value: string, fallback: Locale): Locale {
   return (locales as readonly string[]).includes(value)
@@ -28,7 +32,7 @@ function resolveLocale(value: string, fallback: Locale): Locale {
 /** Unprefixed routes use this locale (`localePrefix: 'as-needed'`). */
 export const defaultLocale: Locale = resolveLocale(
   publicEnv.NEXT_PUBLIC_DEFAULT_LOCALE,
-  "tr",
+  "fr",
 );
 
 /** Message / negotiation fallback when a locale or key is missing. */
@@ -38,8 +42,8 @@ export const fallbackLocale: Locale = resolveLocale(
 );
 
 export const localeNames: Record<Locale, string> = {
-  tr: "Türkçe",
   fr: "Français",
+  tr: "Türkçe",
 };
 
 export function isLocale(value: string): value is Locale {

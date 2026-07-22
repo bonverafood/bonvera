@@ -137,11 +137,11 @@ export function isStudioPath(pathname: string): boolean {
 
 /**
  * Map an admin-host public path onto the internal `/studio…` filesystem path.
- * Examples (default locale `tr`, as-needed):
- * - `/` → `/studio`
- * - `/setup` → `/studio/setup`
- * - `/studio` → `/studio` (unchanged)
- * - `/fr/setup` → `/fr/studio/setup`
+ * Examples (default locale `fr`, as-needed; Studio forced to `/tr/studio…`):
+ * - `/` → `/studio` (then middleware → `/tr/studio`)
+ * - `/setup` → `/studio/setup` (then → `/tr/studio/setup`)
+ * - `/studio` → `/studio` (unchanged; then → `/tr/studio`)
+ * - `/tr/setup` → `/tr/studio/setup`
  */
 export function mapAdminPathToInternal(pathname: string): string {
   const { locale, pathnameWithoutLocale } = splitLocalePrefix(pathname);

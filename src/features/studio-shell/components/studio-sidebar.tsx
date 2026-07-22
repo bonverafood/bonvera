@@ -11,9 +11,13 @@ import { useStudioShellUi } from "../store";
 
 type StudioSidebarProps = {
   className?: string;
+  unreadMessageCount?: number;
 };
 
-export function StudioSidebar({ className }: StudioSidebarProps) {
+export function StudioSidebar({
+  className,
+  unreadMessageCount = 0,
+}: StudioSidebarProps) {
   const t = useTranslations("StudioShell");
   const pathname = usePathname();
   const activeId = getActiveNavId(pathname);
@@ -52,6 +56,8 @@ export function StudioSidebar({ className }: StudioSidebarProps) {
         {STUDIO_NAV.map((item) => {
           const Icon = item.icon;
           const active = item.id === activeId;
+          const showBadge =
+            item.id === "messages" && unreadMessageCount > 0;
           return (
             <Link
               key={item.id}
@@ -67,6 +73,11 @@ export function StudioSidebar({ className }: StudioSidebarProps) {
             >
               <Icon className="size-4 shrink-0 opacity-80" aria-hidden />
               <span className="truncate">{t(item.labelKey)}</span>
+              {showBadge ? (
+                <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[11px] font-semibold text-white">
+                  {unreadMessageCount > 99 ? "99+" : unreadMessageCount}
+                </span>
+              ) : null}
             </Link>
           );
         })}

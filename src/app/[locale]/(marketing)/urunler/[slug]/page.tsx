@@ -53,7 +53,9 @@ export async function generateMetadata({
       siteConfig.canonicalUrl(productPath(slug, loc)),
     ]),
   );
-  languages["x-default"] = siteConfig.canonicalUrl(productPath(slug, "tr"));
+  languages["x-default"] = siteConfig.canonicalUrl(
+    productPath(slug, routing.defaultLocale),
+  );
 
   const ogImage = content.ogImageUrl
     ? content.ogImageUrl.startsWith("http")

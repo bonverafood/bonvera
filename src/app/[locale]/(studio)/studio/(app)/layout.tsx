@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { StudioShell } from "@/features/studio-shell";
+import { countNewConversations } from "@/lib/data";
 import { ensureStudioDynamic } from "@/lib/studio/dynamic";
 
 type StudioAppLayoutProps = {
@@ -28,5 +29,8 @@ export default async function StudioAppLayout({
   children,
 }: StudioAppLayoutProps) {
   await ensureStudioDynamic();
-  return <StudioShell>{children}</StudioShell>;
+  const unreadMessageCount = await countNewConversations().catch(() => 0);
+  return (
+    <StudioShell unreadMessageCount={unreadMessageCount}>{children}</StudioShell>
+  );
 }

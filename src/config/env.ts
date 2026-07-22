@@ -90,10 +90,10 @@ function parseEnv() {
   }
 
   const defaultLocale = localeCode
-    .default("tr")
+    .default("fr")
     .safeParse(process.env.NEXT_PUBLIC_DEFAULT_LOCALE);
   const fallbackLocale = localeCode
-    .default("tr")
+    .default("fr")
     .safeParse(process.env.NEXT_PUBLIC_FALLBACK_LOCALE);
 
   const marketingUrl =
@@ -123,10 +123,10 @@ function parseEnv() {
     ),
     NEXT_PUBLIC_DEFAULT_LOCALE: defaultLocale.success
       ? defaultLocale.data
-      : "tr",
+      : "fr",
     NEXT_PUBLIC_FALLBACK_LOCALE: fallbackLocale.success
       ? fallbackLocale.data
-      : "tr",
+      : "fr",
   };
 
   return {

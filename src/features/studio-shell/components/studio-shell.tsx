@@ -11,22 +11,24 @@ import { useStudioShellUi } from "../store";
 
 type StudioShellProps = {
   children: ReactNode;
+  unreadMessageCount?: number;
 };
 
-export function StudioShell({ children }: StudioShellProps) {
+export function StudioShell({
+  children,
+  unreadMessageCount = 0,
+}: StudioShellProps) {
   const mobileNavOpen = useStudioShellUi((s) => s.mobileNavOpen);
   const setMobileNavOpen = useStudioShellUi((s) => s.setMobileNavOpen);
 
   return (
     <div className="bg-background text-foreground flex min-h-screen">
-      {/* Desktop sidebar */}
       <div className="hidden w-60 shrink-0 lg:block xl:w-64">
         <div className="fixed inset-y-0 left-0 w-60 xl:w-64">
-          <StudioSidebar />
+          <StudioSidebar unreadMessageCount={unreadMessageCount} />
         </div>
       </div>
 
-      {/* Mobile drawer */}
       {mobileNavOpen ? (
         <div className="fixed inset-0 z-40 lg:hidden">
           <button
@@ -40,7 +42,7 @@ export function StudioShell({ children }: StudioShellProps) {
               "absolute inset-y-0 left-0 w-[min(100%,16.5rem)] shadow-[var(--studio-shadow)]",
             )}
           >
-            <StudioSidebar />
+            <StudioSidebar unreadMessageCount={unreadMessageCount} />
           </div>
         </div>
       ) : null}

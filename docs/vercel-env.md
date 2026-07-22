@@ -13,8 +13,8 @@ Set these in **Vercel → Project → Settings → Environment Variables**
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://mazmtuzfiefomruqlkia.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | *(Supabase → API → anon public)* |
 | `SUPABASE_SERVICE_ROLE_KEY` | *(Supabase → API → service_role — Studio DB + Storage)* |
-| `NEXT_PUBLIC_DEFAULT_LOCALE` | `tr` |
-| `NEXT_PUBLIC_FALLBACK_LOCALE` | `tr` |
+| `NEXT_PUBLIC_DEFAULT_LOCALE` | `fr` |
+| `NEXT_PUBLIC_FALLBACK_LOCALE` | `fr` |
 
 **No `DATABASE_URL`.** App talks to Postgres only through the Supabase JS client.
 
@@ -23,7 +23,9 @@ Optional later: `OPENAI_API_KEY`.
 ## Schema
 
 Run SQL once in Supabase → SQL Editor: [`docs/sql/schema.sql`](./sql/schema.sql)  
-(includes products, media_assets, site_seo_defaults, site_seo_pages).
+(includes products, media, SEO, **conversations/messages**).  
+
+If the project already has the earlier schema, also run [`docs/sql/migrate-messages.sql`](./sql/migrate-messages.sql).
 
 ## Auth + Media
 

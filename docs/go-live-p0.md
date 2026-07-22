@@ -126,8 +126,8 @@ Başka Vercel proje/hesapta tanımlıysa:
 | `NEXT_PUBLIC_ADMIN_URL` | `https://admin.bonvera.food` |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL’in |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon (public) key |
-| `NEXT_PUBLIC_DEFAULT_LOCALE` | `tr` |
-| `NEXT_PUBLIC_FALLBACK_LOCALE` | `tr` |
+| `NEXT_PUBLIC_DEFAULT_LOCALE` | `fr` |
+| `NEXT_PUBLIC_FALLBACK_LOCALE` | `fr` |
 
 4. Değiştirdiysen kaydet → **mutlaka Redeploy** (Adım 5).  
    Env değişince eski deploy eski değerlerle kalır.

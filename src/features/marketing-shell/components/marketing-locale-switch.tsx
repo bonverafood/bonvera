@@ -11,15 +11,15 @@ const LOCALE_FLAGS: Record<
   Locale,
   { flag: string; label: string; labelOther: Record<Locale, string> }
 > = {
-  tr: {
-    flag: "🇹🇷",
-    label: "Türkçe",
-    labelOther: { tr: "Türkçe", fr: "Passer en turc" },
-  },
   fr: {
     flag: "🇫🇷",
     label: "Français",
     labelOther: { tr: "Fransızcaya geç", fr: "Passer en français" },
+  },
+  tr: {
+    flag: "🇹🇷",
+    label: "Türkçe",
+    labelOther: { tr: "Türkçe", fr: "Passer en turc" },
   },
 };
 

@@ -5,6 +5,11 @@ import type {
   SiteSeoDefaults,
   SiteSeoPage,
   SiteSeoPageKey,
+  Conversation,
+  ConversationSource,
+  ConversationStatus,
+  Message,
+  MessageRole,
 } from "./types";
 
 /** Raw Supabase `products` row (snake_case). */
@@ -130,5 +135,53 @@ export function mapSiteSeoPage(row: SiteSeoPageRow): SiteSeoPage {
     ogImageUrl: row.og_image_url,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
+  };
+}
+
+/** Raw Supabase `conversations` row. */
+export type ConversationRow = {
+  id: string;
+  source: ConversationSource;
+  status: ConversationStatus;
+  locale: string;
+  visitor_name: string | null;
+  visitor_email: string | null;
+  preview: string;
+  last_message_at: string;
+  created_at: string;
+  updated_at: string;
+};
+
+/** Raw Supabase `messages` row. */
+export type MessageRow = {
+  id: string;
+  conversation_id: string;
+  role: MessageRole;
+  body: string;
+  created_at: string;
+};
+
+export function mapConversation(row: ConversationRow): Conversation {
+  return {
+    id: row.id,
+    source: row.source,
+    status: row.status,
+    locale: row.locale,
+    visitorName: row.visitor_name,
+    visitorEmail: row.visitor_email,
+    preview: row.preview,
+    lastMessageAt: row.last_message_at,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+export function mapMessage(row: MessageRow): Message {
+  return {
+    id: row.id,
+    conversationId: row.conversation_id,
+    role: row.role,
+    body: row.body,
+    createdAt: row.created_at,
   };
 }
