@@ -118,10 +118,10 @@ export async function MarketingHomePage() {
           </div>
           <div className="bg-secondary relative aspect-[5/4] overflow-hidden">
             <Image
-              src="/brand/product-icli-kofte.jpg"
-              alt=""
+              src="/brand/craft-atelier.png"
+              alt="Strasbourg atolyesinde gunluk uretim — el emegi ve ozen"
               fill
-              className="object-cover"
+              className="object-cover object-center"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
