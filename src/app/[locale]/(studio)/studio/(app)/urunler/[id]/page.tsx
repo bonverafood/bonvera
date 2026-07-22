@@ -1,24 +1,31 @@
+import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
-import { getProduct, ProductEditor } from "@/features/product-studio";
+import { ProductEditor } from "@/features/product-studio";
+import { getProductById } from "@/lib/data";
+import { getStudioUser } from "@/lib/supabase/auth";
 
 type EditProductPageProps = {
   params: Promise<{ locale: string; id: string }>;
 };
-
-export const dynamic = "force-dynamic";
 
 export default async function EditProductPage({
   params,
 }: EditProductPageProps) {
   const { locale, id } = await params;
   setRequestLocale(locale);
+  await connection();
 
-  const result = await getProduct(id);
-  if (!result.ok || !result.data) {
+  const user = await getStudioUser();
+  if (!user) {
     notFound();
   }
 
-  return <ProductEditor mode="edit" product={result.data} />;
+  const product = await getProductById(id);
+  if (!product) {
+    notFound();
+  }
+
+  return <ProductEditor mode="edit" product={product} />;
 }

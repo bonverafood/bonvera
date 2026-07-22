@@ -1,11 +1,12 @@
+﻿import { connection } from "next/server";
 import { getTranslations } from "next-intl/server";
 
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/navigation";
+import { listProducts } from "@/lib/data";
 import type { Product } from "@/lib/data/types";
+import { getStudioUser } from "@/lib/supabase/auth";
 import { cn } from "@/lib/utils";
-
-import { listProducts } from "../actions";
 
 function formatDate(value: Date | string | null) {
   if (!value) return "—";
@@ -17,10 +18,26 @@ function formatDate(value: Date | string | null) {
 }
 
 export async function ProductListPage() {
+  await connection();
   const t = await getTranslations("ProductStudio");
-  const result = await listProducts();
 
-  if (!result.ok) {
+  let items: Product[] = [];
+  let loadError: string | null = null;
+
+  try {
+    const user = await getStudioUser();
+    if (!user) {
+      loadError = "Oturum gerekli. Tekrar giris yapin.";
+    } else {
+      items = await listProducts();
+    }
+  } catch (error) {
+    console.error("[product-studio] list", error);
+    loadError =
+      error instanceof Error ? error.message : "Urun listesi yuklenemedi.";
+  }
+
+  if (loadError) {
     return (
       <div className="space-y-4">
         <header className="flex flex-wrap items-end justify-between gap-4">
@@ -34,13 +51,11 @@ export async function ProductListPage() {
           </div>
         </header>
         <p className="text-destructive text-sm" role="alert">
-          {result.error}
+          {loadError}
         </p>
       </div>
     );
   }
-
-  const items = result.data;
 
   return (
     <div className="space-y-6">
@@ -49,9 +64,7 @@ export async function ProductListPage() {
           <h1 className="text-2xl font-semibold tracking-tight">
             {t("listTitle")}
           </h1>
-          <p className="text-muted-foreground text-sm">
-            {t("listDescription")}
-          </p>
+          <p className="text-muted-foreground text-sm">{t("listDescription")}</p>
         </div>
         <Link
           href="/studio/urunler/yeni"
