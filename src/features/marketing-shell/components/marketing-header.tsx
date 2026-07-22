@@ -40,19 +40,19 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
           : "border-border/60 bg-background/90 sticky top-0 border-b backdrop-blur-md",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.25rem] sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4 sm:h-28 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-3"
+          className="flex items-center gap-3 sm:gap-4"
           aria-label={t("brand")}
         >
           <Image
             src="/brand/mark.png"
             alt=""
-            width={40}
-            height={40}
+            width={120}
+            height={120}
             className={cn(
-              "size-9 object-contain sm:size-10",
+              "size-[6.75rem] object-contain sm:size-[7.5rem]",
               overHero && "brightness-0 invert",
             )}
             priority

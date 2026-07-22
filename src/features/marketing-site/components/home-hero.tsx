@@ -31,7 +31,7 @@ export function HomeHero() {
 
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,16,24,0.55)_0%,rgba(12,16,24,0.35)_40%,rgba(12,16,24,0.72)_100%)]" />
 
-      <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pt-28 pb-16 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
+      <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pt-36 pb-16 sm:px-6 sm:pt-40 sm:pb-20 lg:px-8 lg:pb-24">
         <motion.p
           className="font-display mb-3 text-4xl tracking-[0.18em] uppercase sm:text-5xl md:text-6xl"
           initial={{ opacity: 0, y: 18 }}

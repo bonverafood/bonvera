@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 
 import { Link } from "@/lib/i18n/navigation";
 
@@ -11,9 +12,18 @@ export async function MarketingFooter() {
     <footer className="border-border bg-[var(--marketing-ink)] text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:px-8">
         <div className="space-y-4">
-          <p className="font-display text-3xl tracking-[0.12em] uppercase">
-            {t("brand")}
-          </p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/brand/mark.png"
+              alt=""
+              width={56}
+              height={56}
+              className="size-14 object-contain brightness-0 invert"
+            />
+            <p className="font-display text-3xl tracking-[0.12em] uppercase">
+              {t("brand")}
+            </p>
+          </div>
           <p className="max-w-md text-sm leading-relaxed text-white/70">
             {t("footer.tagline")}
           </p>

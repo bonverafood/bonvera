@@ -44,16 +44,27 @@ export async function MarketingHomePage() {
       <HomeHero />
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <Reveal className="max-w-2xl">
-          <p className="text-primary mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
-            {t("home.story.eyebrow")}
-          </p>
-          <h2 className="font-display text-foreground text-3xl leading-tight sm:text-4xl">
-            {t("home.story.title")}
-          </h2>
-          <p className="text-muted-foreground mt-5 text-base leading-relaxed sm:text-lg">
-            {t("home.story.body")}
-          </p>
+        <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(12rem,0.55fr)] lg:gap-16">
+          <div className="max-w-2xl">
+            <p className="text-primary mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+              {t("home.story.eyebrow")}
+            </p>
+            <h2 className="font-display text-foreground text-3xl leading-tight sm:text-4xl">
+              {t("home.story.title")}
+            </h2>
+            <p className="text-muted-foreground mt-5 text-base leading-relaxed sm:text-lg">
+              {t("home.story.body")}
+            </p>
+          </div>
+          <div className="flex justify-center lg:justify-end">
+            <Image
+              src="/brand/logo.png"
+              alt={t("brand")}
+              width={280}
+              height={280}
+              className="h-auto w-44 object-contain sm:w-56 lg:w-64"
+            />
+          </div>
         </Reveal>
       </section>
 
