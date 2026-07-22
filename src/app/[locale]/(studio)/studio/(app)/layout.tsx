@@ -7,6 +7,9 @@ type StudioAppLayoutProps = {
   children: ReactNode;
 };
 
+/** Studio pages read auth cookies / Supabase — never statically prerender. */
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: {
     default: "Bonvera Studio",

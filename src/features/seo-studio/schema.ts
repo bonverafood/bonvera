@@ -1,6 +1,13 @@
 import { z } from "zod";
 
-import { SITE_SEO_PAGE_KEYS } from "@/lib/data";
+/** Keep keys local — avoid importing `@/lib/data` into client form bundles. */
+export const SITE_SEO_PAGE_KEY_VALUES = [
+  "home",
+  "urunler",
+  "tarifler",
+  "blog",
+  "iletisim",
+] as const;
 
 export const siteSeoDefaultsSchema = z.object({
   titleSuffixTr: z.string().trim().max(40),
@@ -16,7 +23,7 @@ export const siteSeoDefaultsSchema = z.object({
 
 export type SiteSeoDefaultsInput = z.infer<typeof siteSeoDefaultsSchema>;
 
-export const siteSeoPageKeySchema = z.enum(SITE_SEO_PAGE_KEYS);
+export const siteSeoPageKeySchema = z.enum(SITE_SEO_PAGE_KEY_VALUES);
 
 export const siteSeoPageSchema = z.object({
   pageKey: siteSeoPageKeySchema,

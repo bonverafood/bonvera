@@ -9,6 +9,36 @@ export class UnauthorizedError extends Error {
   }
 }
 
+/**
+ * Next.js throws special errors when `cookies()` / `headers()` are used during
+ * static generation. Swallowing them marks auth routes as wrongly static.
+ */
+function rethrowIfNextDynamic(error: unknown): void {
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "digest" in error &&
+    typeof (error as { digest?: unknown }).digest === "string"
+  ) {
+    const digest = (error as { digest: string }).digest;
+    if (
+      digest === "DYNAMIC_SERVER_USAGE" ||
+      digest.startsWith("NEXT_DYNAMIC") ||
+      digest.startsWith("NEXT_PRERENDER")
+    ) {
+      throw error;
+    }
+  }
+
+  if (
+    error instanceof Error &&
+    (error.message.includes("Dynamic server usage") ||
+      error.message.includes("couldn't be rendered statically"))
+  ) {
+    throw error;
+  }
+}
+
 export async function getStudioUser(): Promise<User | null> {
   try {
     const supabase = await createServerSupabaseClient();
@@ -16,7 +46,8 @@ export async function getStudioUser(): Promise<User | null> {
       data: { user },
     } = await supabase.auth.getUser();
     return user;
-  } catch {
+  } catch (error) {
+    rethrowIfNextDynamic(error);
     return null;
   }
 }

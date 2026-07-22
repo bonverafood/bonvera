@@ -1,5 +1,6 @@
 "use server";
 
+import { connection } from "next/server";
 import { revalidatePath } from "next/cache";
 
 import {
@@ -53,6 +54,29 @@ function mapError(error: unknown): string {
   return "Islem basarisiz. Tekrar deneyin.";
 }
 
+function isNextDynamicBailout(error: unknown): boolean {
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "digest" in error &&
+    typeof (error as { digest?: unknown }).digest === "string"
+  ) {
+    const digest = (error as { digest: string }).digest;
+    if (
+      digest === "DYNAMIC_SERVER_USAGE" ||
+      digest.startsWith("NEXT_DYNAMIC") ||
+      digest.startsWith("NEXT_PRERENDER")
+    ) {
+      return true;
+    }
+  }
+  return (
+    error instanceof Error &&
+    (error.message.includes("Dynamic server usage") ||
+      error.message.includes("couldn't be rendered statically"))
+  );
+}
+
 function revalidateSeo() {
   revalidatePath("/studio/seo");
   revalidatePath("/");
@@ -70,6 +94,7 @@ export async function loadSeoStudio(): Promise<
   }>
 > {
   try {
+    await connection();
     await requireStudioUser();
     const [defaults, pages, products] = await Promise.all([
       ensureSiteSeoDefaults(),
@@ -95,6 +120,7 @@ export async function loadSeoStudio(): Promise<
 
     return { ok: true, data: { defaults, pages, audit } };
   } catch (error) {
+    if (isNextDynamicBailout(error)) throw error;
     return { ok: false, error: mapError(error) };
   }
 }

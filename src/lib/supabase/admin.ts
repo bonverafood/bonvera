@@ -1,9 +1,11 @@
+import "server-only";
+
 import { createClient } from "@supabase/supabase-js";
 
 import { env, publicEnv } from "@/config/env";
 
 /**
- * Service-role Supabase client for privileged Storage writes.
+ * Service-role Supabase client for privileged DB / Storage writes.
  * Server-only — never import from client components.
  */
 export function createServiceRoleClient() {
