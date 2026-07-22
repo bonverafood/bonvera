@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { buildPageMetadata } from "@/lib/seo";
 
 type ContactPageProps = {
   params: Promise<{ locale: string }>;
@@ -13,10 +14,10 @@ type ContactPageProps = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Marketing");
-  return {
+  return buildPageMetadata("iletisim", {
     title: t("contact.metaTitle"),
     description: t("contact.metaDescription"),
-  };
+  });
 }
 
 export default async function ContactPage({ params }: ContactPageProps) {

@@ -6,6 +6,7 @@ import {
   MARKETING_RECIPES,
 } from "@/features/marketing-site";
 import { Link } from "@/lib/i18n/navigation";
+import { buildPageMetadata } from "@/lib/seo";
 
 type RecipesPageProps = {
   params: Promise<{ locale: string }>;
@@ -13,10 +14,10 @@ type RecipesPageProps = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Marketing");
-  return {
+  return buildPageMetadata("tarifler", {
     title: t("recipes.metaTitle"),
     description: t("recipes.metaDescription"),
-  };
+  });
 }
 
 export default async function RecipesPage({ params }: RecipesPageProps) {

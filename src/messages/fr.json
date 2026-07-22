@@ -28,6 +28,8 @@
       "craft": "Crafted in France."
     },
     "home": {
+      "metaTitle": "Bonvera",
+      "metaDescription": "Cuisine turque authentique, elaboree en France. Mezes premium, icli kofte et sarmas.",
       "hero": {
         "headline": "Authentic Turkish Cuisine, Crafted in France.",
         "support": "Mezes gourmets, icli kofte et sarmas — cuisine turque premium elaboree a Strasbourg.",
@@ -174,6 +176,47 @@
     "pickerHint": "Selectionnez une image pour le produit.",
     "closePicker": "Fermer",
     "loading": "Chargement…"
+  },
+  "SeoStudio": {
+    "title": "SEO",
+    "description": "Defauts du site, meta des pages et etat SEO produits pour bonvera.food.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Enregistre",
+    "defaults": {
+      "title": "Defauts du site",
+      "description": "Les champs de page vides basculent sur ces valeurs. Utilises aussi pour le JSON-LD Organisation."
+    },
+    "pages": {
+      "title": "SEO des pages",
+      "description": "Pages marketing fixes. Le SEO produit se gere dans Produits.",
+      "keys": {
+        "home": "Accueil",
+        "urunler": "Produits",
+        "tarifler": "Recettes",
+        "blog": "Blog",
+        "iletisim": "Contact"
+      }
+    },
+    "fields": {
+      "orgName": "Nom de l'organisation (TR)",
+      "orgDescription": "Description de l'organisation (TR)",
+      "titleSuffix": "Suffixe de titre",
+      "defaultDescription": "Meta description par defaut (TR)",
+      "defaultOg": "URL image OG par defaut",
+      "pageTitle": "Meta titre (TR)",
+      "pageDescription": "Meta description (TR)",
+      "pageOg": "URL image Open Graph"
+    },
+    "audit": {
+      "title": "Etat SEO produits",
+      "description": "Produits avec meta manquants. Edition dans Product Studio.",
+      "empty": "Tous les produits actifs ont leurs champs SEO.",
+      "gapTitle": "titre manquant",
+      "gapDescription": "description manquante",
+      "gapOg": "OG manquant",
+      "edit": "Modifier le produit"
+    }
   },
   "ProductStudio": {
     "listTitle": "Produits",
@@ -509,10 +552,10 @@
       },
       "seo": {
         "title": "SEO",
-        "description": "Meta basliklari, aciklamalar ve varsayilan paylasim gorselleri.",
-        "primaryAction": "SEO ayarini ac",
-        "emptyTitle": "SEO paneli onizlemede",
-        "emptyDescription": "bonvera.food icin kanonik meta alanlari burada yonetime acilacak."
+        "description": "Titres meta, descriptions et images de partage par defaut.",
+        "primaryAction": "Ouvrir SEO",
+        "emptyTitle": "SEO Studio pret",
+        "emptyDescription": "Defauts, meta des pages et audit produit sous /studio/seo."
       },
       "pdf": {
         "title": "PDF Katalog",

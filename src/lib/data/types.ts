@@ -39,3 +39,43 @@ export const MEDIA_ALLOWED_MIME = [
   "image/png",
   "image/webp",
 ] as const;
+
+export const SITE_SEO_PAGE_KEYS = [
+  "home",
+  "urunler",
+  "tarifler",
+  "blog",
+  "iletisim",
+] as const;
+
+export type SiteSeoPageKey = (typeof SITE_SEO_PAGE_KEYS)[number];
+
+export const SITE_SEO_PAGE_PATHS: Record<SiteSeoPageKey, string> = {
+  home: "/",
+  urunler: "/urunler",
+  tarifler: "/tarifler",
+  blog: "/blog",
+  iletisim: "/iletisim",
+};
+
+export type SiteSeoDefaults = {
+  id: string;
+  titleSuffixTr: string;
+  defaultDescriptionTr: string;
+  defaultOgImageUrl: string | null;
+  organizationNameTr: string;
+  organizationDescriptionTr: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type SiteSeoPage = {
+  id: string;
+  pageKey: SiteSeoPageKey;
+  path: string;
+  titleTr: string | null;
+  descriptionTr: string | null;
+  ogImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+};

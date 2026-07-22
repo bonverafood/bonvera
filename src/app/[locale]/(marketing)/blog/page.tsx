@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { MarketingPageIntro, MARKETING_POSTS } from "@/features/marketing-site";
 import { Link } from "@/lib/i18n/navigation";
+import { buildPageMetadata } from "@/lib/seo";
 
 type BlogPageProps = {
   params: Promise<{ locale: string }>;
@@ -10,10 +11,10 @@ type BlogPageProps = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Marketing");
-  return {
+  return buildPageMetadata("blog", {
     title: t("blog.metaTitle"),
     description: t("blog.metaDescription"),
-  };
+  });
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {

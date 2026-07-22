@@ -8,7 +8,9 @@ import {
   MARKETING_PRODUCTS,
 } from "@/features/marketing-site";
 import { buttonVariants } from "@/components/ui/button";
+import { getPublishedProductBySlug } from "@/lib/data";
 import { Link } from "@/lib/i18n/navigation";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 type ProductDetailPageProps = {
@@ -23,14 +25,64 @@ export async function generateMetadata({
   params,
 }: ProductDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
+
+  try {
+    const dbProduct = await getPublishedProductBySlug(slug);
+    if (dbProduct) {
+      const title = dbProduct.seoTitleTr?.trim() || dbProduct.nameTr;
+      const description =
+        dbProduct.seoDescriptionTr?.trim() ||
+        dbProduct.summaryTr?.trim() ||
+        title;
+      const ogImage =
+        dbProduct.ogImageUrl?.trim() || dbProduct.imageUrl?.trim() || null;
+      const path = `/urunler/${dbProduct.slug}`;
+      const canonical = siteConfig.canonicalUrl(path);
+      return {
+        title,
+        description,
+        alternates: { canonical },
+        openGraph: {
+          title,
+          description,
+          url: canonical,
+          siteName: "Bonvera",
+          type: "website",
+          images: ogImage ? [{ url: ogImage }] : undefined,
+        },
+        twitter: {
+          card: ogImage ? "summary_large_image" : "summary",
+          title,
+          description,
+          images: ogImage ? [ogImage] : undefined,
+        },
+      };
+    }
+  } catch (error) {
+    console.warn("[seo] product metadata db fallback", slug, error);
+  }
+
   const product = getMarketingProduct(slug);
   if (!product) {
     return {};
   }
   const t = await getTranslations("Marketing");
+  const title = t(product.nameKey);
+  const description = t(product.summaryKey);
+  const path = `/urunler/${product.slug}`;
+  const canonical = siteConfig.canonicalUrl(path);
   return {
-    title: t(product.nameKey),
-    description: t(product.summaryKey),
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "Bonvera",
+      type: "website",
+      images: [{ url: product.image }],
+    },
   };
 }
 

@@ -7,6 +7,7 @@ import {
   MARKETING_PRODUCTS,
 } from "@/features/marketing-site";
 import { Link } from "@/lib/i18n/navigation";
+import { buildPageMetadata } from "@/lib/seo";
 
 type ProductsPageProps = {
   params: Promise<{ locale: string }>;
@@ -14,10 +15,10 @@ type ProductsPageProps = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Marketing");
-  return {
+  return buildPageMetadata("urunler", {
     title: t("products.metaTitle"),
     description: t("products.metaDescription"),
-  };
+  });
 }
 
 export default async function ProductsPage({ params }: ProductsPageProps) {

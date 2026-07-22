@@ -42,3 +42,74 @@ CREATE TABLE IF NOT EXISTS public.media_assets (
   created_at timestamptz DEFAULT now() NOT NULL,
   CONSTRAINT media_assets_storage_path_unique UNIQUE (storage_path)
 );
+
+-- SEO Studio: site-wide defaults (single logical row) + fixed marketing pages
+CREATE TABLE IF NOT EXISTS public.site_seo_defaults (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  title_suffix_tr text DEFAULT ' · Bonvera' NOT NULL,
+  default_description_tr text DEFAULT '' NOT NULL,
+  default_og_image_url text,
+  organization_name_tr text DEFAULT 'Bonvera' NOT NULL,
+  organization_description_tr text DEFAULT '' NOT NULL,
+  created_at timestamptz DEFAULT now() NOT NULL,
+  updated_at timestamptz DEFAULT now() NOT NULL
+);
+
+INSERT INTO public.site_seo_defaults (
+  title_suffix_tr,
+  default_description_tr,
+  organization_name_tr,
+  organization_description_tr
+)
+SELECT
+  ' · Bonvera',
+  'Fransa''da uretilen otantik Turk mutfagi. Premium mezeler, icli kofte ve sarmalar.',
+  'Bonvera',
+  'Authentic Turkish Cuisine, Crafted in France.'
+WHERE NOT EXISTS (SELECT 1 FROM public.site_seo_defaults);
+
+CREATE TABLE IF NOT EXISTS public.site_seo_pages (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  page_key text NOT NULL,
+  path text NOT NULL,
+  title_tr text,
+  description_tr text,
+  og_image_url text,
+  created_at timestamptz DEFAULT now() NOT NULL,
+  updated_at timestamptz DEFAULT now() NOT NULL,
+  CONSTRAINT site_seo_pages_page_key_unique UNIQUE (page_key)
+);
+
+INSERT INTO public.site_seo_pages (page_key, path, title_tr, description_tr)
+VALUES
+  (
+    'home',
+    '/',
+    'Bonvera',
+    'Fransa''da uretilen otantik Turk mutfagi. Premium mezeler, icli kofte ve sarmalar.'
+  ),
+  (
+    'urunler',
+    '/urunler',
+    'Urunler — Bonvera',
+    'Bonvera premium urun koleksiyonu: mezeler, icli kofte ve sarmalar.'
+  ),
+  (
+    'tarifler',
+    '/tarifler',
+    'Tarifler — Bonvera',
+    'Bonvera urunleriyle hazirlanan tarif fikirleri.'
+  ),
+  (
+    'blog',
+    '/blog',
+    'Blog — Bonvera',
+    'Bonvera marka hikayesi ve SEO odakli yazilar.'
+  ),
+  (
+    'iletisim',
+    '/iletisim',
+    'Iletisim — Bonvera',
+    'Bonvera ile iletisime gecin: is ortakligi, katalog ve teklif talepleri.'
+  )
+ON CONFLICT (page_key) DO NOTHING;

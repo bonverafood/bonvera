@@ -1,4 +1,11 @@
-import type { MediaAsset, Product, ProductStatus } from "./types";
+import type {
+  MediaAsset,
+  Product,
+  ProductStatus,
+  SiteSeoDefaults,
+  SiteSeoPage,
+  SiteSeoPageKey,
+} from "./types";
 
 /** Raw Supabase `products` row (snake_case). */
 export type ProductRow = {
@@ -63,5 +70,55 @@ export function mapMediaAsset(row: MediaAssetRow): MediaAsset {
     altTr: row.alt_tr,
     createdBy: row.created_by,
     createdAt: row.created_at,
+  };
+}
+
+/** Raw Supabase `site_seo_defaults` row. */
+export type SiteSeoDefaultsRow = {
+  id: string;
+  title_suffix_tr: string;
+  default_description_tr: string;
+  default_og_image_url: string | null;
+  organization_name_tr: string;
+  organization_description_tr: string;
+  created_at: string;
+  updated_at: string;
+};
+
+/** Raw Supabase `site_seo_pages` row. */
+export type SiteSeoPageRow = {
+  id: string;
+  page_key: string;
+  path: string;
+  title_tr: string | null;
+  description_tr: string | null;
+  og_image_url: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export function mapSiteSeoDefaults(row: SiteSeoDefaultsRow): SiteSeoDefaults {
+  return {
+    id: row.id,
+    titleSuffixTr: row.title_suffix_tr,
+    defaultDescriptionTr: row.default_description_tr,
+    defaultOgImageUrl: row.default_og_image_url,
+    organizationNameTr: row.organization_name_tr,
+    organizationDescriptionTr: row.organization_description_tr,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+export function mapSiteSeoPage(row: SiteSeoPageRow): SiteSeoPage {
+  return {
+    id: row.id,
+    pageKey: row.page_key as SiteSeoPageKey,
+    path: row.path,
+    titleTr: row.title_tr,
+    descriptionTr: row.description_tr,
+    ogImageUrl: row.og_image_url,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
   };
 }

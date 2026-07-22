@@ -22,7 +22,8 @@ Optional later: `OPENAI_API_KEY`.
 
 ## Schema
 
-Run SQL once in Supabase → SQL Editor: [`docs/sql/schema.sql`](./sql/schema.sql).
+Run SQL once in Supabase → SQL Editor: [`docs/sql/schema.sql`](./sql/schema.sql)  
+(includes products, media_assets, site_seo_defaults, site_seo_pages).
 
 ## Auth + Media
 

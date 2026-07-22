@@ -118,3 +118,30 @@ export async function archiveProductById(id: string): Promise<void> {
 
   if (error) throw error;
 }
+
+/** Public marketing: published products only. */
+export async function listPublishedProducts(): Promise<Product[]> {
+  const { data, error } = await client()
+    .from("products")
+    .select("*")
+    .eq("status", "published")
+    .order("sort_order", { ascending: true })
+    .order("updated_at", { ascending: false });
+
+  if (error) throw error;
+  return (data as ProductRow[]).map(mapProduct);
+}
+
+export async function getPublishedProductBySlug(
+  slug: string,
+): Promise<Product | null> {
+  const { data, error } = await client()
+    .from("products")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+
+  if (error) throw error;
+  return data ? mapProduct(data as ProductRow) : null;
+}

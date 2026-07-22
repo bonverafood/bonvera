@@ -28,6 +28,8 @@
       "craft": "Crafted in France."
     },
     "home": {
+      "metaTitle": "Bonvera",
+      "metaDescription": "Fransa'da uretilen otantik Turk mutfagi. Premium mezeler, icli kofte ve sarmalar.",
       "hero": {
         "headline": "Authentic Turkish Cuisine, Crafted in France.",
         "support": "Gurme mezeler, icli kofte ve sarmalar — Strasbourg'da uretilen premium Turk mutfagi.",
@@ -174,6 +176,47 @@
     "pickerHint": "Urun gorseli olarak kullanmak icin bir oge secin.",
     "closePicker": "Kapat",
     "loading": "Yukleniyor…"
+  },
+  "SeoStudio": {
+    "title": "SEO",
+    "description": "bonvera.food icin site varsayilanlari, sayfa meta alanlari ve urun SEO durumu.",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor…",
+    "saved": "Kaydedildi",
+    "defaults": {
+      "title": "Site varsayilanlari",
+      "description": "Bos birakilan sayfa alanlari bu degerlere duser. Organizasyon JSON-LD icin kullanilir."
+    },
+    "pages": {
+      "title": "Sayfa SEO",
+      "description": "Sabit genel sayfalar. Urun SEO'su Urunler modulunde duzenlenir.",
+      "keys": {
+        "home": "Ana sayfa",
+        "urunler": "Urunler",
+        "tarifler": "Tarifler",
+        "blog": "Blog",
+        "iletisim": "Iletisim"
+      }
+    },
+    "fields": {
+      "orgName": "Organizasyon adi (TR)",
+      "orgDescription": "Organizasyon aciklamasi (TR)",
+      "titleSuffix": "Baslik eki",
+      "defaultDescription": "Varsayilan meta aciklama (TR)",
+      "defaultOg": "Varsayilan OG gorsel URL",
+      "pageTitle": "Meta baslik (TR)",
+      "pageDescription": "Meta aciklama (TR)",
+      "pageOg": "Open Graph gorsel URL"
+    },
+    "audit": {
+      "title": "Urun SEO durumu",
+      "description": "Eksik meta alanlari olan urunler. Duzenleme Urun Studio'da yapilir.",
+      "empty": "Tum aktif urunlerin SEO alanlari dolu.",
+      "gapTitle": "baslik yok",
+      "gapDescription": "aciklama yok",
+      "gapOg": "OG yok",
+      "edit": "Urunu duzenle"
+    }
   },
   "ProductStudio": {
     "listTitle": "Urunler",
@@ -509,8 +552,8 @@
         "title": "SEO",
         "description": "Meta basliklari, aciklamalar ve varsayilan paylasim gorselleri.",
         "primaryAction": "SEO ayarini ac",
-        "emptyTitle": "SEO paneli onizlemede",
-        "emptyDescription": "bonvera.food icin kanonik meta alanlari burada yonetime acilacak."
+        "emptyTitle": "SEO Studio hazir",
+        "emptyDescription": "Site varsayilanlari, sayfa meta ve urun SEO durumu /studio/seo altinda."
       },
       "pdf": {
         "title": "PDF Katalog",
