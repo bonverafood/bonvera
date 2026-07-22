@@ -35,6 +35,16 @@ export default function StudioAppError({ error, reset }: StudioErrorProps) {
         >
           /api/studio-health
         </a>
+        {" · "}
+        <a
+          className="underline underline-offset-4"
+          href="/api/studio-debug"
+          target="_blank"
+          rel="noreferrer"
+        >
+          /api/studio-debug
+        </a>
+        {" (oturum acikken)"}
       </p>
       <div>
         <Button type="button" onClick={() => reset()}>

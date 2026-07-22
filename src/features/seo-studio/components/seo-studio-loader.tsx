@@ -6,31 +6,16 @@ import {
   ensureSiteSeoPages,
   listProducts,
 } from "@/lib/data";
-import { getStudioUser } from "@/lib/supabase/auth";
 
 import type { ProductSeoAuditItem } from "../actions";
 import { SeoStudioHub } from "./seo-studio-page";
 
+/** Auth via middleware only — no cookies() in this RSC. */
 export async function SeoStudioPage() {
   noStore();
   const t = await getTranslations("SeoStudio");
 
   try {
-    const user = await getStudioUser();
-    if (!user) {
-      return (
-        <div className="space-y-4">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
-            <p className="text-muted-foreground text-sm">{t("description")}</p>
-          </div>
-          <p className="text-destructive text-sm" role="alert">
-            Oturum gerekli. Tekrar giris yapin.
-          </p>
-        </div>
-      );
-    }
-
     const [defaults, pages, products] = await Promise.all([
       ensureSiteSeoDefaults(),
       ensureSiteSeoPages(),

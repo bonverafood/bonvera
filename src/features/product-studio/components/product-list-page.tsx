@@ -5,7 +5,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/navigation";
 import { listProducts } from "@/lib/data";
 import type { Product } from "@/lib/data/types";
-import { getStudioUser } from "@/lib/supabase/auth";
 import { cn } from "@/lib/utils";
 
 function formatDate(value: Date | string | null) {
@@ -17,6 +16,7 @@ function formatDate(value: Date | string | null) {
   }).format(date);
 }
 
+/** Auth via middleware only — no cookies() in this RSC. */
 export async function ProductListPage() {
   noStore();
   const t = await getTranslations("ProductStudio");
@@ -25,12 +25,7 @@ export async function ProductListPage() {
   let loadError: string | null = null;
 
   try {
-    const user = await getStudioUser();
-    if (!user) {
-      loadError = "Oturum gerekli. Tekrar giris yapin.";
-    } else {
-      items = await listProducts();
-    }
+    items = await listProducts();
   } catch (error) {
     console.error("[product-studio] list", error);
     loadError =

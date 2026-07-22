@@ -32,6 +32,18 @@ function withSurfaceHeaders(
   return response;
 }
 
+/** Preserve refreshed auth cookies when replacing the intl response with a redirect. */
+function copyCookies(from: NextResponse, to: NextResponse) {
+  const setCookies =
+    typeof from.headers.getSetCookie === "function"
+      ? from.headers.getSetCookie()
+      : [];
+  for (const cookie of setCookies) {
+    to.headers.append("set-cookie", cookie);
+  }
+  return to;
+}
+
 function isStudioLoginPath(pathname: string) {
   const { pathnameWithoutLocale } = splitLocalePrefix(pathname);
   return pathnameWithoutLocale === "/studio/login";
@@ -64,6 +76,8 @@ export default async function middleware(request: NextRequest) {
   }
 
   // Admin host: normalize short paths onto `/studio…`, then let next-intl run.
+  // External 308 keeps the public URL on `/studio…` so localePrefix as-needed
+  // + next-intl rewrites stay aligned with the App Router tree.
   if (surface === "studio") {
     const internalPath = mapAdminPathToInternal(pathname);
     if (internalPath !== pathname) {
@@ -73,6 +87,8 @@ export default async function middleware(request: NextRequest) {
     }
   }
 
+  // Official next-intl + Supabase order: intl first, then mutate cookies on
+  // that same response (never NextResponse.next() — it drops the rewrite).
   const intlResponse = withSurfaceHeaders(intlMiddleware(request), surface);
   const { response, user } = await updateSession(request, intlResponse);
 
@@ -87,7 +103,8 @@ export default async function middleware(request: NextRequest) {
       url.search = "";
       const next = pathname + (request.nextUrl.search || "");
       url.searchParams.set("next", next);
-      return withSurfaceHeaders(NextResponse.redirect(url), "studio");
+      const redirect = withSurfaceHeaders(NextResponse.redirect(url), "studio");
+      return copyCookies(response, redirect);
     }
 
     if (user && onLogin) {
@@ -98,7 +115,8 @@ export default async function middleware(request: NextRequest) {
           ? next.split("?")[0]!
           : joinLocalePrefix(locale, "/studio");
       url.search = "";
-      return withSurfaceHeaders(NextResponse.redirect(url), "studio");
+      const redirect = withSurfaceHeaders(NextResponse.redirect(url), "studio");
+      return copyCookies(response, redirect);
     }
   }
 

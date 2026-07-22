@@ -4,23 +4,18 @@ import { setRequestLocale } from "next-intl/server";
 
 import { ProductEditor } from "@/features/product-studio";
 import { getProductById } from "@/lib/data";
-import { getStudioUser } from "@/lib/supabase/auth";
 
 type EditProductPageProps = {
   params: Promise<{ locale: string; id: string }>;
 };
 
+/** Auth via middleware only — no cookies() in this RSC. */
 export default async function EditProductPage({
   params,
 }: EditProductPageProps) {
   const { locale, id } = await params;
   setRequestLocale(locale);
   noStore();
-
-  const user = await getStudioUser();
-  if (!user) {
-    notFound();
-  }
 
   const product = await getProductById(id);
   if (!product) {
