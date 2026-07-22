@@ -11,19 +11,20 @@ type SessionResult = {
 
 /**
  * Refresh the auth session and attach cookies onto `baseResponse`.
- * Safe no-op when Supabase env is missing.
+ *
+ * IMPORTANT: Do NOT replace `baseResponse` with a fresh `NextResponse.next()`.
+ * That wipes next-intl rewrites/headers and causes authenticated Studio RSC
+ * renders to 500. Always mutate cookies on the intl response in place.
  */
 export async function updateSession(
   request: NextRequest,
   baseResponse: NextResponse,
 ): Promise<SessionResult> {
-  let response = baseResponse;
-
   const url = publicEnv.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = publicEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !anonKey) {
-    return { response, user: null };
+    return { response: baseResponse, user: null };
   }
 
   const supabase = createServerClient(url, anonKey, {
@@ -35,24 +36,8 @@ export async function updateSession(
         cookiesToSet.forEach(({ name, value }) => {
           request.cookies.set(name, value);
         });
-        response = NextResponse.next({
-          request: {
-            headers: request.headers,
-          },
-        });
-        // Preserve headers from the base (intl / surface) response.
-        baseResponse.headers.forEach((value, key) => {
-          if (key.toLowerCase() === "set-cookie") return;
-          response.headers.set(key, value);
-        });
         cookiesToSet.forEach(({ name, value, options }) => {
-          response.cookies.set(name, value, options);
-        });
-        // Re-apply any cookies already on baseResponse.
-        baseResponse.cookies.getAll().forEach((cookie) => {
-          if (!cookiesToSet.some((c) => c.name === cookie.name)) {
-            response.cookies.set(cookie.name, cookie.value);
-          }
+          baseResponse.cookies.set(name, value, options);
         });
       },
     },
@@ -62,5 +47,5 @@ export async function updateSession(
     data: { user },
   } = await supabase.auth.getUser();
 
-  return { response, user };
+  return { response: baseResponse, user };
 }
