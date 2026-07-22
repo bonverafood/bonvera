@@ -6,7 +6,7 @@
   "Marketing": {
     "brand": "Bonvera",
     "title": "Bonvera",
-    "subtitle": "Authentic Turkish Cuisine, Crafted in France.",
+    "subtitle": "Cuisine turque authentique, élaborée en France.",
     "nav": {
       "aria": "Navigation principale",
       "home": "Accueil",
@@ -15,45 +15,46 @@
       "blog": "Blog",
       "contact": "Contact",
       "contactCta": "Contact",
+      "language": "Langue",
       "open": "Ouvrir le menu",
       "close": "Fermer le menu"
     },
     "footer": {
-      "tagline": "Cuisine turque authentique, elaboree en France. Mezes premium, icli kofte et sarmas.",
+      "tagline": "Cuisine turque authentique, élaborée en France. Mezzés premium, içli köfte et sarmas.",
       "explore": "Explorer",
       "contact": "Contact",
       "location": "Strasbourg, France",
       "email": "hello@bonvera.food",
-      "rights": "© {year} Bonvera. Tous droits reserves.",
-      "craft": "Crafted in France."
+      "rights": "© {year} Bonvera. Tous droits réservés.",
+      "craft": "Élaboré en France."
     },
     "home": {
       "metaTitle": "Bonvera",
-      "metaDescription": "Cuisine turque authentique, elaboree en France. Mezes premium, icli kofte et sarmas.",
+      "metaDescription": "Cuisine turque authentique, élaborée en France. Mezzés premium, içli köfte et sarmas — Strasbourg.",
       "hero": {
-        "headline": "Authentic Turkish Cuisine, Crafted in France.",
-        "support": "Mezes gourmets, icli kofte et sarmas — cuisine turque premium elaboree a Strasbourg.",
+        "headline": "Cuisine turque authentique, élaborée en France.",
+        "support": "Mezzés gourmands, içli köfte et sarmas — préparés avec soin à Strasbourg.",
         "ctaPrimary": "Voir les produits",
-        "ctaSecondary": "Nous contacter"
+        "ctaSecondary": "Nous écrire"
       },
       "story": {
         "eyebrow": "Marque",
         "title": "Saveur traditionnelle, savoir-faire moderne.",
-        "body": "Bonvera elabore en France la richesse de la cuisine turque. Chaque produit allie ingredients frais, epices equilibrees et presentation professionnelle."
+        "body": "Bonvera élabore en France la richesse de la cuisine turque. Chaque produit allie ingrédients frais, épices équilibrées et présentation soignée."
       },
       "products": {
         "eyebrow": "Collection",
-        "title": "Selection",
+        "title": "Sélection",
         "all": "Tous les produits"
       },
       "craft": {
         "eyebrow": "Production",
-        "title": "De l'atelier a la table.",
-        "body": "Notre approche allie Constance, hygiene et integrite du gout — fiable pour les partenaires, memorable pour les hotes."
+        "title": "De l'atelier à la table.",
+        "body": "Notre approche allie constance, hygiène et intégrité du goût — fiable pour les partenaires, mémorable à table."
       },
       "cta": {
         "title": "Partenariat ou demande de catalogue ?",
-        "body": "L'equipe Bonvera partage volontiers notre gamme et nos options de collaboration.",
+        "body": "L'équipe Bonvera partage volontiers notre gamme et nos options de collaboration.",
         "button": "Envoyer un message"
       }
     },
@@ -61,62 +62,62 @@
       "metaTitle": "Produits — Bonvera",
       "metaDescription": "Mezzés turcs, içli köfte et sarmas produits à Strasbourg. Cuisine turque authentique, France.",
       "eyebrow": "Produits",
-      "title": "Collection produits",
+      "title": "Nos produits",
       "description": "Production quotidienne à Strasbourg — mezzés, içli köfte et sarmas.",
-      "emptyFallback": "Aucun produit publie.",
-      "detailPlaceholder": "Page coquille Sprint 5. Contenu, SEO et traductions suivront.",
+      "emptyFallback": "Aucun produit publié.",
+      "detailPlaceholder": "Le détail produit sera enrichi bientôt.",
       "detailCta": "Demander un devis",
       "back": "Tous les produits",
       "categories": {
         "core": "Signature",
-        "meze": "Meze"
+        "meze": "Mezzé"
       },
       "items": {
         "icliKofte": {
-          "name": "Icli Kofte",
-          "summary": "Fait main, epices equilibrees et texture croustillante — la signature Bonvera."
+          "name": "İçli Köfte",
+          "summary": "Fait main, épices équilibrées et texture croustillante — la signature Bonvera."
         },
         "yaprakSarmasi": {
-          "name": "Yaprak Sarmasi",
-          "summary": "Finement roule, a l'huile d'olive et frais — ideal en presentation traditionnelle."
+          "name": "Yaprak Sarma",
+          "summary": "Finement roulé, à l'huile d'olive et frais — idéal en présentation traditionnelle."
         },
         "ezme": {
           "name": "Ezme",
-          "summary": "Vif, epice et frais — indispensable sur un plateau de mezes."
+          "summary": "Vif, épicé et frais — indispensable sur un plateau de mezzés."
         }
       }
     },
     "recipes": {
       "metaTitle": "Recettes — Bonvera",
-      "metaDescription": "Idees de recettes autour des produits Bonvera.",
+      "metaDescription": "Idées de recettes autour des produits Bonvera.",
       "eyebrow": "Recettes",
-      "title": "Inspiration a table",
-      "description": "Coquilles de recettes liees aux produits. Le contenu viendra plus tard.",
+      "title": "Inspiration à table",
+      "description": "Idées de recettes liées aux produits. Le contenu s'enrichira bientôt.",
       "items": {
         "mezeliTabak": {
-          "title": "Assiette de mezes",
-          "summary": "Ezme, houmous et sarmas pour un plateau partage et equilibre."
+          "title": "Assiette de mezzés",
+          "summary": "Ezme, houmous et sarmas pour un plateau partagé et équilibré."
         },
         "icliServis": {
-          "title": "Service d'icli kofte",
-          "summary": "Service chaud, garniture sobre et presentation professionnelle."
+          "title": "Service d'içli köfte",
+          "summary": "Service chaud, garniture sobre et présentation soignée."
         }
       }
     },
     "blog": {
       "metaTitle": "Blog — Bonvera",
-      "metaDescription": "Histoire de marque et contenus SEO Bonvera.",
+      "metaDescription": "Histoire de la marque Bonvera et articles gourmands.",
       "eyebrow": "Blog",
-      "title": "Histoires & contenus",
-      "description": "Coquille blog SEO. Les articles reels arriveront avec Blog Studio.",
+      "title": "Histoires et contenus",
+      "description": "Récits de marque et articles de table bientôt ici.",
       "items": {
         "strasbourg": {
-          "title": "Cuisine turque a Strasbourg",
-          "summary": "L'histoire d'une marque de saveurs authentiques elaborees en France."
+          "title": "Cuisine turque à Strasbourg",
+          "summary": "L'histoire d'une marque de saveurs authentiques élaborées en France."
         },
         "meze": {
-          "title": "L'essence de la culture meze",
-          "summary": "Partage, equilibre et epices fraiches en quelques mots."
+          "title": "L'essence de la culture mezzé",
+          "summary": "Partage, équilibre et épices fraîches en quelques mots."
         }
       }
     },
@@ -125,16 +126,16 @@
       "metaDescription": "Contactez Bonvera : partenariats, catalogues et demandes de devis.",
       "eyebrow": "Contact",
       "title": "Parlons ensemble",
-      "description": "Formulaire en coquille. L'envoi live arrivera avec le module Messages.",
+      "description": "Le formulaire est pour l'instant informatif. L'envoi en direct arrivera bientôt.",
       "locationLabel": "Lieu",
       "emailLabel": "E-mail",
-      "note": "Ask Bonvera et les formulaires aboutiront plus tard dans Messages.",
+      "note": "Messages et demandes seront bientôt centralisés ici.",
       "form": {
         "name": "Nom",
         "email": "E-mail",
         "message": "Message",
-        "submit": "Envoyer (bientot)",
-        "shellNote": "Sprint 5 : formulaire visuel uniquement ; envoi non actif."
+        "submit": "Envoyer (bientôt)",
+        "shellNote": "Formulaire prêt à l'écran ; l'envoi n'est pas encore actif."
       }
     }
   },

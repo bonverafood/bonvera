@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 
 import { getActiveMarketingNavId, MARKETING_NAV } from "../constants/nav";
 import { useMarketingShellUi } from "../store";
+import { MarketingLocaleSwitch } from "./marketing-locale-switch";
 
 type MarketingHeaderProps = {
   variant?: "overHero" | "solid";
@@ -109,6 +110,8 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
             {t("nav.contactCta")}
           </Link>
 
+          <MarketingLocaleSwitch overHero={overHero} />
+
           <Button
             type="button"
             variant="ghost"
@@ -160,6 +163,17 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
                 {t(item.labelKey)}
               </Link>
             ))}
+            <div className="mt-2 flex items-center justify-between gap-3 px-3 py-2">
+              <span
+                className={cn(
+                  "text-sm",
+                  overHero ? "text-white/70" : "text-muted-foreground",
+                )}
+              >
+                {t("nav.language")}
+              </span>
+              <MarketingLocaleSwitch overHero={overHero} />
+            </div>
           </nav>
         </div>
       ) : null}
