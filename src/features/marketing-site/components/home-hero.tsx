@@ -20,11 +20,11 @@ export function HomeHero() {
         transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <Image
-          src="/brand/hero.jpg"
-          alt=""
+          src="/brand/hero-family-paris.png"
+          alt="Paris'te bir aile sofrası — Türk mezeleri ve pencereden Eyfel"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-[center_40%]"
           sizes="100vw"
         />
       </motion.div>
