@@ -44,9 +44,9 @@ Fill `.env.local` from `.env.example`. Env is validated in `src/config/env.ts`.
 | `pnpm db:generate` | Drizzle migrations |
 | `pnpm db:studio` | Drizzle Studio |
 
-## Architecture
+## Architecture & roadmap
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) and [docs/deployment.md](./docs/deployment.md).
+See [ARCHITECTURE.md](./ARCHITECTURE.md), [docs/roadmap.md](./docs/roadmap.md), and [docs/deployment.md](./docs/deployment.md).
 
 ## Languages
 

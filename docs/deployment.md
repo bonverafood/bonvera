@@ -2,10 +2,15 @@
 
 **Bonvera Studio** is a **single Next.js application** deployed once on Vercel, on two production hostnames. One brand. One database. Not a multi-tenant SaaS.
 
+**Site map (routes + phases):** see [`site-map.md`](./site-map.md).
+
 | Surface | Domain | Role |
 |---------|--------|------|
 | Marketing (public website) | `https://bonvera.food` | Public Bonvera site, SEO, sitemap |
 | Bonvera Studio (admin) | `https://admin.bonvera.food` | Internal operating panel |
+
+**Canonical:** apex `bonvera.food`. Prefer `www` → apex redirect (not apex → www).
+
 
 Canonical URLs, `metadataBase`, and `sitemap.xml` **always** use `bonvera.food`.  
 Admin is **never** indexed (`X-Robots-Tag`, Studio layout `robots`, admin `robots.txt` Disallow).

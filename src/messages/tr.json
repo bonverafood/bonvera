@@ -4,8 +4,136 @@
     "tagline": "Bonvera icin premium dahili isletim sistemi"
   },
   "Marketing": {
+    "brand": "Bonvera",
     "title": "Bonvera",
-    "subtitle": "Gurme mezeler ve hazir lezzetler"
+    "subtitle": "Authentic Turkish Cuisine, Crafted in France.",
+    "nav": {
+      "aria": "Ana navigasyon",
+      "home": "Ana Sayfa",
+      "products": "Urunler",
+      "recipes": "Tarifler",
+      "blog": "Blog",
+      "contact": "Iletisim",
+      "contactCta": "Iletisim",
+      "open": "Menuyu ac",
+      "close": "Menuyu kapat"
+    },
+    "footer": {
+      "tagline": "Fransa'da uretilen otantik Turk mutfagi. Premium mezeler, icli kofte ve sarmalar.",
+      "explore": "Kesfet",
+      "contact": "Iletisim",
+      "location": "Strasbourg, France",
+      "email": "hello@bonvera.food",
+      "rights": "© {year} Bonvera. Tum haklari saklidir.",
+      "craft": "Crafted in France."
+    },
+    "home": {
+      "hero": {
+        "headline": "Authentic Turkish Cuisine, Crafted in France.",
+        "support": "Gurme mezeler, icli kofte ve sarmalar — Strasbourg'da uretilen premium Turk mutfagi.",
+        "ctaPrimary": "Urunleri incele",
+        "ctaSecondary": "Bizimle iletisime gec"
+      },
+      "story": {
+        "eyebrow": "Marka",
+        "title": "Geleneksel lezzet, modern ustalik.",
+        "body": "Bonvera, Turk mutfaginin zenginligini Fransa'da ozenle uretir. Her urun; taze malzeme, dengeli baharat ve profesyonel sunum anlayisiyla hazirlanir."
+      },
+      "products": {
+        "eyebrow": "Koleksiyon",
+        "title": "Secili lezzetler",
+        "all": "Tum urunler"
+      },
+      "craft": {
+        "eyebrow": "Uretim",
+        "title": "Atolyeden sofraya.",
+        "body": "Uretim yaklasimimiz; tutarlilik, hijyen ve lezzet butunlugunu bir arada tutar. Is ortaklarimiz icin guvenilir, musterilerimiz icin unutulmaz bir deneyim."
+      },
+      "cta": {
+        "title": "Is ortakligi veya katalog talebi?",
+        "body": "Bonvera ekibi, urun gamimizi ve isbirligi seceneklerini sizinle paylasmaktan memnuniyet duyar.",
+        "button": "Mesaj gonder"
+      }
+    },
+    "products": {
+      "metaTitle": "Urunler — Bonvera",
+      "metaDescription": "Bonvera premium urun koleksiyonu: mezeler, icli kofte ve sarmalar.",
+      "eyebrow": "Urunler",
+      "title": "Urun koleksiyonu",
+      "description": "Su an tasarim kabugu. Gercek urun verileri Product Studio ile baglanacak.",
+      "detailPlaceholder": "Bu sayfa Sprint 5 kabugudur. Tam icerik, gorseller, SEO ve ceviriler sonraki sprintlerde eklenecek.",
+      "detailCta": "Teklif iste",
+      "back": "Tum urunler",
+      "categories": {
+        "core": "Imza urun",
+        "meze": "Meze"
+      },
+      "items": {
+        "icliKofte": {
+          "name": "Icli Kofte",
+          "summary": "El yapimi, dengeli baharat ve krispi dokuyla Bonvera'nin imza lezzeti."
+        },
+        "yaprakSarmasi": {
+          "name": "Yaprak Sarmasi",
+          "summary": "Ince sarilmis, zeytinyagli ve ferah — geleneksel sunum icin ideal."
+        },
+        "ezme": {
+          "name": "Ezme",
+          "summary": "Canli, baharatli ve taze — meze tabaklarinin vazgecilmezi."
+        }
+      }
+    },
+    "recipes": {
+      "metaTitle": "Tarifler — Bonvera",
+      "metaDescription": "Bonvera urunleriyle hazirlanan tarif fikirleri.",
+      "eyebrow": "Tarifler",
+      "title": "Sofra ilhamlari",
+      "description": "Urunlerle iliskili tarif kabuklari. Icerik ileride Tarifler moduluyle gelecek.",
+      "items": {
+        "mezeliTabak": {
+          "title": "Mezeli tabak",
+          "summary": "Ezme, humus ve sarmalarla dengeli bir paylasim tabagi."
+        },
+        "icliServis": {
+          "title": "Icli kofte servisi",
+          "summary": "Sicak servis, sade garnitur ve profesyonel sunum onerisi."
+        }
+      }
+    },
+    "blog": {
+      "metaTitle": "Blog — Bonvera",
+      "metaDescription": "Bonvera marka hikayesi ve SEO odakli yazilar.",
+      "eyebrow": "Blog",
+      "title": "Hikayeler & icerik",
+      "description": "SEO odakli blog kabugu. Gercek yazilar Blog Studio ile yayinlanacak.",
+      "items": {
+        "strasbourg": {
+          "title": "Strasbourg'da Turk mutfagi",
+          "summary": "Fransa'da uretilen otantik lezzetlerin marka hikayesi."
+        },
+        "meze": {
+          "title": "Meze kulturunun ozu",
+          "summary": "Paylasim, denge ve taze baharat uzerine kisa bir bakis."
+        }
+      }
+    },
+    "contact": {
+      "metaTitle": "Iletisim — Bonvera",
+      "metaDescription": "Bonvera ile iletisime gecin: is ortakligi, katalog ve teklif talepleri.",
+      "eyebrow": "Iletisim",
+      "title": "Bizimle konusun",
+      "description": "Form su an kabuk halinde. Mesajlar modulu sonrasi canli gonderim acilacak.",
+      "locationLabel": "Konum",
+      "emailLabel": "E-posta",
+      "note": "Ask Bonvera ve iletisim formlari ileride Mesajlar modulunde toplanacak.",
+      "form": {
+        "name": "Ad Soyad",
+        "email": "E-posta",
+        "message": "Mesajiniz",
+        "submit": "Gonder (yakinda)",
+        "shellNote": "Sprint 5: form gorsel kabuktur; gonderim henuz aktif degil."
+      }
+    }
   },
   "Studio": {
     "title": "Studio",

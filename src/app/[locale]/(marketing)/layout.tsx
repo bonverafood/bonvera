@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import { MarketingShell } from "@/features/marketing-shell";
 import { siteConfig } from "@/config/site";
 
 type MarketingLayoutProps = {
@@ -19,5 +20,9 @@ export const metadata: Metadata = {
 };
 
 export default function MarketingLayout({ children }: MarketingLayoutProps) {
-  return <div data-surface="marketing">{children}</div>;
+  return (
+    <div data-surface="marketing">
+      <MarketingShell>{children}</MarketingShell>
+    </div>
+  );
 }

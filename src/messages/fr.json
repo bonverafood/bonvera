@@ -4,8 +4,136 @@
     "tagline": "Systeme d'exploitation interne premium pour Bonvera"
   },
   "Marketing": {
+    "brand": "Bonvera",
     "title": "Bonvera",
-    "subtitle": "Mezes gourmet et saveurs pretes a deguster"
+    "subtitle": "Authentic Turkish Cuisine, Crafted in France.",
+    "nav": {
+      "aria": "Navigation principale",
+      "home": "Accueil",
+      "products": "Produits",
+      "recipes": "Recettes",
+      "blog": "Blog",
+      "contact": "Contact",
+      "contactCta": "Contact",
+      "open": "Ouvrir le menu",
+      "close": "Fermer le menu"
+    },
+    "footer": {
+      "tagline": "Cuisine turque authentique, elaboree en France. Mezes premium, icli kofte et sarmas.",
+      "explore": "Explorer",
+      "contact": "Contact",
+      "location": "Strasbourg, France",
+      "email": "hello@bonvera.food",
+      "rights": "© {year} Bonvera. Tous droits reserves.",
+      "craft": "Crafted in France."
+    },
+    "home": {
+      "hero": {
+        "headline": "Authentic Turkish Cuisine, Crafted in France.",
+        "support": "Mezes gourmets, icli kofte et sarmas — cuisine turque premium elaboree a Strasbourg.",
+        "ctaPrimary": "Voir les produits",
+        "ctaSecondary": "Nous contacter"
+      },
+      "story": {
+        "eyebrow": "Marque",
+        "title": "Saveur traditionnelle, savoir-faire moderne.",
+        "body": "Bonvera elabore en France la richesse de la cuisine turque. Chaque produit allie ingredients frais, epices equilibrees et presentation professionnelle."
+      },
+      "products": {
+        "eyebrow": "Collection",
+        "title": "Selection",
+        "all": "Tous les produits"
+      },
+      "craft": {
+        "eyebrow": "Production",
+        "title": "De l'atelier a la table.",
+        "body": "Notre approche allie Constance, hygiene et integrite du gout — fiable pour les partenaires, memorable pour les hotes."
+      },
+      "cta": {
+        "title": "Partenariat ou demande de catalogue ?",
+        "body": "L'equipe Bonvera partage volontiers notre gamme et nos options de collaboration.",
+        "button": "Envoyer un message"
+      }
+    },
+    "products": {
+      "metaTitle": "Produits — Bonvera",
+      "metaDescription": "Collection premium Bonvera : mezes, icli kofte et sarmas.",
+      "eyebrow": "Produits",
+      "title": "Collection produits",
+      "description": "Coquille de design pour l'instant. Les donnees reelles arriveront avec Product Studio.",
+      "detailPlaceholder": "Page coquille Sprint 5. Contenu, SEO et traductions suivront.",
+      "detailCta": "Demander un devis",
+      "back": "Tous les produits",
+      "categories": {
+        "core": "Signature",
+        "meze": "Meze"
+      },
+      "items": {
+        "icliKofte": {
+          "name": "Icli Kofte",
+          "summary": "Fait main, epices equilibrees et texture croustillante — la signature Bonvera."
+        },
+        "yaprakSarmasi": {
+          "name": "Yaprak Sarmasi",
+          "summary": "Finement roule, a l'huile d'olive et frais — ideal en presentation traditionnelle."
+        },
+        "ezme": {
+          "name": "Ezme",
+          "summary": "Vif, epice et frais — indispensable sur un plateau de mezes."
+        }
+      }
+    },
+    "recipes": {
+      "metaTitle": "Recettes — Bonvera",
+      "metaDescription": "Idees de recettes autour des produits Bonvera.",
+      "eyebrow": "Recettes",
+      "title": "Inspiration a table",
+      "description": "Coquilles de recettes liees aux produits. Le contenu viendra plus tard.",
+      "items": {
+        "mezeliTabak": {
+          "title": "Assiette de mezes",
+          "summary": "Ezme, houmous et sarmas pour un plateau partage et equilibre."
+        },
+        "icliServis": {
+          "title": "Service d'icli kofte",
+          "summary": "Service chaud, garniture sobre et presentation professionnelle."
+        }
+      }
+    },
+    "blog": {
+      "metaTitle": "Blog — Bonvera",
+      "metaDescription": "Histoire de marque et contenus SEO Bonvera.",
+      "eyebrow": "Blog",
+      "title": "Histoires & contenus",
+      "description": "Coquille blog SEO. Les articles reels arriveront avec Blog Studio.",
+      "items": {
+        "strasbourg": {
+          "title": "Cuisine turque a Strasbourg",
+          "summary": "L'histoire d'une marque de saveurs authentiques elaborees en France."
+        },
+        "meze": {
+          "title": "L'essence de la culture meze",
+          "summary": "Partage, equilibre et epices fraiches en quelques mots."
+        }
+      }
+    },
+    "contact": {
+      "metaTitle": "Contact — Bonvera",
+      "metaDescription": "Contactez Bonvera : partenariats, catalogues et demandes de devis.",
+      "eyebrow": "Contact",
+      "title": "Parlons ensemble",
+      "description": "Formulaire en coquille. L'envoi live arrivera avec le module Messages.",
+      "locationLabel": "Lieu",
+      "emailLabel": "E-mail",
+      "note": "Ask Bonvera et les formulaires aboutiront plus tard dans Messages.",
+      "form": {
+        "name": "Nom",
+        "email": "E-mail",
+        "message": "Message",
+        "submit": "Envoyer (bientot)",
+        "shellNote": "Sprint 5 : formulaire visuel uniquement ; envoi non actif."
+      }
+    }
   },
   "Studio": {
     "title": "Studio",
