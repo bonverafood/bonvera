@@ -1,8 +1,10 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { buttonVariants } from "@/components/ui/button";
+import type { Locale } from "@/config/i18n";
 import { Link } from "@/lib/i18n/navigation";
+import { listPublishedProducts, localizeProduct } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 import { MARKETING_PRODUCTS } from "../data/placeholders";
@@ -11,6 +13,31 @@ import { Reveal } from "./reveal";
 
 export async function MarketingHomePage() {
   const t = await getTranslations("Marketing");
+  const locale = (await getLocale()) as Locale;
+
+  let teaser = MARKETING_PRODUCTS.slice(0, 3).map((p) => ({
+    slug: p.slug,
+    name: t(p.nameKey),
+    summary: t(p.summaryKey),
+    image: p.image,
+  }));
+
+  try {
+    const published = await listPublishedProducts();
+    if (published.length > 0) {
+      teaser = published.slice(0, 3).map((product) => {
+        const content = localizeProduct(product, locale);
+        return {
+          slug: product.slug,
+          name: content.name,
+          summary: content.summary,
+          image: content.imageUrl || "/brand/product-icli-kofte.jpg",
+        };
+      });
+    }
+  } catch (error) {
+    console.warn("[marketing] home products", error);
+  }
 
   return (
     <>
@@ -53,26 +80,21 @@ export async function MarketingHomePage() {
           </Reveal>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {MARKETING_PRODUCTS.map((product, index) => (
+            {teaser.map((product, index) => (
               <Reveal key={product.slug} delay={index * 0.08}>
                 <Link href={`/urunler/${product.slug}`} className="group block">
                   <div className="relative aspect-[4/5] overflow-hidden">
                     <Image
                       src={product.image}
-                      alt=""
+                      alt={product.name}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
-                  <p className="text-muted-foreground mt-4 text-xs tracking-[0.14em] uppercase">
-                    {t(product.categoryKey)}
-                  </p>
-                  <h3 className="font-display mt-1 text-2xl">
-                    {t(product.nameKey)}
-                  </h3>
+                  <h3 className="font-display mt-4 text-2xl">{product.name}</h3>
                   <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                    {t(product.summaryKey)}
+                    {product.summary}
                   </p>
                 </Link>
               </Reveal>

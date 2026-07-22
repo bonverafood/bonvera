@@ -5,11 +5,8 @@ import { revalidatePath } from "next/cache";
 import {
   deleteMediaAssetById,
   getMediaAssetById,
-  insertMediaAsset,
   listMediaAssets,
-  MEDIA_ALLOWED_MIME,
   MEDIA_BUCKET,
-  MEDIA_MAX_BYTES,
   updateMediaAssetAlt,
   type MediaAsset,
 } from "@/lib/data";
@@ -39,16 +36,6 @@ function revalidateMedia() {
   revalidatePath("/studio/urunler");
 }
 
-function sanitizeFileName(name: string) {
-  return name
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9._-]+/g, "-")
-    .replace(/-+/g, "-")
-    .toLowerCase()
-    .slice(0, 120);
-}
-
 export async function listMedia(): Promise<ActionResult<MediaAsset[]>> {
   try {
     await requireStudioUser();
@@ -59,74 +46,18 @@ export async function listMedia(): Promise<ActionResult<MediaAsset[]>> {
   }
 }
 
+/**
+ * Storage upload deferred — UI slots remain; do not wire until RSC path is stable.
+ * Kept exported so call sites can stay typed without shipping a live upload path.
+ */
 export async function uploadMedia(
-  formData: FormData,
+  _formData: FormData,
 ): Promise<ActionResult<MediaAsset>> {
-  try {
-    const user = await requireStudioUser();
-    const file = formData.get("file");
-
-    if (!(file instanceof File)) {
-      return { ok: false, error: "Dosya secilmedi." };
-    }
-
-    if (
-      !MEDIA_ALLOWED_MIME.includes(
-        file.type as (typeof MEDIA_ALLOWED_MIME)[number],
-      )
-    ) {
-      return {
-        ok: false,
-        error: "Yalnizca JPEG, PNG veya WebP yuklenebilir.",
-      };
-    }
-
-    if (file.size <= 0 || file.size > MEDIA_MAX_BYTES) {
-      return { ok: false, error: "Dosya boyutu en fazla 5 MB olmali." };
-    }
-
-    const safeName = sanitizeFileName(file.name) || "image";
-    const storagePath = `${user.id}/${Date.now()}-${safeName}`;
-    const buffer = Buffer.from(await file.arrayBuffer());
-
-    const supabase = createServiceRoleClient();
-    const { error: uploadError } = await supabase.storage
-      .from(MEDIA_BUCKET)
-      .upload(storagePath, buffer, {
-        contentType: file.type,
-        upsert: false,
-      });
-
-    if (uploadError) {
-      console.error("[media-studio] upload", uploadError);
-      return {
-        ok: false,
-        error:
-          uploadError.message.includes("Bucket not found") ||
-          uploadError.message.includes("not found")
-            ? "Storage bucket 'media' bulunamadi. Supabase'de olusturun."
-            : "Yukleme basarisiz. Tekrar deneyin.",
-      };
-    }
-
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(storagePath);
-
-    const created = await insertMediaAsset({
-      storagePath,
-      publicUrl,
-      fileName: file.name.slice(0, 200),
-      mimeType: file.type,
-      byteSize: file.size,
-      createdBy: user.id,
-    });
-
-    revalidateMedia();
-    return { ok: true, data: created };
-  } catch (error) {
-    return { ok: false, error: mapError(error) };
-  }
+  void _formData;
+  return {
+    ok: false,
+    error: "Gorsel yukleme gecici olarak kapali. Sonra tekrar acilacak.",
+  };
 }
 
 export async function deleteMedia(

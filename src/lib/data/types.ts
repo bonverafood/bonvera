@@ -7,9 +7,14 @@ export type Product = {
   nameTr: string;
   summaryTr: string;
   bodyTr: string;
+  nameFr: string;
+  summaryFr: string;
+  bodyFr: string;
   imageUrl: string | null;
   seoTitleTr: string | null;
   seoDescriptionTr: string | null;
+  seoTitleFr: string | null;
+  seoDescriptionFr: string | null;
   ogImageUrl: string | null;
   sortOrder: number;
   publishedAt: string | null;

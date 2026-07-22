@@ -15,9 +15,14 @@ export type ProductRow = {
   name_tr: string;
   summary_tr: string;
   body_tr: string;
+  name_fr: string | null;
+  summary_fr: string | null;
+  body_fr: string | null;
   image_url: string | null;
   seo_title_tr: string | null;
   seo_description_tr: string | null;
+  seo_title_fr: string | null;
+  seo_description_fr: string | null;
   og_image_url: string | null;
   sort_order: number;
   published_at: string | null;
@@ -47,9 +52,14 @@ export function mapProduct(row: ProductRow): Product {
     nameTr: row.name_tr,
     summaryTr: row.summary_tr,
     bodyTr: row.body_tr,
+    nameFr: row.name_fr ?? "",
+    summaryFr: row.summary_fr ?? "",
+    bodyFr: row.body_fr ?? "",
     imageUrl: row.image_url,
     seoTitleTr: row.seo_title_tr,
     seoDescriptionTr: row.seo_description_tr,
+    seoTitleFr: row.seo_title_fr,
+    seoDescriptionFr: row.seo_description_fr,
     ogImageUrl: row.og_image_url,
     sortOrder: row.sort_order,
     publishedAt: row.published_at,

@@ -9,9 +9,14 @@ export type ProductWrite = {
   nameTr: string;
   summaryTr: string;
   bodyTr: string;
+  nameFr: string;
+  summaryFr: string;
+  bodyFr: string;
   imageUrl: string | null;
   seoTitleTr: string | null;
   seoDescriptionTr: string | null;
+  seoTitleFr: string | null;
+  seoDescriptionFr: string | null;
   ogImageUrl: string | null;
   sortOrder: number;
   publishedAt: string | null;
@@ -19,6 +24,27 @@ export type ProductWrite = {
 
 function client() {
   return createServiceRoleClient();
+}
+
+function toRow(input: ProductWrite) {
+  return {
+    slug: input.slug,
+    status: input.status,
+    name_tr: input.nameTr,
+    summary_tr: input.summaryTr,
+    body_tr: input.bodyTr,
+    name_fr: input.nameFr,
+    summary_fr: input.summaryFr,
+    body_fr: input.bodyFr,
+    image_url: input.imageUrl,
+    seo_title_tr: input.seoTitleTr,
+    seo_description_tr: input.seoDescriptionTr,
+    seo_title_fr: input.seoTitleFr,
+    seo_description_fr: input.seoDescriptionFr,
+    og_image_url: input.ogImageUrl,
+    sort_order: input.sortOrder,
+    published_at: input.publishedAt,
+  };
 }
 
 export async function listProducts(): Promise<Product[]> {
@@ -61,19 +87,7 @@ export async function insertProduct(
 ): Promise<{ id: string }> {
   const { data, error } = await client()
     .from("products")
-    .insert({
-      slug: input.slug,
-      status: input.status,
-      name_tr: input.nameTr,
-      summary_tr: input.summaryTr,
-      body_tr: input.bodyTr,
-      image_url: input.imageUrl,
-      seo_title_tr: input.seoTitleTr,
-      seo_description_tr: input.seoDescriptionTr,
-      og_image_url: input.ogImageUrl,
-      sort_order: input.sortOrder,
-      published_at: input.publishedAt,
-    })
+    .insert(toRow(input))
     .select("id")
     .single();
 
@@ -88,17 +102,7 @@ export async function updateProductById(
   const { error } = await client()
     .from("products")
     .update({
-      slug: input.slug,
-      status: input.status,
-      name_tr: input.nameTr,
-      summary_tr: input.summaryTr,
-      body_tr: input.bodyTr,
-      image_url: input.imageUrl,
-      seo_title_tr: input.seoTitleTr,
-      seo_description_tr: input.seoDescriptionTr,
-      og_image_url: input.ogImageUrl,
-      sort_order: input.sortOrder,
-      published_at: input.publishedAt,
+      ...toRow(input),
       updated_at: input.updatedAt,
     })
     .eq("id", id);

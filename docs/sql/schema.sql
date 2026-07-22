@@ -18,9 +18,14 @@ CREATE TABLE IF NOT EXISTS public.products (
   name_tr text NOT NULL,
   summary_tr text DEFAULT '' NOT NULL,
   body_tr text DEFAULT '' NOT NULL,
+  name_fr text DEFAULT '' NOT NULL,
+  summary_fr text DEFAULT '' NOT NULL,
+  body_fr text DEFAULT '' NOT NULL,
   image_url text,
   seo_title_tr text,
   seo_description_tr text,
+  seo_title_fr text,
+  seo_description_fr text,
   og_image_url text,
   sort_order integer DEFAULT 0 NOT NULL,
   published_at timestamptz,
@@ -28,6 +33,13 @@ CREATE TABLE IF NOT EXISTS public.products (
   updated_at timestamptz DEFAULT now() NOT NULL,
   CONSTRAINT products_slug_unique UNIQUE (slug)
 );
+
+-- Idempotent FR columns for existing projects
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS name_fr text DEFAULT '' NOT NULL;
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS summary_fr text DEFAULT '' NOT NULL;
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS body_fr text DEFAULT '' NOT NULL;
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS seo_title_fr text;
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS seo_description_fr text;
 
 CREATE TABLE IF NOT EXISTS public.media_assets (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,

@@ -26,6 +26,10 @@ export {
   type ProductWrite,
 } from "./products";
 export {
+  localizeProduct,
+  type LocalizedProductContent,
+} from "./localize-product";
+export {
   deleteMediaAssetById,
   getMediaAssetById,
   getMediaPublicUrl,

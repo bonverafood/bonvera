@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { MediaPickerDialog } from "@/features/media-studio/components/media-picker-dialog";
 import { useRouter } from "@/lib/i18n/navigation";
 import type { Product } from "@/lib/data/types";
+import { cn } from "@/lib/utils";
 
 import { createProduct, updateProduct, archiveProduct } from "../actions";
 import { productInputSchema, type ProductInput } from "../schema";
@@ -21,6 +22,11 @@ import { ProductLivePreview } from "./product-live-preview";
 type ProductEditorProps = {
   mode: "create" | "edit";
   product?: Product;
+  /** Accordion / inline mode — no page chrome, stay on list after save */
+  embedded?: boolean;
+  onSaved?: (id: string) => void;
+  onArchived?: (id: string) => void;
+  onCancel?: () => void;
 };
 
 function toFormValues(product?: Product): ProductInput {
@@ -31,9 +37,14 @@ function toFormValues(product?: Product): ProductInput {
       nameTr: "",
       summaryTr: "",
       bodyTr: "",
+      nameFr: "",
+      summaryFr: "",
+      bodyFr: "",
       imageUrl: "",
       seoTitleTr: "",
       seoDescriptionTr: "",
+      seoTitleFr: "",
+      seoDescriptionFr: "",
       ogImageUrl: "",
       sortOrder: 0,
     };
@@ -44,15 +55,27 @@ function toFormValues(product?: Product): ProductInput {
     nameTr: product.nameTr,
     summaryTr: product.summaryTr ?? "",
     bodyTr: product.bodyTr ?? "",
+    nameFr: product.nameFr ?? "",
+    summaryFr: product.summaryFr ?? "",
+    bodyFr: product.bodyFr ?? "",
     imageUrl: product.imageUrl ?? "",
     seoTitleTr: product.seoTitleTr ?? "",
     seoDescriptionTr: product.seoDescriptionTr ?? "",
+    seoTitleFr: product.seoTitleFr ?? "",
+    seoDescriptionFr: product.seoDescriptionFr ?? "",
     ogImageUrl: product.ogImageUrl ?? "",
     sortOrder: product.sortOrder,
   };
 }
 
-export function ProductEditor({ mode, product }: ProductEditorProps) {
+export function ProductEditor({
+  mode,
+  product,
+  embedded = false,
+  onSaved,
+  onArchived,
+  onCancel,
+}: ProductEditorProps) {
   const t = useTranslations("ProductStudio");
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -69,6 +92,10 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
   });
 
   const values = form.watch();
+
+  useEffect(() => {
+    form.reset(toFormValues(product));
+  }, [product, form]);
 
   useEffect(() => {
     if (saveState !== "saved") return;
@@ -92,10 +119,9 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
       }
 
       setSaveState("saved");
-      if (mode === "create") {
+      onSaved?.(result.data.id);
+      if (mode === "create" && !embedded) {
         router.replace(`/studio/urunler/${result.data.id}`);
-        router.refresh();
-        return;
       }
       router.refresh();
     });
@@ -110,7 +136,10 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
         setError(result.error);
         return;
       }
-      router.replace("/studio/urunler");
+      onArchived?.(product.id);
+      if (!embedded) {
+        router.replace("/studio/urunler");
+      }
       router.refresh();
     });
   }
@@ -132,20 +161,34 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
     form.setValue("slug", slug, { shouldValidate: true, shouldDirty: true });
   }
 
+  const fieldId = (name: string) =>
+    product ? `${product.id}-${name}` : `new-${name}`;
+
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.9fr)]">
+    <div
+      className={cn(
+        "grid gap-8",
+        embedded
+          ? "lg:grid-cols-1"
+          : "lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.9fr)]",
+      )}
+    >
       <form
         className="space-y-6"
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
       >
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight">
-              {mode === "create" ? t("createTitle") : t("editTitle")}
-            </h1>
+          {!embedded ? (
+            <div>
+              <h1 className="text-2xl font-semibold tracking-tight">
+                {mode === "create" ? t("createTitle") : t("editTitle")}
+              </h1>
+              <p className="text-muted-foreground text-sm">{t("editorHint")}</p>
+            </div>
+          ) : (
             <p className="text-muted-foreground text-sm">{t("editorHint")}</p>
-          </div>
+          )}
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-xs">
               {saveState === "saving"
@@ -154,6 +197,11 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
                   ? t("saved")
                   : null}
             </span>
+            {onCancel ? (
+              <Button type="button" variant="ghost" onClick={onCancel}>
+                {t("cancel")}
+              </Button>
+            ) : null}
             <Button type="submit" disabled={pending}>
               {t("save")}
             </Button>
@@ -169,23 +217,13 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
         <section className="border-border space-y-4 rounded-xl border p-4 sm:p-5">
           <h2 className="text-sm font-semibold">{t("sections.content")}</h2>
           <div className="space-y-2">
-            <Label htmlFor="nameTr">{t("fields.name")}</Label>
-            <Input id="nameTr" {...form.register("nameTr")} />
-            {form.formState.errors.nameTr ? (
-              <p className="text-destructive text-xs">
-                {form.formState.errors.nameTr.message}
-              </p>
-            ) : null}
+            <Label htmlFor={fieldId("nameTr")}>{t("fields.name")}</Label>
+            <Input id={fieldId("nameTr")} {...form.register("nameTr")} />
           </div>
           <div className="grid gap-4 sm:grid-cols-[1fr_auto]">
             <div className="space-y-2">
-              <Label htmlFor="slug">{t("fields.slug")}</Label>
-              <Input id="slug" {...form.register("slug")} />
-              {form.formState.errors.slug ? (
-                <p className="text-destructive text-xs">
-                  {form.formState.errors.slug.message}
-                </p>
-              ) : null}
+              <Label htmlFor={fieldId("slug")}>{t("fields.slug")}</Label>
+              <Input id={fieldId("slug")} {...form.register("slug")} />
             </div>
             <div className="flex items-end">
               <Button
@@ -199,23 +237,57 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="summaryTr">{t("fields.summary")}</Label>
-            <Textarea id="summaryTr" rows={3} {...form.register("summaryTr")} />
+            <Label htmlFor={fieldId("summaryTr")}>{t("fields.summary")}</Label>
+            <Textarea
+              id={fieldId("summaryTr")}
+              rows={3}
+              {...form.register("summaryTr")}
+            />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="bodyTr">{t("fields.body")}</Label>
-            <Textarea id="bodyTr" rows={8} {...form.register("bodyTr")} />
+            <Label htmlFor={fieldId("bodyTr")}>{t("fields.body")}</Label>
+            <Textarea
+              id={fieldId("bodyTr")}
+              rows={6}
+              {...form.register("bodyTr")}
+            />
+          </div>
+        </section>
+
+        <section className="border-border space-y-4 rounded-xl border p-4 sm:p-5">
+          <h2 className="text-sm font-semibold">{t("sections.contentFr")}</h2>
+          <div className="space-y-2">
+            <Label htmlFor={fieldId("nameFr")}>{t("fields.nameFr")}</Label>
+            <Input id={fieldId("nameFr")} {...form.register("nameFr")} />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor={fieldId("summaryFr")}>
+              {t("fields.summaryFr")}
+            </Label>
+            <Textarea
+              id={fieldId("summaryFr")}
+              rows={3}
+              {...form.register("summaryFr")}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor={fieldId("bodyFr")}>{t("fields.bodyFr")}</Label>
+            <Textarea
+              id={fieldId("bodyFr")}
+              rows={6}
+              {...form.register("bodyFr")}
+            />
           </div>
         </section>
 
         <section className="border-border space-y-4 rounded-xl border p-4 sm:p-5">
           <h2 className="text-sm font-semibold">{t("sections.media")}</h2>
           <div className="space-y-2">
-            <Label htmlFor="imageUrl">{t("fields.imageUrl")}</Label>
+            <Label htmlFor={fieldId("imageUrl")}>{t("fields.imageUrl")}</Label>
             <div className="flex flex-col gap-2 sm:flex-row">
               <Input
-                id="imageUrl"
-                placeholder="/brand/product-icli-kofte.jpg"
+                id={fieldId("imageUrl")}
+                placeholder="/products/cacik.jpg"
                 className="flex-1"
                 {...form.register("imageUrl")}
               />
@@ -234,22 +306,47 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
         <section className="border-border space-y-4 rounded-xl border p-4 sm:p-5">
           <h2 className="text-sm font-semibold">{t("sections.seo")}</h2>
           <div className="space-y-2">
-            <Label htmlFor="seoTitleTr">{t("fields.seoTitle")}</Label>
-            <Input id="seoTitleTr" {...form.register("seoTitleTr")} />
+            <Label htmlFor={fieldId("seoTitleTr")}>{t("fields.seoTitle")}</Label>
+            <Input
+              id={fieldId("seoTitleTr")}
+              {...form.register("seoTitleTr")}
+            />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="seoDescriptionTr">
+            <Label htmlFor={fieldId("seoDescriptionTr")}>
               {t("fields.seoDescription")}
             </Label>
             <Textarea
-              id="seoDescriptionTr"
+              id={fieldId("seoDescriptionTr")}
               rows={3}
               {...form.register("seoDescriptionTr")}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="ogImageUrl">{t("fields.ogImage")}</Label>
-            <Input id="ogImageUrl" {...form.register("ogImageUrl")} />
+            <Label htmlFor={fieldId("seoTitleFr")}>
+              {t("fields.seoTitleFr")}
+            </Label>
+            <Input
+              id={fieldId("seoTitleFr")}
+              {...form.register("seoTitleFr")}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor={fieldId("seoDescriptionFr")}>
+              {t("fields.seoDescriptionFr")}
+            </Label>
+            <Textarea
+              id={fieldId("seoDescriptionFr")}
+              rows={3}
+              {...form.register("seoDescriptionFr")}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor={fieldId("ogImageUrl")}>{t("fields.ogImage")}</Label>
+            <Input
+              id={fieldId("ogImageUrl")}
+              {...form.register("ogImageUrl")}
+            />
           </div>
         </section>
 
@@ -257,17 +354,19 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
           <h2 className="text-sm font-semibold">{t("sections.publish")}</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="status">{t("fields.status")}</Label>
-              <Select id="status" {...form.register("status")}>
+              <Label htmlFor={fieldId("status")}>{t("fields.status")}</Label>
+              <Select id={fieldId("status")} {...form.register("status")}>
                 <option value="draft">{t("status.draft")}</option>
                 <option value="published">{t("status.published")}</option>
                 <option value="archived">{t("status.archived")}</option>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="sortOrder">{t("fields.sortOrder")}</Label>
+              <Label htmlFor={fieldId("sortOrder")}>
+                {t("fields.sortOrder")}
+              </Label>
               <Input
-                id="sortOrder"
+                id={fieldId("sortOrder")}
                 type="number"
                 min={0}
                 {...form.register("sortOrder", { valueAsNumber: true })}
@@ -290,19 +389,35 @@ export function ProductEditor({ mode, product }: ProductEditorProps) {
         ) : null}
       </form>
 
-      <aside className="lg:sticky lg:top-24 lg:self-start">
-        <p className="text-muted-foreground mb-3 text-xs font-semibold tracking-[0.14em] uppercase">
-          {t("preview")}
-        </p>
-        <ProductLivePreview
-          nameTr={values.nameTr ?? ""}
-          summaryTr={values.summaryTr ?? ""}
-          bodyTr={values.bodyTr ?? ""}
-          imageUrl={values.imageUrl}
-          slug={values.slug ?? ""}
-          status={values.status ?? "draft"}
-        />
-      </aside>
+      {!embedded ? (
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <p className="text-muted-foreground mb-3 text-xs font-semibold tracking-[0.14em] uppercase">
+            {t("preview")}
+          </p>
+          <ProductLivePreview
+            nameTr={values.nameTr ?? ""}
+            summaryTr={values.summaryTr ?? ""}
+            bodyTr={values.bodyTr ?? ""}
+            imageUrl={values.imageUrl}
+            slug={values.slug ?? ""}
+            status={values.status ?? "draft"}
+          />
+        </aside>
+      ) : (
+        <div className="border-border rounded-xl border p-4">
+          <p className="text-muted-foreground mb-3 text-xs font-semibold tracking-[0.14em] uppercase">
+            {t("preview")}
+          </p>
+          <ProductLivePreview
+            nameTr={values.nameTr ?? ""}
+            summaryTr={values.summaryTr ?? ""}
+            bodyTr={values.bodyTr ?? ""}
+            imageUrl={values.imageUrl}
+            slug={values.slug ?? ""}
+            status={values.status ?? "draft"}
+          />
+        </div>
+      )}
 
       <MediaPickerDialog
         open={pickerOpen}

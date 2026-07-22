@@ -27,3 +27,37 @@ export function getOrganizationJsonLd(): OrganizationJsonLd {
 export function jsonLdScript(data: unknown): string {
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
+
+export type ProductJsonLdInput = {
+  name: string;
+  description: string;
+  imageUrl: string | null;
+  url: string;
+};
+
+/** Product JSON-LD with Strasbourg production context. */
+export function getProductJsonLd(input: ProductJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: input.name,
+    description: input.description,
+    image: input.imageUrl ? [input.imageUrl] : undefined,
+    url: input.url,
+    brand: {
+      "@type": "Brand",
+      name: "Bonvera",
+    },
+    manufacturer: {
+      "@type": "Organization",
+      name: "Bonvera",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Strasbourg",
+        addressRegion: "Grand Est",
+        addressCountry: "FR",
+      },
+    },
+  };
+}
+

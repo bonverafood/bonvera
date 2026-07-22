@@ -3,20 +3,14 @@
 import Image from "next/image";
 import { Copy, Trash2, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
-import {
-  useCallback,
-  useRef,
-  useState,
-  useTransition,
-  type DragEvent,
-} from "react";
+import { useCallback, useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 import type { MediaAsset } from "@/lib/data/types";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 
-import { deleteMedia, uploadMedia } from "../actions";
+import { deleteMedia } from "../actions";
 
 type MediaLibraryProps = {
   initialItems: MediaAsset[];
@@ -31,6 +25,10 @@ function formatBytes(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+/**
+ * Upload UI is kept as a placeholder — Storage upload is deferred until
+ * the production RSC/auth path is stable.
+ */
 export function MediaLibrary({
   initialItems,
   selectable = false,
@@ -38,47 +36,14 @@ export function MediaLibrary({
 }: MediaLibraryProps) {
   const t = useTranslations("MediaStudio");
   const router = useRouter();
-  const inputRef = useRef<HTMLInputElement>(null);
   const [items, setItems] = useState(initialItems);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const [dragging, setDragging] = useState(false);
   const [pending, startTransition] = useTransition();
 
   const refresh = useCallback(() => {
     router.refresh();
   }, [router]);
-
-  function handleFiles(files: FileList | File[]) {
-    const list = Array.from(files);
-    if (list.length === 0) return;
-
-    setError(null);
-    setMessage(null);
-
-    startTransition(async () => {
-      for (const file of list) {
-        const formData = new FormData();
-        formData.set("file", file);
-        const result = await uploadMedia(formData);
-        if (!result.ok) {
-          setError(result.error);
-          return;
-        }
-        setItems((prev) => [result.data, ...prev]);
-      }
-      setMessage(t("uploadSuccess"));
-      refresh();
-    });
-  }
-
-  function onDrop(event: DragEvent<HTMLDivElement>) {
-    event.preventDefault();
-    setDragging(false);
-    if (event.dataTransfer.files?.length) {
-      handleFiles(event.dataTransfer.files);
-    }
-  }
 
   function onDelete(id: string) {
     if (!window.confirm(t("confirmDelete"))) return;
@@ -113,51 +78,24 @@ export function MediaLibrary({
             </h1>
             <p className="text-muted-foreground text-sm">{t("description")}</p>
           </div>
-          <Button
-            type="button"
-            disabled={pending}
-            onClick={() => inputRef.current?.click()}
-          >
+          <Button type="button" disabled title={t("uploadDeferred")}>
             <Upload className="size-4" />
             {t("upload")}
           </Button>
         </header>
       ) : null}
 
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-        multiple
-        className="sr-only"
-        onChange={(e) => {
-          if (e.target.files) handleFiles(e.target.files);
-          e.target.value = "";
-        }}
-      />
-
+      {/* Upload slot — kept for layout; wiring deferred */}
       <div
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={onDrop}
+        aria-disabled="true"
         className={cn(
-          "border-border rounded-xl border border-dashed px-6 py-10 text-center transition-colors",
-          dragging && "border-primary bg-primary/5",
+          "border-border rounded-xl border border-dashed px-6 py-10 text-center opacity-70",
           selectable && "py-6",
         )}
       >
         <p className="text-sm font-medium">{t("dropTitle")}</p>
-        <p className="text-muted-foreground mt-1 text-xs">{t("dropHint")}</p>
-        <Button
-          type="button"
-          variant="outline"
-          className="mt-4"
-          disabled={pending}
-          onClick={() => inputRef.current?.click()}
-        >
+        <p className="text-muted-foreground mt-1 text-xs">{t("uploadDeferred")}</p>
+        <Button type="button" variant="outline" className="mt-4" disabled>
           {t("browse")}
         </Button>
       </div>

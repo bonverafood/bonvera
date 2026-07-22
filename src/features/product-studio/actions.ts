@@ -44,11 +44,36 @@ function mapError(error: unknown): string {
   return "Islem basarisiz. Tekrar deneyin.";
 }
 
-function revalidateProducts(id?: string) {
+function revalidateProducts(id?: string, slug?: string) {
   revalidatePath("/studio/urunler");
+  revalidatePath("/urunler");
   if (id) {
     revalidatePath(`/studio/urunler/${id}`);
   }
+  if (slug) {
+    revalidatePath(`/urunler/${slug}`);
+  }
+}
+
+function toWrite(parsed: ProductInput, publishedAt: string | null) {
+  return {
+    slug: parsed.slug,
+    status: parsed.status,
+    nameTr: parsed.nameTr,
+    summaryTr: parsed.summaryTr,
+    bodyTr: parsed.bodyTr,
+    nameFr: parsed.nameFr,
+    summaryFr: parsed.summaryFr,
+    bodyFr: parsed.bodyFr,
+    imageUrl: emptyToNull(parsed.imageUrl),
+    seoTitleTr: emptyToNull(parsed.seoTitleTr),
+    seoDescriptionTr: emptyToNull(parsed.seoDescriptionTr),
+    seoTitleFr: emptyToNull(parsed.seoTitleFr),
+    seoDescriptionFr: emptyToNull(parsed.seoDescriptionFr),
+    ogImageUrl: emptyToNull(parsed.ogImageUrl),
+    sortOrder: parsed.sortOrder,
+    publishedAt,
+  };
 }
 
 export async function listProducts(): Promise<ActionResult<Product[]>> {
@@ -88,21 +113,9 @@ export async function createProduct(
     const publishedAt =
       parsed.status === "published" ? new Date().toISOString() : null;
 
-    const created = await insertProduct({
-      slug: parsed.slug,
-      status: parsed.status,
-      nameTr: parsed.nameTr,
-      summaryTr: parsed.summaryTr,
-      bodyTr: parsed.bodyTr,
-      imageUrl: emptyToNull(parsed.imageUrl),
-      seoTitleTr: emptyToNull(parsed.seoTitleTr),
-      seoDescriptionTr: emptyToNull(parsed.seoDescriptionTr),
-      ogImageUrl: emptyToNull(parsed.ogImageUrl),
-      sortOrder: parsed.sortOrder,
-      publishedAt,
-    });
+    const created = await insertProduct(toWrite(parsed, publishedAt));
 
-    revalidateProducts(created.id);
+    revalidateProducts(created.id, parsed.slug);
     return { ok: true, data: { id: created.id } };
   } catch (error) {
     return { ok: false, error: mapError(error) };
@@ -136,21 +149,11 @@ export async function updateProduct(
     }
 
     await updateProductById(id, {
-      slug: parsed.slug,
-      status: parsed.status,
-      nameTr: parsed.nameTr,
-      summaryTr: parsed.summaryTr,
-      bodyTr: parsed.bodyTr,
-      imageUrl: emptyToNull(parsed.imageUrl),
-      seoTitleTr: emptyToNull(parsed.seoTitleTr),
-      seoDescriptionTr: emptyToNull(parsed.seoDescriptionTr),
-      ogImageUrl: emptyToNull(parsed.ogImageUrl),
-      sortOrder: parsed.sortOrder,
-      publishedAt,
+      ...toWrite(parsed, publishedAt),
       updatedAt: new Date().toISOString(),
     });
 
-    revalidateProducts(id);
+    revalidateProducts(id, parsed.slug);
     return { ok: true, data: { id } };
   } catch (error) {
     return { ok: false, error: mapError(error) };
@@ -162,8 +165,9 @@ export async function archiveProduct(
 ): Promise<ActionResult<{ id: string }>> {
   try {
     await requireStudioUser();
+    const existing = await getProductById(id);
     await archiveProductById(id);
-    revalidateProducts(id);
+    revalidateProducts(id, existing?.slug);
     return { ok: true, data: { id } };
   } catch (error) {
     return { ok: false, error: mapError(error) };
