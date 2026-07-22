@@ -1,5 +1,4 @@
-export type MarketingNavId =
-  "home" | "products" | "recipes" | "blog" | "contact";
+export type MarketingNavId = "home" | "products" | "recipes" | "blog";
 
 export type MarketingNavItem = {
   id: MarketingNavId;
@@ -8,6 +7,7 @@ export type MarketingNavItem = {
   match: string[];
 };
 
+/** Header nav — Contact lives as the CTA button, not a nav link. */
 export const MARKETING_NAV: readonly MarketingNavItem[] = [
   {
     id: "home",
@@ -32,12 +32,6 @@ export const MARKETING_NAV: readonly MarketingNavItem[] = [
     href: "/blog",
     labelKey: "nav.blog",
     match: ["/blog"],
-  },
-  {
-    id: "contact",
-    href: "/iletisim",
-    labelKey: "nav.contact",
-    match: ["/iletisim"],
   },
 ] as const;
 
