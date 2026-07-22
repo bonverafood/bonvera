@@ -1,10 +1,15 @@
 # Brand Engine — Product & Architecture Plan
 
 > Status: **Awaiting approval** — no implementation until signed off.  
-> First consumer brand: **Bonvera**.  
+> Product: **Bonvera Studio** (single brand — Bonvera only).  
 > Studio Admin UI language: **Turkish (fixed)**.  
 > Brand content source language: **Turkish**.  
-> Public customer languages: multi-locale later via **Translation Engine** (Bonvera primary public locale: **French**).
+> Public customer languages: multi-locale later via **Translation Engine** (French first).
+
+### Product direction
+
+Not a multi-tenant CMS. Not a SaaS brand platform. Brand Engine is Bonvera’s single source of truth for public brand context.  
+Another customer later = clone the repo. Do not design multi-brand switchers now.
 
 ### Brand Engine focus (v1)
 
@@ -114,9 +119,9 @@ Upload (logo / favicon / belge / görsel)
 
 No data-URL-in-DB. Logos in Setup localStorage are migration input only.
 
-### 1.6 Multi-brand (later UX)
+### 1.6 Single brand
 
-MVP UI is **single active brand**. Data model is multi-brand from day one (`brands` rows). Later: brand switcher in Studio chrome; Brand Engine always scoped to `activeBrandId`.
+Bonvera Studio serves **one** brand. No brand switcher. Data may still use a `brands` table with a single Bonvera row for clarity — that is not multi-tenancy.
 
 ### 1.7 Happy path (Bonvera)
 
@@ -148,13 +153,15 @@ MVP UI is **single active brand**. Data model is multi-brand from day one (`bran
 
 Turkish path segments match admin language. Keep `studio` English as product namespace (already established).
 
+**Host:** all Brand Engine routes live on `https://admin.bonvera.food` (see `docs/deployment.md`). Marketing host redirects `/studio…` to admin.
+
 Alternative (acceptable): query/section tabs under `/studio/marka` only. Prefer **real routes** for deep-linking, metadata, and future permissions.
 
 ### 2.2 Studio chrome (shared, not Brand Engine–owned)
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│ Studio OS          [Marka ▾]     [Bildirim] [Hesap]     │
+│ Bonvera Studio                    [Bildirim] [Hesap]     │
 ├────────────┬─────────────────────────────────────────────┤
 │ Ana sayfa  │  Page content                               │
 │ Marka  ●   │                                             │
@@ -270,7 +277,7 @@ Library grid/list: Logo, Favicon, Belgeler, Görseller — upload, replace, dele
 
 ### 2.7 Visual direction
 
-Align with Studio OS restraint (Setup language): calm surface, clear hierarchy, brand name as primary signal on hub — not a marketing landing page inside admin.
+Align with Bonvera Studio restraint (Setup language): calm surface, clear hierarchy, brand name as primary signal on hub — not a marketing landing page inside admin.
 
 ---
 
@@ -453,7 +460,7 @@ Optional later module for tax and regulatory data (e.g. vergi no, vergi dairesi,
 | Server data | **Drizzle** + Server Components / Server Actions | Load & mutate brand sections |
 | Client server-cache | **TanStack Query** | Section forms that need refetch, optimistic UI, asset lists |
 | Form draft | **React Hook Form** + Zod | Per-section edit forms |
-| Ephemeral UI | **Zustand** (minimal) | Active brand id (when multi-brand), sidebar, dirty flags if needed |
+| Ephemeral UI | **Zustand** (minimal) | Sidebar, dirty flags if needed |
 | Validation | **Zod** | Shared client/server schemas in feature |
 
 **Do not** put Brand Engine SoT in Zustand/localStorage (Setup mock was temporary).
@@ -592,19 +599,18 @@ Introduce a clear split:
 
 ## 6. Future scalability considerations
 
-1. **Multi-brand / multi-tenant** — `brand_id` everywhere; later `organization_id` + membership; brand switcher in chrome.
-2. **Translation Engine** — active locales in `brand_locales` become jobs; never add `name_fr` columns to profile.
-3. **Website / CMS** — pages reference `brand_id` + translated fields; Brand Engine remains identity SoT, not page builder.
-4. **Products / Catalog / PDF / Email / Ask Bonvera** — consume `getBrandBundle()`; version or `updated_at` for cache bust.
-5. **SEO module** — may override per-page meta; falls back to `brand_seo_defaults`.
-6. **Assets CDN** — Storage → CDN; image transforms (logo variants) without changing FK model.
-7. **Hours v2** — per-day intervals, holidays, timezone column on brand.
-8. **Audit log** — `brand_audit_events` when multiple editors exist.
-9. **RLS** — Supabase RLS mirroring Drizzle auth checks for defense in depth.
-10. **Setup retirement** — Setup writes Brand Engine once; editing only in Marka.
-11. **Public FR primary** — Bonvera marketing default locale stays `fr`; content pipeline: TR source → translate → FR publish. Admin stays TR.
-12. **Extract Studio app** — feature boundary allows moving `brand-engine` with Studio later.
-13. **Business Compliance** — tax / regulatory data as a separate optional module; Brand Engine stays public-identity focused.
+1. **Translation Engine** — active locales become jobs; never add `name_fr` columns to profile.
+2. **Website / CMS** — pages reference Bonvera brand content + translations; Brand Engine stays identity SoT.
+3. **Products / Catalog / PDF / Email / Ask Bonvera** — consume `getBrandBundle()`; use `updated_at` for cache bust.
+4. **SEO module** — may override per-page meta; falls back to `brand_seo_defaults`.
+5. **Assets CDN** — Storage → CDN; image transforms without changing FK model.
+6. **Hours v2** — per-day intervals, holidays, timezone if Bonvera needs them.
+7. **Audit log** — when multiple operators edit the same brand.
+8. **RLS** — Supabase RLS alongside Drizzle auth checks.
+9. **Setup retirement** — Setup writes Brand Engine once; editing only in Marka.
+10. **Public FR** — TR source → Translation Engine → FR publish. Admin stays TR.
+11. **Business Compliance** — tax / regulatory data as a separate optional module if Bonvera needs it.
+12. **Another company later** — clone this repository; do not add multi-tenant abstractions now.
 
 ---
 
@@ -624,8 +630,8 @@ Introduce a clear split:
 
 - Inline editing of French (or other) brand copy
 - Translation Engine UI/jobs
-- Multi-brand switcher UI
-- Organization/team permissions matrix
+- Multi-brand switcher UI / multi-tenant SaaS packaging
+- Organization/team permissions matrix (until Bonvera needs multiple roles)
 - Per-page SEO overrides
 - Full auth product (may be parallel dependency)
 - Replacing public marketing site content automatically
@@ -671,6 +677,7 @@ Introduce a clear split:
 Please confirm or adjust:
 
 - [ ] Language model (Admin TR / Content source TR / Public via Translation Engine)
+- [ ] Bonvera Studio single-brand scope (no SaaS / multi-tenant design)
 - [ ] Brand Engine focus: identity + public info + website / AI / SEO context (no tax in v1)
 - [ ] UX flow & section routes under `/studio/marka/...`
 - [ ] Database entities & 1:1 extension tables (`brand_companies` without tax)

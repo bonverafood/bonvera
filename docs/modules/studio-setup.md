@@ -1,26 +1,27 @@
 # Studio Setup
 
-First business module of Studio OS. Guided onboarding so a new Studio user creates a brand instead of landing on an empty dashboard.
+First onboarding module for **Bonvera Studio**. Guided setup so operators land with brand basics filled instead of an empty admin.
 
 ## Purpose
 
-When someone opens Studio for the first time, they complete an 8-step wizard that captures brand identity, company details, contact channels, social profiles, languages, and business hours. The experience is intentionally calm and premium (Shopify / Vercel / Linear / Apple–inspired restraint, Studio OS identity).
+When someone opens Studio for the first time, they complete an 8-step wizard that captures brand identity, company details, contact channels, social profiles, languages, and business hours. Calm, premium internal OS feel — built only for Bonvera.
 
 ## Non-goals (this version)
 
 - No database persistence
 - No authentication / session ownership
 - No file upload to storage (logo is a local data URL in the draft)
-- No multi-brand management UI (data model is multi-brand-ready)
+- No multi-brand / SaaS abstractions (Bonvera only)
 
 ## Route
 
 | Path | Role |
 |------|------|
-| `/studio/setup` | Wizard |
-| `/studio` | Studio home; **mock gate** redirects to setup until `setupCompleted` |
+| `/studio/setup` (admin host) | Wizard |
+| `/studio` (admin host) | Studio home; **mock gate** redirects to setup until `setupCompleted` |
 
-Locale prefixes follow next-intl (`localePrefix: 'as-needed'`). Default locale `tr`: `/studio/setup`. French: `/fr/studio/setup`.
+Production: `https://admin.bonvera.food/studio` (marketing host redirects `/studio` → admin).  
+Locale prefixes follow next-intl (`localePrefix: 'as-needed'`). Default locale `tr`: unprefixed on each host. French: `/fr/studio/setup`.
 
 ## Feature layout
 
@@ -58,7 +59,7 @@ App routes only compose the feature:
 
 ## Steps
 
-1. **Welcome** — Studio OS introduction, primary CTA
+1. **Welcome** — Bonvera Studio introduction, primary CTA
 2. **Brand** — name (required), logo (optional), description (optional)
 3. **Company** — name, type, country, city, address
 4. **Contact** — email (required), phone, WhatsApp, website
@@ -67,9 +68,9 @@ App routes only compose the feature:
 7. **Business hours** — opening, closing, working days
 8. **Finish** — summary + “Your brand is ready.” / “Go to Studio”
 
-## Data model (multi-brand ready)
+## Data model
 
-Each draft is keyed by `brandId` (UUID). The store keeps:
+Each draft is keyed by `brandId` (UUID) for the single Bonvera brand draft. The store keeps:
 
 ```ts
 activeBrandId: string | null
@@ -78,13 +79,13 @@ currentStepIndex: number
 saveStatus: "idle" | "saving" | "saved"  // not persisted
 ```
 
-MVP UI edits the active draft only. Future multi-brand can add brand switching without reshaping the draft.
+MVP UI edits the active draft only. This is **not** a multi-brand product — the map shape is an implementation detail of the mock store.
 
 Brand languages (`languages.defaultLocale` + `additionalLocales[]`) are **independent** from app UI locales (`src/config/i18n.ts`). The language catalog in `constants.ts` is large and additive; architecture allows unlimited `additionalLocales`.
 
 ## Autosave (mock)
 
-- Storage key: `studio-os:setup-draft` (localStorage via Zustand `persist`)
+- Storage key: `bonvera-studio:setup-draft` (localStorage via Zustand `persist`)
 - Form field changes use RHF `watch().subscribe` → debounced (~350ms) `patchDraft`
 - Step submit / unmount **flushes** pending patches immediately so the next step never reads a stale draft
 - UI shows Saving / Saved
@@ -146,4 +147,4 @@ Studio home exposes **Replay setup** only when `NODE_ENV === "development"`. It 
 | Logo type/size guards for quota safety | Object storage uploads |
 | Finish validates full draft before complete | Multi-device sync |
 
-Treat as a **client prototype module** inside Studio OS — shippable for UX review, not as the durable brand store of record.
+Treat as a **client prototype module** inside Bonvera Studio — shippable for UX review, not as the durable brand store of record.

@@ -1,24 +1,24 @@
 {
-  "StudioOS": {
-    "name": "Studio OS",
-    "tagline": "Systeme d'exploitation digital pour les marques"
+  "BonveraStudio": {
+    "name": "Bonvera Studio",
+    "tagline": "Systeme d'exploitation interne premium pour Bonvera"
   },
   "Marketing": {
     "title": "Bonvera",
-    "subtitle": "Premiere marque sur Studio OS"
+    "subtitle": "Mezes gourmet et saveurs pretes a deguster"
   },
   "Studio": {
     "title": "Studio",
-    "subtitle": "Panneau d'administration",
+    "subtitle": "Panneau d'administration Bonvera",
     "welcomeBrand": "Bienvenue, {brand}",
     "replaySetup": "Rejouer la configuration"
   },
   "StudioSetup": {
-    "brandMark": "Studio OS",
+    "brandMark": "Bonvera Studio",
     "loading": "Chargement…",
     "meta": {
-      "title": "Configuration — Studio OS",
-      "description": "Creez votre marque avec le guide de configuration Studio OS."
+      "title": "Configuration — Bonvera Studio",
+      "description": "Creez les informations de marque avec le guide Bonvera Studio."
     },
     "progress": {
       "label": "Etape {current} sur {total}",
@@ -108,8 +108,8 @@
     },
     "steps": {
       "welcome": {
-        "title": "Bienvenue sur Studio OS",
-        "description": "Quelques etapes calmes pour creer votre marque. Vous pourrez tout modifier plus tard.",
+        "title": "Bienvenue sur Bonvera Studio",
+        "description": "Quelques etapes calmes pour renseigner votre marque. Vous pourrez tout modifier plus tard.",
         "cta": "Commencer"
       },
       "brand": {
@@ -143,6 +143,193 @@
         "description": "Verifiez le resume, puis entrez dans Studio.",
         "ready": "Votre marque est prete.",
         "cta": "Aller au Studio"
+      }
+    }
+  },
+  "StudioShell": {
+    "brand": "Bonvera Studio",
+    "brandHint": "Dahili isletim sistemi",
+    "navLabel": "Ana menu",
+    "footerHint": "Tek marka. Tek odak. Bonvera.",
+    "breadcrumb": {
+      "label": "Sayfa konumu"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "products": "Urunler",
+      "collections": "Koleksiyonlar",
+      "recipes": "Tarifler",
+      "blog": "Blog",
+      "media": "Medya",
+      "seo": "SEO",
+      "pdf": "PDF Katalog",
+      "ask": "Ask Bonvera",
+      "messages": "Mesajlar",
+      "brand": "Marka Ayarlari",
+      "open": "Menuyu ac",
+      "close": "Menuyu kapat"
+    },
+    "search": {
+      "trigger": "Ara",
+      "title": "Global arama",
+      "placeholder": "Urun, tarif, mesaj veya sayfa ara…",
+      "suggestions": "Hizli git",
+      "hint": "Arama yalnizca arayuz onizlemesi — is mantigi sonraki sprintte.",
+      "close": "Aramayi kapat"
+    },
+    "notifications": {
+      "label": "Bildirimler",
+      "title": "Bildirimler",
+      "close": "Bildirimleri kapat",
+      "unread": "{count} okunmamis",
+      "hint": "Bildirimler UI onizlemesi — baglanti yok.",
+      "items": {
+        "stock": {
+          "title": "Stok uyarisi",
+          "body": "Cig Icli Kofte icin Lyon siparisi oncesi stok teyidi bekleniyor."
+        },
+        "pdf": {
+          "title": "PDF katalog",
+          "body": "Meze koleksiyonu katalog v2 inceleme icin hazir."
+        },
+        "fr": {
+          "title": "FR ceviri",
+          "body": "Yaprak Sarma aciklamasi Fransizca icin %40 tamamlandi."
+        }
+      }
+    },
+    "user": {
+      "name": "Ayse Yilmaz",
+      "role": "Bonvera operasyon",
+      "close": "Kullanici menusunu kapat",
+      "menu": {
+        "profile": "Profil",
+        "preferences": "Tercihler",
+        "help": "Yardim",
+        "signOut": "Cikis (yakinda)"
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Bonvera'nin gunluk nabzi — urunler, mesajlar, SEO ve ceviri durumu.",
+      "ctaProduct": "Yeni urun",
+      "viewAll": "Tumunu gor",
+      "recentProducts": "Son urunler",
+      "latestMessages": "Son mesajlar",
+      "seoScore": "SEO skoru",
+      "seoHint": "Anasayfa ve urun meta alanlari guclu; blog eksikleri var.",
+      "translation": "Ceviri durumu",
+      "translationDone": "Tamam",
+      "translationHint": "Kaynak dil Turkce. Fransizca Translation Engine ile ilerliyor.",
+      "pdfCount": "PDF katalog",
+      "pdfHint": "Mezeler 2026, Icli Kofte karteli, Foodservice liste.",
+      "pdfAction": "Kataloglara git",
+      "activityTitle": "Son aktiviteler",
+      "quickActions": "Hizli islemler",
+      "stats": {
+        "products": "Urunler",
+        "productsHint": "Yayinda ve taslak dahil",
+        "collections": "Koleksiyonlar",
+        "collectionsHint": "Mezeler, Sarmalar, Icli Kofte, Tabak",
+        "messages": "Acik mesajlar",
+        "messagesHint": "Distributor ve restoran talepleri",
+        "recipes": "Tarifler",
+        "recipesHint": "Mutfak ve sunum icerikleri"
+      },
+      "status": {
+        "published": "Yayinda",
+        "draft": "Taslak"
+      },
+      "time": {
+        "minutesAgo": "{count} dk once",
+        "hoursAgo": "{count} sa once",
+        "daysAgo": "{count} gun once",
+        "yesterday": "Dun"
+      },
+      "activityMeta": {
+        "media": "Medya",
+        "translation": "Ceviri",
+        "blog": "Blog",
+        "seo": "SEO"
+      },
+      "quick": {
+        "product": "Urun ekle",
+        "media": "Gorsel yukle",
+        "pdf": "PDF olustur",
+        "ask": "Ask Bonvera'ya sor"
+      }
+    },
+    "modules": {
+      "shellNote": "Bu ekran yalnizca deneyim kabugu. Is mantigi sonraki sprintlerde gelir.",
+      "products": {
+        "title": "Urunler",
+        "description": "Bonvera mezeleri, sarmalari ve icli kofteleri tek yerden yonetin.",
+        "primaryAction": "Urun ekle",
+        "emptyTitle": "Henuz urun listesi baglanmadi",
+        "emptyDescription": "Icli kofte, yaprak sarma, humus ve diger urunler burada listelenecek. Simdilik yalnizca arayuz kabugu hazir."
+      },
+      "collections": {
+        "title": "Koleksiyonlar",
+        "description": "Mezeler, Sarmalar, Icli Kofte ve Tabak gibi gruplari duzenleyin.",
+        "primaryAction": "Koleksiyon olustur",
+        "emptyTitle": "Koleksiyonlar bekliyor",
+        "emptyDescription": "Urunleri koleksiyonlara ayirdiginizda vitrin ve kataloglar daha net olacak."
+      },
+      "recipes": {
+        "title": "Tarifler",
+        "description": "Mutfak tarifleri ve sunum notlarini Bonvera icerigine baglayin.",
+        "primaryAction": "Tarif ekle",
+        "emptyTitle": "Tarif kutuphanesi bos",
+        "emptyDescription": "Ornegin icli kofte kizartma sureleri veya meze tabağı onerileri burada yasayacak."
+      },
+      "blog": {
+        "title": "Blog",
+        "description": "Hikayeler, sezon onerileri ve marka icerikleri.",
+        "primaryAction": "Yazi olustur",
+        "emptyTitle": "Blog yazisi yok",
+        "emptyDescription": "Ramazan tabağı, Fransa pazari hikayeleri ve urun lansmanlari burada yayinlanacak."
+      },
+      "media": {
+        "title": "Medya",
+        "description": "Logo, urun gorselleri, paket fotograflari ve video varliklari.",
+        "primaryAction": "Medya yukle",
+        "emptyTitle": "Medya kutuphanesi hazir",
+        "emptyDescription": "Yukleme ve etiketleme sonraki sprintte. Simdilik alan ve bos durum yerinde."
+      },
+      "seo": {
+        "title": "SEO",
+        "description": "Meta basliklari, aciklamalar ve varsayilan paylasim gorselleri.",
+        "primaryAction": "SEO ayarini ac",
+        "emptyTitle": "SEO paneli onizlemede",
+        "emptyDescription": "bonvera.food icin kanonik meta alanlari burada yonetime acilacak."
+      },
+      "pdf": {
+        "title": "PDF Katalog",
+        "description": "Foodservice ve perakende kataloglarini olusturun ve arsivleyin.",
+        "primaryAction": "Katalog olustur",
+        "emptyTitle": "Katalog ureticisi yakinda",
+        "emptyDescription": "Meze 2026 ve foodservice listeleri bu ekrandan uretilecek."
+      },
+      "ask": {
+        "title": "Ask Bonvera",
+        "description": "Marka bilgisine dayanan yapay zeka asistaniniz.",
+        "primaryAction": "Sohbete basla",
+        "emptyTitle": "Ask Bonvera dinliyor",
+        "emptyDescription": "Urun alerjenleri, sunum onerileri ve FR ceviri yardimi icin asistan burada olacak."
+      },
+      "messages": {
+        "title": "Mesajlar",
+        "description": "Restoran, distributor ve operasyon taleplerini takip edin.",
+        "primaryAction": "Yeni mesaj",
+        "emptyTitle": "Gelen kutusu baglanmadi",
+        "emptyDescription": "Le Petit Mezze ve Carrefour gibi talepler burada toplanacak."
+      },
+      "brand": {
+        "title": "Marka Ayarlari",
+        "description": "Kimlik, iletisim, sosyal, diller ve SEO varsayilanlari — Brand Engine.",
+        "primaryAction": "Markayi duzenle",
+        "emptyTitle": "Brand Engine bekliyor",
+        "emptyDescription": "Onaylanan Brand Engine plani uygulandiginda bu bolum canlanacak. Kabuk hazir."
       }
     }
   }

@@ -1,6 +1,6 @@
 import type { CompanyType, SetupStepId, Weekday } from "./types";
 
-export const SETUP_STORAGE_KEY = "studio-os:setup-draft";
+export const SETUP_STORAGE_KEY = "bonvera-studio:setup-draft";
 
 /**
  * Default brand *content* locale (independent from app UI locales in `@/config/i18n`).

@@ -1,96 +1,121 @@
-# Studio OS — Architecture
+# Bonvera Studio — Architecture
 
-> Digital Operating System for brands.  
-> First brand: **Bonvera**.  
+> Premium internal operating system for **Bonvera**.  
 > This document is the source of truth for structural decisions. Update it when architecture changes.
 
 ---
 
-## 1. Product context
+## 0. Product direction (non-negotiable)
 
-**Studio OS** is a multi-brand digital operating system. Brands get:
+**We are not building a generic SaaS platform.**  
+**We are not building a multi-tenant CMS.**  
+**We are not optimizing for multiple customers.**
 
-- A public marketing website
-- An internal admin panel (Studio)
+The only goal is the best possible platform for Bonvera.
 
-**MVP scope**
+| Name | Bonvera Studio |
+|------|----------------|
+| Public website | `https://bonvera.food` |
+| Admin panel | `https://admin.bonvera.food` |
+| Stack | Next.js · Supabase · Drizzle · Vercel |
+| Shape | **One** project · **One** database · **One** brand |
 
-| Surface        | URL       | Purpose                          |
-|----------------|-----------|----------------------------------|
-| Marketing      | `/`       | Bonvera public website           |
-| Studio Admin   | `/studio` | Internal operating panel         |
+**Decision filter:** every change must answer *“Does this make Bonvera better?”*  
+If the answer is no, do not implement it.
 
-Bonvera is the first brand. Multi-brand public routing is **not** implemented yet, but internal structure must allow adding brands later without a rewrite.
+**Future customers:** clone and adapt this repo later. Do **not** design multi-brand / SaaS abstractions today.
+
+Code should stay clean and modular. Avoid pointless hardcoding. Prefer speed, quality, and simplicity over speculative generality.
+
+---
+
+## 1. What Bonvera Studio manages
+
+Internal OS scope (nothing more for now):
+
+- Products  
+- Collections  
+- Recipes  
+- Blog  
+- SEO  
+- Media  
+- PDF Catalogs  
+- AI Assistant (Ask Bonvera)  
+- Messages  
+- Brand Settings  
+
+Public site + admin share one Next.js app. Middleware selects the surface by hostname.  
+Canonical SEO URLs always use `bonvera.food`. Admin is never indexed.
 
 ---
 
 ## 2. Core principles
 
-1. **Maintainability over speed** — Prefer clear boundaries, typed contracts, and predictable folders.
-2. **Single deployable for MVP** — One Next.js app; split only when product/ops demand it.
-3. **No hardcoded product config** — Locales, brand metadata, and env-driven secrets stay configurable.
-4. **Feature-first growth** — Business logic lives in `src/features/*`, not scattered across `app/`.
-5. **Server-first by default** — Use React Server Components; add `"use client"` only when needed.
-6. **No placeholder architecture** — Scaffold only what we will actually use; leave empty feature folders intentional, not fake modules.
-7. **Legacy preserved** — Previous static site lives under `legacy/` and is not part of the runtime app.
+1. **Bonvera first** — ship an exceptional product for one brand.
+2. **Simplicity over platform ambition** — no multi-tenant, no brand switcher, no SaaS billing.
+3. **Single deployable** — one Next.js app on Vercel; one Supabase/Postgres database.
+4. **Feature-first folders** — business logic in `src/features/*`, not scattered in `app/`.
+5. **Server-first** — React Server Components by default; `"use client"` only when needed.
+6. **Configurable where it helps** — locales, hosts, env secrets; not abstract “tenant” frameworks.
+7. **Legacy preserved** — previous static site under `legacy/`; not part of the runtime app.
+8. **No placeholder architecture** — scaffold only what we will use.
 
 ---
 
 ## 3. Application topology
 
-### 3.1 Single Next.js application
+### 3.1 One Next.js application
 
-**Decision:** One App Router application hosts both marketing and Studio.
+Marketing + Bonvera Studio admin in one App Router deploy.
 
-**Why**
+**Why:** shared types, UI, i18n, one pipeline, faster iteration.
 
-- Shared TypeScript types, Zod schemas, UI primitives, auth helpers, and i18n
-- One CI/CD pipeline and one deployment for MVP
-- Faster iteration while the domain model is still forming
+### 3.2 Dual-domain (same deployable)
 
-**Future exit**
+| Hostname | Surface | Notes |
+|----------|---------|-------|
+| `bonvera.food` | Marketing | Public site; sole **canonical** SEO origin |
+| `admin.bonvera.food` | Studio | Admin; `noindex`; never in sitemap |
 
-If marketing and Studio diverge in scale, release cadence, or security boundary, extract into `apps/web` + `apps/studio` (or similar) under a monorepo. Route groups and `features/` make that extraction mechanical.
+**Config / helpers**
 
-### 3.2 Route groups
+- `src/config/hosts.ts` — surface names, production defaults, `x-app-surface`
+- `src/lib/hosts/` — hostname detection, URL builders, path mapping
+- `src/lib/hosts/server.ts` — `getRequestAppSurface()` for RSC
+- `docs/deployment.md` — Vercel DNS + env checklist
+
+**Middleware** (`src/middleware.ts`)
+
+1. Detect surface from `Host`
+2. Redirect `bonvera.food/studio…` → `admin.bonvera.food/studio…`
+3. Normalize admin short paths (`/` → `/studio`, `/setup` → `/studio/setup`)
+4. Stamp `x-app-surface` and admin `X-Robots-Tag: noindex, nofollow`
+5. Admin `robots.txt` → `Disallow: /`
+6. next-intl locale negotiation
+
+Local: `localhost:3000` (marketing) · `admin.localhost:3000` (studio).
+
+### 3.3 Route groups
 
 ```
 src/app/
   [locale]/
     (marketing)/     # Public Bonvera site
-    (studio)/        # Studio admin
+    (studio)/        # Bonvera Studio admin
 ```
 
-**Why route groups**
+Internal Studio paths keep a `studio` segment so admin is never confused with the marketing home.
 
-- Separate root layouts (marketing chrome vs Studio chrome) without affecting URLs
-- Independent loading/error boundaries per surface
-- Clear ownership for future teams
+| Surface   | Marketing host      | Admin host                      |
+|-----------|---------------------|---------------------------------|
+| Marketing | `bonvera.food/`     | —                               |
+| Studio    | → redirect to admin | `admin.bonvera.food/studio`     |
 
-**Why `[locale]` wraps both surfaces**
+### 3.4 Single brand
 
-- next-intl App Router integration requires a locale segment for typed routing and message loading
-- Locales remain config-driven; the segment reads from that registry
-- With `localePrefix: 'as-needed'` and default `tr`: public URLs stay clean (`/`, `/studio`), while other locales use a prefix (`/fr`, `/fr/studio`)
+There is only Bonvera. Identity and settings live in Brand Engine / brand config — **not** a multi-brand registry or tenant table design.
 
-**URL mapping (default locale `tr`, as-needed prefix)**
-
-| Route group    | Filesystem                                      | Public URL (tr) | Public URL (fr) |
-|----------------|-------------------------------------------------|-----------------|-----------------|
-| `(marketing)`  | `src/app/[locale]/(marketing)/page.tsx`         | `/`             | `/fr`           |
-| `(studio)`     | `src/app/[locale]/(studio)/studio/page.tsx`     | `/studio`       | `/fr/studio`    |
-
-Studio uses a real `studio` segment so the admin is never accidentally served as the marketing home.
-
-### 3.3 Future multi-brand preparation (internal only)
-
-MVP serves Bonvera at `/`. Internally:
-
-- Brand identity and config live under `src/config/brands/`
-- Features receive a `brandId` (or equivalent) at domain boundaries
-- No `/[brand]` public routing until a later phase
-
-This avoids premature multi-tenant URL complexity while keeping data and config brand-aware.
+If a second business ever needs this system: **clone the project**.
 
 ---
 
@@ -99,278 +124,207 @@ This avoids premature multi-tenant URL complexity while keeping data and config 
 ```
 .
 ├── ARCHITECTURE.md
-├── legacy/                      # Pre-Studio OS static Bonvera site (archived)
+├── docs/
+│   ├── deployment.md
+│   └── modules/
+├── legacy/                      # Archived static Bonvera site
 ├── public/
-├── drizzle/                     # SQL migrations generated by Drizzle Kit
+├── drizzle/
 ├── src/
-│   ├── app/                     # Next.js App Router (routing + layouts only)
-│   │   ├── (marketing)/
-│   │   ├── (studio)/
-│   │   ├── api/                 # Route Handlers when needed
-│   │   ├── layout.tsx           # Root layout (providers, fonts, html/body)
-│   │   └── globals.css
-│   ├── components/
-│   │   ├── ui/                  # shadcn/ui primitives
-│   │   ├── marketing/           # Marketing-only presentational components
-│   │   ├── studio/              # Studio-only presentational components
-│   │   └── shared/              # Cross-surface presentational components
-│   ├── features/                # Business modules (feature-first)
-│   │   └── _example/            # (none yet — folders added per feature)
-│   ├── config/                  # App config (locales, brands, site)
-│   ├── hooks/                   # Shared React hooks
-│   ├── messages/                # next-intl catalogs (`fr.json`, `tr.json`, …)
-│   ├── middleware.ts            # next-intl locale middleware
-│   ├── lib/                     # Infra & cross-cutting utilities
-│   │   ├── db/                  # Drizzle client + schema
-│   │   ├── supabase/            # Supabase browser/server/middleware clients
-│   │   ├── i18n/                # next-intl request/routing/navigation
-│   │   ├── validations/         # Shared Zod schemas
-│   │   └── utils.ts             # Shared helpers (`cn`, …)
-│   ├── providers/               # Client providers (Query, etc.)
-│   ├── stores/                  # Zustand stores (UI / client state)
-│   └── types/                   # Shared TypeScript types
+│   ├── app/                     # Routing + layouts only
+│   ├── components/              # ui / marketing / studio / shared
+│   ├── features/                # Business modules
+│   ├── config/                  # locales, bonvera, site, hosts, env
+│   ├── messages/                # next-intl (`tr.json`, `fr.json`, …)
+│   ├── middleware.ts
+│   ├── lib/                     # db, supabase, i18n, hosts, …
+│   ├── providers/
+│   ├── stores/
+│   └── types/
 ├── .env.example
-├── .env.local                   # Local secrets (gitignored)
 └── …
 ```
 
 ### 4.1 `app/` vs `features/`
 
-| Layer        | Responsibility                                      | Must not contain                         |
-|--------------|-----------------------------------------------------|------------------------------------------|
-| `app/`       | Routing, layouts, composition, metadata             | Business rules, DB queries, complex UI   |
-| `features/`  | Domain logic, feature UI, feature-specific hooks    | Global routing decisions                 |
-| `components/`| Reusable presentational UI                          | Domain mutations / data access           |
-| `lib/`       | Infrastructure adapters (DB, auth, i18n utilities)  | Product-specific workflows               |
+| Layer         | Responsibility                         | Must not contain                    |
+|---------------|----------------------------------------|-------------------------------------|
+| `app/`        | Routing, layouts, composition, metadata | Business rules, heavy UI            |
+| `features/`   | Domain logic + feature UI              | Global host routing                 |
+| `components/` | Presentational UI                      | Domain mutations                    |
+| `lib/`        | Infra adapters                         | Product workflows                   |
 
-**Rule:** Pages in `app/` import from `features/` and `components/`. Features never import from `app/`.
+**Rule:** `app/` imports `features/` / `components/`. Features never import from `app/`.
 
-### 4.2 Feature module shape (when a feature is added)
+### 4.2 Feature module shape
 
 ```
 src/features/<feature-name>/
   components/
   hooks/
-  actions/          # Server Actions (if any)
-  api/              # Feature-local fetchers / query options
-  schema.ts         # Zod schemas
+  actions/
+  api/
+  schema.ts
   types.ts
-  index.ts          # Public API of the feature
+  index.ts
 ```
 
-Export only through `index.ts` to keep boundaries enforceable.
+Export through `index.ts`.
 
 ---
 
 ## 5. Technology stack
 
-| Concern              | Choice              | Role |
-|----------------------|---------------------|------|
-| Framework            | Next.js 15 (App Router) | Routing, RSC, SSR, Route Handlers |
-| UI runtime           | React 19            | Components |
-| Language             | TypeScript (strict) | Contracts |
-| Styling              | Tailwind CSS v4     | Utility CSS; theme via CSS tokens |
-| Components           | shadcn/ui           | Accessible primitives (owned source) |
-| Auth / BaaS          | Supabase            | Auth, storage, realtime when needed |
-| ORM / SQL            | Drizzle ORM         | Schema, migrations, typed queries |
-| Validation           | Zod                 | Shared client/server validation |
-| Forms                | React Hook Form     | Form state + Zod resolver |
-| Server state         | TanStack Query      | Caching, refetch, mutations (client) |
-| Client UI state      | Zustand             | Non-server UI state |
-| Motion               | Framer Motion       | Intentional motion only |
-| i18n                 | next-intl           | Messages, routing, formatting |
+| Concern        | Choice        | Role                                      |
+|----------------|---------------|-------------------------------------------|
+| Framework      | Next.js 15    | App Router, RSC, Route Handlers           |
+| UI             | React 19      | Components                                |
+| Language       | TypeScript    | Strict contracts                          |
+| Styling        | Tailwind v4   | Tokens in CSS                             |
+| Components     | shadcn/ui     | Accessible primitives                     |
+| Auth / BaaS    | Supabase      | Auth, storage (when needed)               |
+| SQL            | Drizzle       | Schema, migrations, queries               |
+| Validation     | Zod           | Shared client/server                      |
+| Forms          | React Hook Form | Form state                              |
+| Server cache   | TanStack Query | Client server-state                     |
+| Client UI state| Zustand       | Ephemeral UI only                         |
+| Motion         | Framer Motion | Intentional motion                        |
+| i18n           | next-intl     | Messages + routing                        |
+| Deploy         | Vercel        | Dual domain, one project                  |
 
-### 5.1 Why Supabase + Drizzle together
+### 5.1 Supabase + Drizzle
 
-- **Supabase** — Auth session cookies, Storage, optional Realtime; hosted Postgres.
-- **Drizzle** — Application schema ownership, migrations, type-safe SQL.
+- **Supabase** — Auth, Storage, hosted Postgres  
+- **Drizzle** — app schema and queries  
 
-Auth identity comes from Supabase. Business tables are modeled and migrated with Drizzle against the same Postgres database. Avoid duplicating business data access through the Supabase Data API unless there is a clear reason (e.g. RLS-only edge cases). Prefer one query path for app data: **Drizzle**.
+Prefer one query path for business data: **Drizzle**.
 
-### 5.2 State management boundaries
+### 5.2 State boundaries
 
-| State type        | Tool           | Examples |
-|-------------------|----------------|----------|
-| Form draft state  | React Hook Form | Inputs, dirty/touched |
-| Remote/server     | TanStack Query | Lists, detail, mutations cache |
-| Ephemeral UI      | Zustand        | Sidebar open, wizard step, filters UI |
-| Validated shapes  | Zod            | API payloads, forms, env |
+| State            | Tool              |
+|------------------|-------------------|
+| Form draft       | React Hook Form   |
+| Remote/server    | TanStack Query    |
+| Ephemeral UI     | Zustand           |
+| Validated shapes | Zod               |
 
-Do not put server cache in Zustand. Do not put form field state in TanStack Query.
+Do not put server cache in Zustand. Do not put form fields in TanStack Query.
 
 ---
 
-## 6. Internationalization
+## 6. Language rules
 
-**Primary / default app locale:** Turkish (`tr`) — env: `NEXT_PUBLIC_DEFAULT_LOCALE`  
-**Fallback locale:** Turkish (`tr`) — env: `NEXT_PUBLIC_FALLBACK_LOCALE`  
-**Also supported:** French (`fr`)
+| Layer | Language | Notes |
+|-------|----------|--------|
+| **Admin UI** | Turkish | Labels, menus, buttons, system messages |
+| **Content source** | Turkish | Brand copy, products, blog authored in TR |
+| **Public translations** | French first | Translation Engine; more locales later |
 
-Studio Admin chrome is Turkish. Brand content source is Turkish (Brand Engine).  
-Bonvera’s public customer-facing French experience is a later Translation Engine / Website concern — it does not require flipping the app default back to `fr`.
+Do not mix admin chrome language with content language.
 
-### 6.1 Configurable locales (mandatory)
+**App routing default:** `tr` (`NEXT_PUBLIC_DEFAULT_LOCALE`).  
+French public pages are a publish/translation concern, not a reason to build multi-tenant i18n platforms.
 
-Locales are defined in **one config module** (e.g. `src/config/i18n.ts`):
-
-- `locales` — ordered list of supported locale codes
-- `defaultLocale` — fallback / primary
-- Message files are discovered from that config
-
-**Rules**
-
-- Never hardcode `"fr"` / `"tr"` in feature or page code except via the config import or next-intl APIs.
-- Adding a language = add locale to config + add message catalog. No route rewrites by hand across the app.
-- Architecture must support an unbounded number of locales.
-
-### 6.2 Routing strategy (foundation)
-
-- Plugin: `next-intl/plugin` → `src/lib/i18n/request.ts`
-- Routing: `defineRouting` in `src/lib/i18n/routing.ts` reads locales from `src/config/i18n.ts`
-- Prefix: `localePrefix: 'as-needed'` — default locale (`fr`) has no prefix; others do (`/tr`, …)
-- Navigation helpers: `src/lib/i18n/navigation.ts` (`Link`, `redirect`, `useRouter`, …)
-- Middleware: `src/middleware.ts` — locale negotiation only (auth session refresh is prepared under `src/lib/supabase/middleware.ts` for a later step)
-
-Studio may later pin an admin language preference per user; foundation still boots from the same locale registry.
+Locales stay in `src/config/i18n.ts` + message files — extensible without hardcoding in features.
 
 ---
 
 ## 7. Environment & configuration
 
-### 7.1 Files
+| File           | Purpose                       | Committed |
+|----------------|-------------------------------|-----------|
+| `.env.example` | Documented keys               | Yes       |
+| `.env.local`   | Local secrets                 | No        |
 
-| File           | Purpose                         | Committed |
-|----------------|---------------------------------|-----------|
-| `.env.example` | Documented keys, empty values   | Yes       |
-| `.env.local`   | Local development secrets       | No        |
-| `.env.*`       | Environment-specific overrides  | No (except example) |
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_MARKETING_URL` | Public + canonical (`https://bonvera.food`) |
+| `NEXT_PUBLIC_ADMIN_URL` | Studio (`https://admin.bonvera.food`) |
+| `NEXT_PUBLIC_DEFAULT_LOCALE` / `FALLBACK` | App routing locales |
+| Supabase / `DATABASE_URL` / `OPENAI_API_KEY` | Infra |
 
-### 7.2 Naming
-
-- `NEXT_PUBLIC_*` — browser-safe only (Supabase URL/anon key, public site URL)
-- Server-only secrets — no `NEXT_PUBLIC_` prefix (database URL, service role key)
-
-### 7.3 Validation
-
-Environment variables are validated at startup with Zod (`src/config/env.ts`). Invalid env fails fast in development and production boot rather than failing deep in a request.
+Validated in `src/config/env.ts`.
 
 ---
 
 ## 8. Data layer
 
 ```
-src/lib/db/
-  index.ts          # Drizzle client
-  schema/           # Table definitions (added when features need them)
-drizzle.config.ts   # Drizzle Kit
-drizzle/            # Generated migrations
+src/lib/db/          # Drizzle client + schema
+drizzle/             # Migrations
+src/lib/supabase/    # Browser / server / middleware clients
 ```
 
-**Foundation:** client wiring + empty/minimal schema entrypoint. No business tables until a feature requires them.
-
-**Supabase clients**
-
-```
-src/lib/supabase/
-  client.ts         # Browser
-  server.ts         # Server Components / Server Actions
-  middleware.ts     # Session refresh helper (when auth lands)
-```
+One database for Bonvera. No tenant_id architecture.
 
 ---
 
 ## 9. UI system
 
-- **Tailwind v4** — CSS-first `@theme` tokens in `globals.css`
-- **shadcn/ui** — components copied into `src/components/ui`
-- **Accessibility** — Radix primitives via shadcn; keyboard and ARIA are non-negotiable for Studio
-- **Motion** — Framer Motion for deliberate hierarchy/presence; avoid decorative noise
-
-Marketing and Studio may diverge visually, but share `ui/` primitives and design tokens where possible.
+- Tailwind v4 + shadcn/ui  
+- Accessibility is mandatory in Studio  
+- Motion only for hierarchy/presence  
+- Premium internal OS feel — calm, clear, Bonvera-branded  
 
 ---
 
-## 10. Tooling & developer experience
+## 10. Tooling
 
-| Tool        | Purpose |
-|-------------|---------|
-| **pnpm**    | Fast, strict dependency management |
-| **ESLint**  | Lint (Next.js + TypeScript rules) |
-| **Prettier**| Formatting (single style) |
-| **Husky**   | Git hooks |
-| **Commitlint** | Conventional commit messages |
-| **Path aliases** | Absolute imports via `@/*` → `src/*` |
-
-### 10.1 Import rules
-
-- Prefer `@/features/...`, `@/components/...`, `@/lib/...`
-- No deep relative imports across feature boundaries (`../../../`)
-- Features expose a public `index.ts`
-
-### 10.2 Git hooks (foundation)
-
-- `pre-commit` — format/lint staged files (lint-staged)
-- `commit-msg` — commitlint
+pnpm · ESLint · Prettier · Husky · Commitlint · `@/*` aliases  
 
 ---
 
-## 11. Security boundaries (foundation intent)
+## 11. Security (intent)
 
-- Studio routes will require authentication (implemented when auth feature lands)
-- Marketing remains public
-- Service role Supabase key and database URL never ship to the client
-- Prefer Server Actions / Route Handlers for privileged mutations
-
----
-
-## 12. What this foundation intentionally excludes
-
-- Business features (CMS, orders, accounting, etc.)
-- Multi-brand public URL routing
-- Full auth UI and RLS policies
-- Production content migration from `legacy/`
-- Real design system theming for Bonvera brand identity
-
-Those land as dedicated steps after the foundation is stable.
+- Studio will require auth (when auth lands)  
+- Marketing stays public  
+- Service role + DB URL never on the client  
+- Privileged writes via Server Actions / Route Handlers  
 
 ---
 
-## 13. Legacy archive
+## 12. Intentionally out of scope
 
-All pre-migration static assets and HTML live under:
+- Multi-brand / multi-tenant / SaaS packaging  
+- Generic CMS for arbitrary customers  
+- Premature monorepo split  
+- Tax/compliance as core Brand Engine (optional later module if Bonvera needs it)  
 
-```
-legacy/
-```
+---
 
-They are historical reference only. They are **not** imported by the Next.js app and are not deployed as the primary site.
+## 13. Legacy
+
+`legacy/` — historical static Bonvera site. Not imported by the Next.js app.
 
 ---
 
 ## 14. Change policy
 
-When changing architecture:
-
-1. Update this file in the same PR as the structural change
-2. Prefer additive changes over renames when possible
-3. Document rejected alternatives briefly if the decision is non-obvious
+1. Update this file in the same change as structural shifts  
+2. Prefer additive, simple changes  
+3. Reject work that fails *“Does this make Bonvera better?”*  
 
 ---
 
-## 15. Decision log (MVP)
+## 15. Decision log
 
-| Decision                         | Choice                                      |
-|----------------------------------|---------------------------------------------|
-| App count                        | Single Next.js app                          |
-| Public site                      | `/` (Bonvera)                               |
-| Admin                            | `/studio`                                   |
-| Source root                      | `src/`                                      |
-| Domain organization              | Feature-first under `src/features/`         |
-| Primary / secondary locales      | `tr` / `fr` (env-driven default, extensible) |
-| Package manager                  | pnpm                                        |
-| Lint / format                    | ESLint + Prettier                           |
-| Git quality gates                | Husky + Commitlint                          |
-| Imports                          | Absolute `@/*` aliases                      |
-| Auth / hosted services           | Supabase                                    |
-| SQL / migrations                 | Drizzle ORM                                 |
-| Static predecessor               | Moved to `legacy/`                          |
+| Decision              | Choice                                      |
+|-----------------------|---------------------------------------------|
+| Product               | **Bonvera Studio** (single brand)           |
+| Not building          | Generic SaaS / multi-tenant CMS             |
+| App count             | One Next.js app                             |
+| Database              | One Supabase Postgres                       |
+| Public site           | `https://bonvera.food`                      |
+| Admin                 | `https://admin.bonvera.food`                |
+| Domain split          | Hostname middleware                         |
+| Canonical SEO         | Marketing only                              |
+| Admin indexing        | Never                                       |
+| Admin UI language     | Turkish                                     |
+| Content source        | Turkish                                     |
+| Translation priority  | French first                                |
+| Domain organization   | Feature-first under `src/features/`         |
+| Package manager       | pnpm                                        |
+| Auth / hosting        | Supabase                                    |
+| SQL                   | Drizzle                                     |
+| Deploy                | Vercel                                      |
+| Another customer later| Clone repo — do not abstract now            |

@@ -1,9 +1,14 @@
-# Studio OS
+# Bonvera Studio
 
-Digital Operating System for brands.
+Premium internal operating system for **Bonvera**.
 
-**First brand:** Bonvera  
-**Surfaces:** `/` (marketing) · `/studio` (admin)
+| Surface | URL |
+|---------|-----|
+| Public website | https://bonvera.food |
+| Admin | https://admin.bonvera.food |
+
+One Next.js app · one database · one brand.  
+Not a multi-tenant SaaS. Every decision: *Does this make Bonvera better?*
 
 ## Prerequisites
 
@@ -19,32 +24,38 @@ cp .env.example .env.local
 pnpm dev
 ```
 
-Fill `.env.local` using `.env.example`. Environment keys are validated in `src/config/env.ts`.
+Local hosts:
+
+- Marketing: http://localhost:3000  
+- Admin: http://admin.localhost:3000  
+
+Fill `.env.local` from `.env.example`. Env is validated in `src/config/env.ts`.
 
 ## Scripts
 
-| Script            | Purpose                          |
-|-------------------|----------------------------------|
-| `pnpm dev`        | Development server (Turbopack)   |
-| `pnpm build`      | Production build                 |
-| `pnpm start`      | Start production server          |
-| `pnpm lint`       | ESLint                           |
-| `pnpm format`     | Prettier                         |
-| `pnpm typecheck`  | TypeScript                       |
-| `pnpm db:generate`| Generate Drizzle migrations      |
-| `pnpm db:studio`  | Drizzle Studio                   |
+| Script | Purpose |
+|--------|---------|
+| `pnpm dev` | Development (Turbopack) |
+| `pnpm build` | Production build |
+| `pnpm start` | Production server |
+| `pnpm lint` | ESLint |
+| `pnpm format` | Prettier |
+| `pnpm typecheck` | TypeScript |
+| `pnpm db:generate` | Drizzle migrations |
+| `pnpm db:studio` | Drizzle Studio |
 
 ## Architecture
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md).
+See [ARCHITECTURE.md](./ARCHITECTURE.md) and [docs/deployment.md](./docs/deployment.md).
 
-## Locales
+## Languages
 
-Configured in `src/config/i18n.ts` (not hardcoded in features).
+- **Admin UI:** Turkish  
+- **Content source:** Turkish  
+- **Public translations:** French first (Translation Engine)  
 
-- Primary: French (`fr`) → `/`, `/studio`
-- Secondary: Turkish (`tr`) → `/tr`, `/tr/studio`
+Routing defaults: `src/config/i18n.ts` (`NEXT_PUBLIC_DEFAULT_LOCALE=tr`).
 
 ## Legacy
 
-The previous static Bonvera site is archived under `legacy/`.
+Previous static site archived under `legacy/`.

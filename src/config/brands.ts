@@ -1,25 +1,23 @@
 /**
- * Brand registry — internal preparation for multi-brand Studio OS.
+ * Bonvera — the only brand this product serves.
  *
- * MVP serves Bonvera at `/` only. Do not introduce public multi-brand
- * routing until a dedicated product phase. Features should still key
- * off `brandId` when modeling data.
+ * Bonvera Studio is single-brand by design. Do not introduce multi-brand
+ * registries or tenant switchers. Another customer later = clone the repo.
  */
 
-export const brands = [
-  {
-    id: "bonvera",
-    name: "Bonvera",
-    /** Public marketing is rooted at `/` for the MVP brand. */
-    isPrimary: true,
-  },
-] as const;
+export const bonvera = {
+  id: "bonvera",
+  name: "Bonvera",
+} as const;
 
-export type BrandId = (typeof brands)[number]["id"];
+export type BrandId = typeof bonvera.id;
 
-export const primaryBrand =
-  brands.find((brand) => brand.isPrimary) ?? brands[0];
+/** @deprecated Prefer `bonvera` — kept for existing imports. */
+export const primaryBrand = bonvera;
+
+/** @deprecated Prefer `bonvera` — single-brand product. */
+export const brands = [bonvera] as const;
 
 export function getBrandById(id: string) {
-  return brands.find((brand) => brand.id === id);
+  return id === bonvera.id ? bonvera : undefined;
 }

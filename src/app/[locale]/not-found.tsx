@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 
 export default function LocaleNotFound() {
-  const t = useTranslations("StudioOS");
+  const t = useTranslations("BonveraStudio");
 
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col justify-center gap-2 px-6">
