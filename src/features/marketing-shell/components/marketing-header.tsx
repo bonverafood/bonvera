@@ -47,7 +47,7 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
           aria-label={t("brand")}
         >
           {/* Mark art sits high in the square — crop/scale so the hat aligns with the wordmark. */}
-          <span className="relative size-[6.75rem] shrink-0 overflow-hidden sm:size-[7.5rem]">
+          <span className="relative size-[6.75rem] shrink-0 translate-y-[0.5cm] overflow-hidden sm:size-[7.5rem]">
             <Image
               src="/brand/mark.png"
               alt=""

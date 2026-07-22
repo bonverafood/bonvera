@@ -1,6 +1,7 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 
+import { defaultLocale, studioUiLocale } from "@/config/i18n";
 import { routing } from "@/lib/i18n/routing";
 import {
   APP_SURFACE_HEADER,
@@ -11,7 +12,6 @@ import {
   mapAdminPathToInternal,
   splitLocalePrefix,
 } from "@/lib/hosts";
-import { studioUiLocale } from "@/config/i18n";
 import { updateSession } from "@/lib/supabase/middleware";
 
 const intlMiddleware = createIntlMiddleware(routing);
@@ -88,13 +88,26 @@ export default async function middleware(request: NextRequest) {
     }
 
     // Public default may be French; Studio UI is always Turkish.
+    // Use effective locale (null prefix = defaultLocale) and only redirect when
+    // the target path actually changes — avoids /studio ↔ /studio loops when
+    // defaultLocale === studioUiLocale (e.g. Vercel still on DEFAULT_LOCALE=tr).
     if (isStudioPath(pathname)) {
       const { locale, pathnameWithoutLocale } = splitLocalePrefix(pathname);
-      if (locale !== studioUiLocale) {
-        const url = request.nextUrl.clone();
-        url.pathname = joinLocalePrefix(studioUiLocale, pathnameWithoutLocale);
-        url.search = request.nextUrl.search;
-        return withSurfaceHeaders(NextResponse.redirect(url, 308), "studio");
+      const effectiveLocale = locale ?? defaultLocale;
+      if (effectiveLocale !== studioUiLocale) {
+        const nextPath = joinLocalePrefix(
+          studioUiLocale,
+          pathnameWithoutLocale,
+        );
+        if (nextPath !== pathname) {
+          const url = request.nextUrl.clone();
+          url.pathname = nextPath;
+          url.search = request.nextUrl.search;
+          return withSurfaceHeaders(
+            NextResponse.redirect(url, 308),
+            "studio",
+          );
+        }
       }
     }
   }
@@ -111,7 +124,10 @@ export default async function middleware(request: NextRequest) {
 
     if (!user && !onLogin) {
       const url = request.nextUrl.clone();
-      url.pathname = joinLocalePrefix(locale, "/studio/login");
+      url.pathname = joinLocalePrefix(
+        locale ?? studioUiLocale,
+        "/studio/login",
+      );
       url.search = "";
       const next = pathname + (request.nextUrl.search || "");
       url.searchParams.set("next", next);
@@ -125,7 +141,7 @@ export default async function middleware(request: NextRequest) {
       url.pathname =
         next && next.startsWith("/") && !next.startsWith("//")
           ? next.split("?")[0]!
-          : joinLocalePrefix(locale, "/studio");
+          : joinLocalePrefix(locale ?? studioUiLocale, "/studio");
       url.search = "";
       const redirect = withSurfaceHeaders(NextResponse.redirect(url), "studio");
       return copyCookies(response, redirect);
