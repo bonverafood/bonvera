@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { setRequestLocale } from "next-intl/server";
 
 import { StudioShell } from "@/features/studio-shell";
 
 type StudioAppLayoutProps = {
   children: ReactNode;
+  params: Promise<{ locale: string }>;
 };
-
-/**
- * Studio app shell uses auth cookies on data routes.
- * Keep this layout dynamic so child pages are not frozen as static HTML.
- */
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: {
@@ -20,6 +16,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function StudioAppLayout({ children }: StudioAppLayoutProps) {
+export default async function StudioAppLayout({
+  children,
+  params,
+}: StudioAppLayoutProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return <StudioShell>{children}</StudioShell>;
 }

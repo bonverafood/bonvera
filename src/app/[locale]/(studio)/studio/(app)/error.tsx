@@ -9,9 +9,6 @@ type StudioErrorProps = {
   reset: () => void;
 };
 
-/**
- * Surfaces the real server error in Studio instead of the opaque Vercel digest page.
- */
 export default function StudioAppError({ error, reset }: StudioErrorProps) {
   useEffect(() => {
     console.error("[studio]", error);
@@ -21,13 +18,24 @@ export default function StudioAppError({ error, reset }: StudioErrorProps) {
     <div className="mx-auto flex min-h-[50vh] max-w-lg flex-col justify-center gap-4 px-4 py-16">
       <h1 className="text-2xl font-semibold tracking-tight">Studio hatasi</h1>
       <p className="text-muted-foreground text-sm leading-relaxed">
-        Sayfa yuklenirken bir sunucu hatasi olustu. Asagidaki mesaj Vercel
-        loglarindaki hatayla ayni kaynagi gosterir.
+        Production ortaminda Next.js hata metnini gizler. Asagidaki health
+        kontrolunu acip sonucu paylas; Vercel Function Logs&apos;ta da ayni
+        digest ile gercek mesaj yazar.
       </p>
       <pre className="bg-muted overflow-x-auto rounded-lg p-3 text-xs leading-relaxed whitespace-pre-wrap">
-        {error.message || "Bilinmeyen hata"}
+        {error.message}
         {error.digest ? `\nDigest: ${error.digest}` : ""}
       </pre>
+      <p className="text-sm">
+        <a
+          className="underline underline-offset-4"
+          href="/api/studio-health"
+          target="_blank"
+          rel="noreferrer"
+        >
+          /api/studio-health
+        </a>
+      </p>
       <div>
         <Button type="button" onClick={() => reset()}>
           Tekrar dene
