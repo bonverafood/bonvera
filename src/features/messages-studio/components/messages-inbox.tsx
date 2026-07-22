@@ -170,6 +170,7 @@ export function MessagesInbox({ initialConversations }: MessagesInboxProps) {
                   {" · "}
                   {active.locale.toUpperCase()}
                   {active.visitorEmail ? ` · ${active.visitorEmail}` : ""}
+                  {active.visitorPhone ? ` · ${active.visitorPhone}` : ""}
                 </p>
               </div>
               <Button

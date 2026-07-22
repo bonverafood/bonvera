@@ -96,6 +96,7 @@ export type Conversation = {
   locale: string;
   visitorName: string | null;
   visitorEmail: string | null;
+  visitorPhone: string | null;
   preview: string;
   lastMessageAt: string;
   createdAt: string;

@@ -144,9 +144,25 @@
       "subtitle": "Size yardımcı olalım",
       "greeting": "Merhaba! Ürünler, sipariş veya iş ortaklığı hakkında yazabilirsiniz. Mesajınız ekibimize iletilir.",
       "placeholder": "Mesajınızı yazın…",
+      "followUpPlaceholder": "Eklemek istediğiniz bir şey var mı?",
       "send": "Gönder",
+      "sending": "Gönderiliyor…",
       "open": "Sohbeti aç",
-      "close": "Sohbeti kapat"
+      "close": "Sohbeti kapat",
+      "nameLabel": "Adınız",
+      "namePlaceholder": "Adınız",
+      "nameSubmit": "Devam",
+      "contactHint": "E-posta veya telefon — en az birini yazmanız yeterli. Numara formatı serbesttir (FR / TR).",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "E-posta",
+      "phoneLabel": "Telefon",
+      "phonePlaceholder": "Telefon (ör. +33… veya 05…)",
+      "contactSubmit": "Gönder",
+      "errors": {
+        "nameRequired": "Lütfen adınızı yazın.",
+        "contactRequired": "E-posta veya telefon gerekli.",
+        "invalidEmail": "Geçerli bir e-posta girin."
+      }
     }
   },
   "Studio": {

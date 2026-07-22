@@ -188,3 +188,65 @@ export async function appendVisitorMessage(
   if (msgError) throw msgError;
   return (msgs as MessageRow[]).map(mapMessage);
 }
+
+export async function updateConversationVisitor(
+  conversationId: string,
+  patch: {
+    visitorName?: string | null;
+    visitorEmail?: string | null;
+    visitorPhone?: string | null;
+  },
+): Promise<Conversation> {
+  const now = new Date().toISOString();
+  const row: Record<string, string | null> = { updated_at: now };
+  if (patch.visitorName !== undefined) {
+    row.visitor_name = patch.visitorName?.trim() || null;
+  }
+  if (patch.visitorEmail !== undefined) {
+    row.visitor_email = patch.visitorEmail?.trim() || null;
+  }
+  if (patch.visitorPhone !== undefined) {
+    row.visitor_phone = patch.visitorPhone?.trim() || null;
+  }
+
+  const { data, error } = await client()
+    .from("conversations")
+    .update(row)
+    .eq("id", conversationId)
+    .select("*")
+    .single();
+
+  if (error) throw error;
+  return mapConversation(data as ConversationRow);
+}
+
+export async function appendSystemMessage(
+  conversationId: string,
+  body: string,
+): Promise<Message> {
+  const now = new Date().toISOString();
+  const text = body.trim();
+
+  const { error: updateError } = await client()
+    .from("conversations")
+    .update({
+      last_message_at: now,
+      updated_at: now,
+    })
+    .eq("id", conversationId);
+
+  if (updateError) throw updateError;
+
+  const { data, error } = await client()
+    .from("messages")
+    .insert({
+      conversation_id: conversationId,
+      role: "system",
+      body: text,
+    })
+    .select("*")
+    .single();
+
+  if (error) throw error;
+  return mapMessage(data as MessageRow);
+}

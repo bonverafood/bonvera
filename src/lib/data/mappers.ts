@@ -146,6 +146,7 @@ export type ConversationRow = {
   locale: string;
   visitor_name: string | null;
   visitor_email: string | null;
+  visitor_phone: string | null;
   preview: string;
   last_message_at: string;
   created_at: string;
@@ -169,6 +170,7 @@ export function mapConversation(row: ConversationRow): Conversation {
     locale: row.locale,
     visitorName: row.visitor_name,
     visitorEmail: row.visitor_email,
+    visitorPhone: row.visitor_phone ?? null,
     preview: row.preview,
     lastMessageAt: row.last_message_at,
     createdAt: row.created_at,

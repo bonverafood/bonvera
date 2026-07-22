@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS public.conversations (
   locale text DEFAULT 'fr' NOT NULL,
   visitor_name text,
   visitor_email text,
+  visitor_phone text,
   preview text DEFAULT '' NOT NULL,
   last_message_at timestamptz DEFAULT now() NOT NULL,
   created_at timestamptz DEFAULT now() NOT NULL,

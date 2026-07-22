@@ -55,10 +55,12 @@ export {
   type SiteSeoPageWrite,
 } from "./site-seo";
 export {
+  appendSystemMessage,
   appendVisitorMessage,
   countNewConversations,
   createConversationWithMessage,
   getConversationWithMessages,
   listConversations,
   updateConversationStatus,
+  updateConversationVisitor,
 } from "./messages";

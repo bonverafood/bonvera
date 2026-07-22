@@ -144,9 +144,25 @@
       "subtitle": "Nous sommes là pour vous",
       "greeting": "Bonjour ! Écrivez-nous à propos des produits, commandes ou partenariats. Votre message est transmis à l'équipe.",
       "placeholder": "Écrivez votre message…",
+      "followUpPlaceholder": "Souhaitez-vous ajouter quelque chose ?",
       "send": "Envoyer",
+      "sending": "Envoi…",
       "open": "Ouvrir le chat",
-      "close": "Fermer le chat"
+      "close": "Fermer le chat",
+      "nameLabel": "Votre prénom",
+      "namePlaceholder": "Votre prénom",
+      "nameSubmit": "Continuer",
+      "contactHint": "E-mail ou téléphone — l'un des deux suffit. Format libre (FR / TR).",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "E-mail",
+      "phoneLabel": "Téléphone",
+      "phonePlaceholder": "Téléphone (ex. +33… ou 05…)",
+      "contactSubmit": "Envoyer",
+      "errors": {
+        "nameRequired": "Veuillez indiquer votre prénom.",
+        "contactRequired": "E-mail ou téléphone requis.",
+        "invalidEmail": "Veuillez indiquer un e-mail valide."
+      }
     }
   },
   "Studio": {

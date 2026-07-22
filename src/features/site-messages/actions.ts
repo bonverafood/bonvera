@@ -5,11 +5,16 @@ import { revalidatePath } from "next/cache";
 import {
   appendVisitorMessage,
   createConversationWithMessage,
+  updateConversationVisitor,
   type Message,
 } from "@/lib/data";
 
 import {
+  askContactSchema,
   askMessageSchema,
+  askNameSchema,
+  askPromptAskContact,
+  askPromptAskName,
   contactMessageSchema,
   systemAck,
 } from "./schema";
@@ -39,6 +44,7 @@ export async function sendAskMessage(input: unknown): Promise<
   PublicActionResult<{
     conversationId: string;
     messages: Message[];
+    nextStep: "name" | "contact" | "done";
   }>
 > {
   const parsed = askMessageSchema.safeParse(input);
@@ -50,8 +56,6 @@ export async function sendAskMessage(input: unknown): Promise<
   }
 
   try {
-    const ack = systemAck(parsed.data.locale, "ask");
-
     if (parsed.data.conversationId) {
       const messages = await appendVisitorMessage(
         parsed.data.conversationId,
@@ -63,6 +67,7 @@ export async function sendAskMessage(input: unknown): Promise<
         data: {
           conversationId: parsed.data.conversationId,
           messages,
+          nextStep: "done",
         },
       };
     }
@@ -71,7 +76,7 @@ export async function sendAskMessage(input: unknown): Promise<
       source: "ask",
       locale: parsed.data.locale,
       visitorBody: parsed.data.body,
-      systemBody: ack,
+      systemBody: askPromptAskName(parsed.data.locale),
     });
     revalidateInbox();
     return {
@@ -79,6 +84,104 @@ export async function sendAskMessage(input: unknown): Promise<
       data: {
         conversationId: created.conversation.id,
         messages: created.messages,
+        nextStep: "name",
+      },
+    };
+  } catch (error) {
+    return { ok: false, error: mapError(error) };
+  }
+}
+
+export async function submitAskName(input: unknown): Promise<
+  PublicActionResult<{
+    conversationId: string;
+    messages: Message[];
+    nextStep: "contact";
+  }>
+> {
+  const parsed = askNameSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: "Invalid name." };
+  }
+  if (parsed.data.website) {
+    return { ok: false, error: "Invalid name." };
+  }
+
+  try {
+    await updateConversationVisitor(parsed.data.conversationId, {
+      visitorName: parsed.data.name,
+    });
+    const messages = await appendVisitorMessage(
+      parsed.data.conversationId,
+      parsed.data.name,
+      askPromptAskContact(parsed.data.locale, parsed.data.name),
+    );
+    revalidateInbox();
+    return {
+      ok: true,
+      data: {
+        conversationId: parsed.data.conversationId,
+        messages,
+        nextStep: "contact",
+      },
+    };
+  } catch (error) {
+    return { ok: false, error: mapError(error) };
+  }
+}
+
+export async function submitAskContact(input: unknown): Promise<
+  PublicActionResult<{
+    conversationId: string;
+    messages: Message[];
+    nextStep: "done";
+  }>
+> {
+  const parsed = askContactSchema.safeParse(input);
+  if (!parsed.success) {
+    const issue = parsed.error.issues[0]?.message;
+    if (issue === "invalidEmail") {
+      return { ok: false, error: "invalidEmail" };
+    }
+    return { ok: false, error: "contactRequired" };
+  }
+  if (parsed.data.website) {
+    return { ok: false, error: "Invalid contact." };
+  }
+
+  const email = parsed.data.email?.trim() || "";
+  const phone = parsed.data.phone?.trim() || "";
+
+  try {
+    await updateConversationVisitor(parsed.data.conversationId, {
+      visitorEmail: email || null,
+      visitorPhone: phone || null,
+    });
+
+    const summaryParts =
+      parsed.data.locale === "tr"
+        ? [
+            email ? `E-posta: ${email}` : null,
+            phone ? `Telefon: ${phone}` : null,
+          ]
+        : [
+            email ? `E-mail : ${email}` : null,
+            phone ? `Téléphone : ${phone}` : null,
+          ];
+    const summary = summaryParts.filter(Boolean).join("\n");
+
+    const messages = await appendVisitorMessage(
+      parsed.data.conversationId,
+      summary,
+      systemAck(parsed.data.locale, "ask"),
+    );
+    revalidateInbox();
+    return {
+      ok: true,
+      data: {
+        conversationId: parsed.data.conversationId,
+        messages,
+        nextStep: "done",
       },
     };
   } catch (error) {

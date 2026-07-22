@@ -25,7 +25,8 @@ Optional later: `OPENAI_API_KEY`.
 Run SQL once in Supabase → SQL Editor: [`docs/sql/schema.sql`](./sql/schema.sql)  
 (includes products, media, SEO, **conversations/messages**).  
 
-If the project already has the earlier schema, also run [`docs/sql/migrate-messages.sql`](./sql/migrate-messages.sql).
+If the project already has the earlier schema, also run [`docs/sql/migrate-messages.sql`](./sql/migrate-messages.sql).  
+For phone on Ask chat: [`docs/sql/migrate-messages-phone.sql`](./sql/migrate-messages-phone.sql).
 
 ## Auth + Media
 

@@ -5,12 +5,18 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-import { sendAskMessage } from "@/features/site-messages/actions";
+import {
+  sendAskMessage,
+  submitAskContact,
+  submitAskName,
+} from "@/features/site-messages/actions";
 
 const STORAGE_ID = "bonvera-ask-conversation-id";
+const STORAGE_STEP = "bonvera-ask-step";
 const STORAGE_PROMPTED = "bonvera-ask-prompted";
 const STORAGE_OPENED = "bonvera-ask-opened";
 const AUTO_MS = 30_000;
@@ -21,9 +27,21 @@ type Bubble = {
   body: string;
 };
 
+type Step = "message" | "name" | "contact" | "done";
+
 function isMobileViewport() {
   if (typeof window === "undefined") return false;
   return window.matchMedia("(max-width: 767px)").matches;
+}
+
+function mergeBubbles(prev: Bubble[], incoming: Bubble[], dropId?: string) {
+  const base = dropId ? prev.filter((b) => b.id !== dropId) : prev;
+  const known = new Set(base.map((b) => b.id));
+  const merged = [...base];
+  for (const msg of incoming) {
+    if (!known.has(msg.id)) merged.push(msg);
+  }
+  return merged;
 }
 
 export function AskChatWidget() {
@@ -31,7 +49,11 @@ export function AskChatWidget() {
   const locale = useLocale() as "fr" | "tr";
   const [open, setOpen] = useState(false);
   const [badge, setBadge] = useState(false);
+  const [step, setStep] = useState<Step>("message");
   const [body, setBody] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -42,11 +64,28 @@ export function AskChatWidget() {
   useEffect(() => {
     try {
       const id = sessionStorage.getItem(STORAGE_ID);
+      const savedStep = sessionStorage.getItem(STORAGE_STEP) as Step | null;
       if (id) setConversationId(id);
+      if (
+        savedStep === "name" ||
+        savedStep === "contact" ||
+        savedStep === "done" ||
+        savedStep === "message"
+      ) {
+        setStep(savedStep);
+      }
     } catch {
       /* ignore */
     }
   }, []);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(STORAGE_STEP, step);
+    } catch {
+      /* ignore */
+    }
+  }, [step]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -83,7 +122,7 @@ export function AskChatWidget() {
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
-  }, [bubbles, open]);
+  }, [bubbles, open, step]);
 
   function openChat() {
     setOpen(true);
@@ -99,7 +138,22 @@ export function AskChatWidget() {
     setOpen(false);
   }
 
-  function onSubmit(event: React.FormEvent) {
+  function rememberConversation(id: string) {
+    setConversationId(id);
+    try {
+      sessionStorage.setItem(STORAGE_ID, id);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function mapError(code: string) {
+    if (code === "contactRequired") return t("errors.contactRequired");
+    if (code === "invalidEmail") return t("errors.invalidEmail");
+    return code;
+  }
+
+  function onSubmitMessage(event: React.FormEvent) {
     event.preventDefault();
     const text = body.trim();
     if (!text || pending) return;
@@ -122,42 +176,219 @@ export function AskChatWidget() {
       });
 
       if (!result.ok) {
-        setError(result.error);
+        setError(mapError(result.error));
         setBubbles((prev) => prev.filter((b) => b.id !== optimistic.id));
         setBody(text);
         return;
       }
 
-      setConversationId(result.data.conversationId);
-      try {
-        sessionStorage.setItem(STORAGE_ID, result.data.conversationId);
-      } catch {
-        /* ignore */
-      }
-
-      setBubbles((prev) => {
-        const withoutOptimistic = prev.filter((b) => b.id !== optimistic.id);
-        const incoming = result.data.messages.map((m) => ({
-          id: m.id,
-          role: m.role,
-          body: m.body,
-        }));
-        const known = new Set(withoutOptimistic.map((b) => b.id));
-        const merged = [...withoutOptimistic];
-        for (const msg of incoming) {
-          if (!known.has(msg.id)) merged.push(msg);
-        }
-        return merged;
-      });
+      rememberConversation(result.data.conversationId);
+      setBubbles((prev) =>
+        mergeBubbles(
+          prev,
+          result.data.messages.map((m) => ({
+            id: m.id,
+            role: m.role,
+            body: m.body,
+          })),
+          optimistic.id,
+        ),
+      );
+      setStep(result.data.nextStep);
     });
   }
+
+  function onSubmitName(event: React.FormEvent) {
+    event.preventDefault();
+    if (!conversationId || pending) return;
+    const value = name.trim();
+    if (value.length < 2) {
+      setError(t("errors.nameRequired"));
+      return;
+    }
+
+    setError(null);
+    const optimistic: Bubble = {
+      id: `local-name-${Date.now()}`,
+      role: "visitor",
+      body: value,
+    };
+    setBubbles((prev) => [...prev, optimistic]);
+
+    startTransition(async () => {
+      const result = await submitAskName({
+        locale,
+        conversationId,
+        name: value,
+        website: "",
+      });
+
+      if (!result.ok) {
+        setError(mapError(result.error));
+        setBubbles((prev) => prev.filter((b) => b.id !== optimistic.id));
+        return;
+      }
+
+      setBubbles((prev) =>
+        mergeBubbles(
+          prev,
+          result.data.messages.map((m) => ({
+            id: m.id,
+            role: m.role,
+            body: m.body,
+          })),
+          optimistic.id,
+        ),
+      );
+      setStep("contact");
+    });
+  }
+
+  function onSubmitContact(event: React.FormEvent) {
+    event.preventDefault();
+    if (!conversationId || pending) return;
+
+    setError(null);
+    startTransition(async () => {
+      const result = await submitAskContact({
+        locale,
+        conversationId,
+        email,
+        phone,
+        website: "",
+      });
+
+      if (!result.ok) {
+        setError(mapError(result.error));
+        return;
+      }
+
+      setBubbles((prev) =>
+        mergeBubbles(
+          prev,
+          result.data.messages.map((m) => ({
+            id: m.id,
+            role: m.role,
+            body: m.body,
+          })),
+        ),
+      );
+      setStep("done");
+      setEmail("");
+      setPhone("");
+    });
+  }
+
+  const composer =
+    step === "name" ? (
+      <form
+        onSubmit={onSubmitName}
+        className="border-border space-y-2 border-t p-3"
+      >
+        <label className="sr-only" htmlFor="ask-chat-name">
+          {t("nameLabel")}
+        </label>
+        <Input
+          id="ask-chat-name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={t("namePlaceholder")}
+          autoComplete="name"
+          disabled={pending}
+        />
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={pending || name.trim().length < 2}
+        >
+          {pending ? t("sending") : t("nameSubmit")}
+        </Button>
+      </form>
+    ) : step === "contact" ? (
+      <form
+        onSubmit={onSubmitContact}
+        className="border-border space-y-2 border-t p-3"
+      >
+        <p className="text-muted-foreground text-xs leading-relaxed">
+          {t("contactHint")}
+        </p>
+        <label className="sr-only" htmlFor="ask-chat-email">
+          {t("emailLabel")}
+        </label>
+        <Input
+          id="ask-chat-email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={t("emailPlaceholder")}
+          autoComplete="email"
+          disabled={pending}
+        />
+        <label className="sr-only" htmlFor="ask-chat-phone">
+          {t("phoneLabel")}
+        </label>
+        <Input
+          id="ask-chat-phone"
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder={t("phonePlaceholder")}
+          autoComplete="tel"
+          inputMode="tel"
+          disabled={pending}
+        />
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={pending || (!email.trim() && !phone.trim())}
+        >
+          {pending ? t("sending") : t("contactSubmit")}
+        </Button>
+      </form>
+    ) : (
+      <form
+        onSubmit={onSubmitMessage}
+        className="border-border flex items-end gap-2 border-t p-3"
+      >
+        <label className="sr-only" htmlFor="ask-chat-input">
+          {t("placeholder")}
+        </label>
+        <Textarea
+          id="ask-chat-input"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          placeholder={
+            step === "done" ? t("followUpPlaceholder") : t("placeholder")
+          }
+          rows={2}
+          className="min-h-0 resize-none"
+          disabled={pending}
+        />
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          className="hidden"
+          aria-hidden
+        />
+        <Button
+          type="submit"
+          size="icon"
+          disabled={pending || !body.trim()}
+          aria-label={t("send")}
+        >
+          <Send className="size-4" />
+        </Button>
+      </form>
+    );
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-end p-4 sm:p-6">
       <div className="pointer-events-auto flex flex-col items-end gap-3">
         {open ? (
           <div
-            className="border-border bg-card text-card-foreground flex h-[min(28rem,70vh)] w-[min(100vw-2rem,22rem)] flex-col overflow-hidden rounded-2xl border shadow-[0_18px_50px_-24px_rgba(15,23,42,0.45)]"
+            className="border-border bg-card text-card-foreground flex h-[min(32rem,75vh)] w-[min(100vw-2rem,22rem)] flex-col overflow-hidden rounded-2xl border shadow-[0_18px_50px_-24px_rgba(15,23,42,0.45)]"
             role="dialog"
             aria-label={t("title")}
           >
@@ -194,7 +425,7 @@ export function AskChatWidget() {
                 <div
                   key={bubble.id}
                   className={cn(
-                    "max-w-[90%] rounded-2xl px-3 py-2 leading-relaxed",
+                    "max-w-[90%] whitespace-pre-wrap rounded-2xl px-3 py-2 leading-relaxed",
                     bubble.role === "visitor"
                       ? "bg-primary text-primary-foreground ml-auto"
                       : "bg-muted text-foreground",
@@ -208,40 +439,7 @@ export function AskChatWidget() {
               ) : null}
             </div>
 
-            <form
-              onSubmit={onSubmit}
-              className="border-border flex items-end gap-2 border-t p-3"
-            >
-              <label className="sr-only" htmlFor="ask-chat-input">
-                {t("placeholder")}
-              </label>
-              <Textarea
-                id="ask-chat-input"
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
-                placeholder={t("placeholder")}
-                rows={2}
-                className="min-h-0 resize-none"
-                disabled={pending}
-              />
-              {/* honeypot */}
-              <input
-                type="text"
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-                className="hidden"
-                aria-hidden
-              />
-              <Button
-                type="submit"
-                size="icon"
-                disabled={pending || !body.trim()}
-                aria-label={t("send")}
-              >
-                <Send className="size-4" />
-              </Button>
-            </form>
+            {composer}
           </div>
         ) : null}
 

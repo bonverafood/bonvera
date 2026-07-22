@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS public.conversations (
   locale text DEFAULT 'fr' NOT NULL,
   visitor_name text,
   visitor_email text,
+  visitor_phone text,
   preview text DEFAULT '' NOT NULL,
   last_message_at timestamptz DEFAULT now() NOT NULL,
   created_at timestamptz DEFAULT now() NOT NULL,
@@ -40,3 +41,6 @@ CREATE INDEX IF NOT EXISTS messages_conversation_created_idx
 ALTER TABLE public.conversations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
 -- No anon/authenticated policies: access only via service role (server actions).
+
+ALTER TABLE public.conversations
+  ADD COLUMN IF NOT EXISTS visitor_phone text;

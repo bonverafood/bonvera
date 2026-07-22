@@ -1,3 +1,8 @@
 export { AskChatWidget } from "./components/ask-chat-widget";
 export { ContactForm } from "./components/contact-form";
-export { sendAskMessage, submitContactMessage } from "./actions";
+export {
+  sendAskMessage,
+  submitAskContact,
+  submitAskName,
+  submitContactMessage,
+} from "./actions";
