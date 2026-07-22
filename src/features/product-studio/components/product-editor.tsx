@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { MediaPickerDialog } from "@/features/media-studio";
+import { MediaPickerDialog } from "@/features/media-studio/components/media-picker-dialog";
 import { useRouter } from "@/lib/i18n/navigation";
 import type { Product } from "@/lib/data/types";
 

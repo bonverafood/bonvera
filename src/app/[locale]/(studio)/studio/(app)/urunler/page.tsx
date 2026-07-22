@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 
-import { ProductListPage } from "@/features/product-studio";
+import { ProductListPage } from "@/features/product-studio/components/product-list-page";
 
 type ProductsPageProps = {
   params: Promise<{ locale: string }>;

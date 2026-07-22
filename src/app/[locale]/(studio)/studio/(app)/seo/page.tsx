@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 
-import { SeoStudioPage } from "@/features/seo-studio";
+import { SeoStudioPage } from "@/features/seo-studio/components/seo-studio-loader";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
