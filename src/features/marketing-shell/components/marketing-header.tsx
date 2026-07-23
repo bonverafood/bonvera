@@ -46,15 +46,14 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
           className="flex items-center gap-3 sm:gap-4"
           aria-label={t("brand")}
         >
-          {/* Mark art sits high in the square — crop/scale so the hat aligns with the wordmark. */}
-          <span className="relative size-[6.75rem] shrink-0 translate-y-[0.5cm] overflow-hidden sm:size-[7.5rem]">
+          <span className="relative aspect-[458/386] h-[5.75rem] shrink-0 translate-y-[0.5cm] sm:h-[6.5rem]">
             <Image
               src="/brand/mark.png"
               alt=""
               fill
-              sizes="120px"
+              sizes="140px"
               className={cn(
-                "scale-[1.55] object-contain object-[center_12%]",
+                "object-contain",
                 overHero && "brightness-0 invert",
               )}
               priority
