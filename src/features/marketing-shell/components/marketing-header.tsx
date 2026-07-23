@@ -34,16 +34,16 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
   return (
     <header
       className={cn(
-        "z-30 w-full",
+        "z-30 w-full overflow-visible",
         overHero
           ? "absolute inset-x-0 top-0"
           : "border-border/60 bg-background/90 sticky top-0 border-b backdrop-blur-md",
       )}
     >
-      <div className="mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4 sm:h-28 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 overflow-visible px-4 sm:h-28 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-3 sm:gap-4"
+          className="relative z-50 flex items-center gap-3 sm:gap-4"
           aria-label={t("brand")}
         >
           <span className="relative aspect-[458/386] h-[5.75rem] shrink-0 translate-y-[0.5cm] sm:h-[6.5rem]">
@@ -70,7 +70,7 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
         </Link>
 
         <nav
-          className="hidden items-center gap-1 md:flex"
+          className="relative z-10 hidden items-center gap-1 md:flex"
           aria-label={t("nav.aria")}
         >
           {MARKETING_NAV.map((item) => {
@@ -96,7 +96,7 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="relative z-10 flex items-center gap-2">
           <Link
             href="/iletisim"
             className={cn(
