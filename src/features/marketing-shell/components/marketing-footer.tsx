@@ -68,7 +68,7 @@ export async function MarketingFooter() {
 
       <div className="border-t border-white/10">
         <div className="text-muted-foreground mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-          <p>{t("footer.rights", { year: new Date().getFullYear() })}</p>
+          <p>{t("footer.rights", { year: 2023 })}</p>
           <p>{t("footer.craft")}</p>
         </div>
       </div>
