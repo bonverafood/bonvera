@@ -1,7 +1,6 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
@@ -34,43 +33,15 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
   return (
     <header
       className={cn(
-        "z-30 w-full overflow-visible",
+        "z-30 w-full",
         overHero
           ? "absolute inset-x-0 top-0"
           : "border-border/60 bg-background/90 sticky top-0 border-b backdrop-blur-md",
       )}
     >
-      <div className="relative mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 overflow-visible px-4 sm:h-28 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="relative z-50 flex items-center gap-3 sm:gap-4"
-          aria-label={t("brand")}
-        >
-          <span className="relative aspect-[458/386] h-[5.75rem] shrink-0 translate-y-[0.5cm] sm:h-[6.5rem]">
-            <Image
-              src="/brand/mark.png"
-              alt=""
-              fill
-              sizes="140px"
-              className={cn(
-                "object-contain",
-                overHero && "brightness-0 invert",
-              )}
-              priority
-            />
-          </span>
-          <span
-            className={cn(
-              "font-display text-xl font-semibold tracking-[0.14em] uppercase sm:text-2xl",
-              overHero ? "text-white" : "text-foreground",
-            )}
-          >
-            {t("brand")}
-          </span>
-        </Link>
-
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6 lg:px-8">
         <nav
-          className="relative z-10 hidden items-center gap-1 md:flex"
+          className="hidden items-center gap-1 md:flex"
           aria-label={t("nav.aria")}
         >
           {MARKETING_NAV.map((item) => {
@@ -96,7 +67,7 @@ export function MarketingHeader({ variant }: MarketingHeaderProps = {}) {
           })}
         </nav>
 
-        <div className="relative z-10 flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-2">
           <Link
             href="/iletisim"
             className={cn(
