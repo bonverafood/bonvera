@@ -65,7 +65,7 @@
       "title": "Ürün koleksiyonu",
       "description": "Strasbourg'da günlük taze üretim — mezeler, içli köfte ve sarmalar.",
       "emptyFallback": "Yayında ürün bulunamadı.",
-      "detailPlaceholder": "Ürün detayı yakında zenginleştirilecek.",
+      "detailPlaceholder": "Ürün hakkında detaylı bilgi ve teklif için bizimle iletişime geçin.",
       "detailCta": "Teklif iste",
       "back": "Tüm ürünler",
       "categories": {
@@ -92,7 +92,7 @@
       "metaDescription": "Bonvera ürünleriyle hazırlanan tarif fikirleri.",
       "eyebrow": "Tarifler",
       "title": "Sofra ilhamları",
-      "description": "Ürünlerle ilişkili tarif fikirleri. İçerik yakında genişleyecek.",
+      "description": "Bonvera ürünleriyle dengeli tabaklar ve servis fikirleri.",
       "items": {
         "mezeliTabak": {
           "title": "Mezeli tabak",
@@ -109,7 +109,7 @@
       "metaDescription": "Bonvera marka hikâyesi ve lezzet yazıları.",
       "eyebrow": "Blog",
       "title": "Hikâyeler ve içerik",
-      "description": "Marka hikâyeleri ve sofra yazıları yakında burada.",
+      "description": "Marka hikâyeleri, sofra kültürü ve Bonvera notları.",
       "items": {
         "strasbourg": {
           "title": "Strasbourg'da Türk mutfağı",
@@ -129,7 +129,6 @@
       "description": "İş ortaklığı, katalog veya ürün sorularınız için formu doldurun — mesajınız ekibimize ulaşır.",
       "locationLabel": "Konum",
       "emailLabel": "E-posta",
-      "note": "Mesajlarınız Studio → Mesajlar bölümünde toplanır.",
       "form": {
         "name": "Ad Soyad",
         "email": "E-posta",

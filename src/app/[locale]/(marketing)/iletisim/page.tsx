@@ -48,7 +48,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
               {t("footer.email")}
             </a>
           </div>
-          <p className="text-muted-foreground">{t("contact.note")}</p>
         </div>
 
         <ContactForm />

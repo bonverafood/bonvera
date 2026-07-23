@@ -65,7 +65,7 @@
       "title": "Nos produits",
       "description": "Production quotidienne à Strasbourg — mezzés, içli köfte et sarmas.",
       "emptyFallback": "Aucun produit publié.",
-      "detailPlaceholder": "Le détail produit sera enrichi bientôt.",
+      "detailPlaceholder": "Pour plus de détails et un devis, contactez-nous.",
       "detailCta": "Demander un devis",
       "back": "Tous les produits",
       "categories": {
@@ -92,7 +92,7 @@
       "metaDescription": "Idées de recettes autour des produits Bonvera.",
       "eyebrow": "Recettes",
       "title": "Inspiration à table",
-      "description": "Idées de recettes liées aux produits. Le contenu s'enrichira bientôt.",
+      "description": "Idées de plats et de service autour des produits Bonvera.",
       "items": {
         "mezeliTabak": {
           "title": "Assiette de mezzés",
@@ -109,7 +109,7 @@
       "metaDescription": "Histoire de la marque Bonvera et articles gourmands.",
       "eyebrow": "Blog",
       "title": "Histoires et contenus",
-      "description": "Récits de marque et articles de table bientôt ici.",
+      "description": "Récits de marque, culture de table et notes Bonvera.",
       "items": {
         "strasbourg": {
           "title": "Cuisine turque à Strasbourg",
@@ -129,7 +129,6 @@
       "description": "Pour un partenariat, un catalogue ou une question produit, écrivez-nous — votre message arrive à l'équipe.",
       "locationLabel": "Lieu",
       "emailLabel": "E-mail",
-      "note": "Vos messages sont centralisés dans Studio → Messages.",
       "form": {
         "name": "Nom",
         "email": "E-mail",
