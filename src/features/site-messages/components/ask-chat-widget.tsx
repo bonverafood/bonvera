@@ -14,6 +14,12 @@ import {
   submitAskContact,
   submitAskName,
 } from "@/features/site-messages/actions";
+import {
+  askFollowUpAck,
+  askPromptAskContact,
+  askPromptAskName,
+  systemAck,
+} from "@/features/site-messages/schema";
 
 const STORAGE_ID = "bonvera-ask-conversation-id";
 const STORAGE_STEP = "bonvera-ask-step";
@@ -35,13 +41,28 @@ function isMobileViewport() {
 }
 
 function mergeBubbles(prev: Bubble[], incoming: Bubble[], dropId?: string) {
-  const base = dropId ? prev.filter((b) => b.id !== dropId) : prev;
-  const known = new Set(base.map((b) => b.id));
-  const merged = [...base];
+  const base = dropId ? prev.filter((b) => b.id !== dropId) : [...prev];
+  const knownIds = new Set(base.map((b) => b.id));
+  const knownBodies = new Set(
+    base.map((b) => `${b.role}:${b.body.trim()}`),
+  );
   for (const msg of incoming) {
-    if (!known.has(msg.id)) merged.push(msg);
+    const key = `${msg.role}:${msg.body.trim()}`;
+    if (knownIds.has(msg.id) || knownBodies.has(key)) continue;
+    base.push(msg);
+    knownIds.add(msg.id);
+    knownBodies.add(key);
   }
-  return merged;
+  return base;
+}
+
+function ensureSystemBubble(prev: Bubble[], body: string): Bubble[] {
+  const key = `system:${body.trim()}`;
+  if (prev.some((b) => `${b.role}:${b.body.trim()}` === key)) return prev;
+  return [
+    ...prev,
+    { id: `local-sys-${Date.now()}`, role: "system", body },
+  ];
 }
 
 export function AskChatWidget() {
@@ -167,11 +188,15 @@ export function AskChatWidget() {
     setBubbles((prev) => [...prev, optimistic]);
     setBody("");
 
+    // Only reuse thread after the lead flow is complete — otherwise stale
+    // session ids skip the automatic name/contact prompts.
+    const reuseId = step === "done" ? conversationId : null;
+
     startTransition(async () => {
       const result = await sendAskMessage({
         locale,
         body: text,
-        conversationId: conversationId ?? undefined,
+        conversationId: reuseId ?? undefined,
         website: "",
       });
 
@@ -183,17 +208,21 @@ export function AskChatWidget() {
       }
 
       rememberConversation(result.data.conversationId);
-      setBubbles((prev) =>
-        mergeBubbles(
-          prev,
-          result.data.messages.map((m) => ({
-            id: m.id,
-            role: m.role,
-            body: m.body,
-          })),
-          optimistic.id,
-        ),
-      );
+      const incoming = result.data.messages.map((m) => ({
+        id: m.id,
+        role: m.role,
+        body: m.body,
+      }));
+
+      setBubbles((prev) => {
+        let next = mergeBubbles(prev, incoming, optimistic.id);
+        if (result.data.nextStep === "name") {
+          next = ensureSystemBubble(next, askPromptAskName(locale));
+        } else if (result.data.nextStep === "done" && reuseId) {
+          next = ensureSystemBubble(next, askFollowUpAck(locale));
+        }
+        return next;
+      });
       setStep(result.data.nextStep);
     });
   }
@@ -229,17 +258,16 @@ export function AskChatWidget() {
         return;
       }
 
-      setBubbles((prev) =>
-        mergeBubbles(
-          prev,
-          result.data.messages.map((m) => ({
-            id: m.id,
-            role: m.role,
-            body: m.body,
-          })),
-          optimistic.id,
-        ),
-      );
+      const incoming = result.data.messages.map((m) => ({
+        id: m.id,
+        role: m.role,
+        body: m.body,
+      }));
+      setBubbles((prev) => {
+        let next = mergeBubbles(prev, incoming, optimistic.id);
+        next = ensureSystemBubble(next, askPromptAskContact(locale, value));
+        return next;
+      });
       setStep("contact");
     });
   }
@@ -249,6 +277,25 @@ export function AskChatWidget() {
     if (!conversationId || pending) return;
 
     setError(null);
+    const summary =
+      locale === "tr"
+        ? [email.trim() && `E-posta: ${email.trim()}`, phone.trim() && `Telefon: ${phone.trim()}`]
+            .filter(Boolean)
+            .join("\n")
+        : [
+            email.trim() && `E-mail : ${email.trim()}`,
+            phone.trim() && `Téléphone : ${phone.trim()}`,
+          ]
+            .filter(Boolean)
+            .join("\n");
+
+    const optimistic: Bubble = {
+      id: `local-contact-${Date.now()}`,
+      role: "visitor",
+      body: summary,
+    };
+    setBubbles((prev) => [...prev, optimistic]);
+
     startTransition(async () => {
       const result = await submitAskContact({
         locale,
@@ -260,19 +307,20 @@ export function AskChatWidget() {
 
       if (!result.ok) {
         setError(mapError(result.error));
+        setBubbles((prev) => prev.filter((b) => b.id !== optimistic.id));
         return;
       }
 
-      setBubbles((prev) =>
-        mergeBubbles(
-          prev,
-          result.data.messages.map((m) => ({
-            id: m.id,
-            role: m.role,
-            body: m.body,
-          })),
-        ),
-      );
+      const incoming = result.data.messages.map((m) => ({
+        id: m.id,
+        role: m.role,
+        body: m.body,
+      }));
+      setBubbles((prev) => {
+        let next = mergeBubbles(prev, incoming, optimistic.id);
+        next = ensureSystemBubble(next, systemAck(locale, "ask"));
+        return next;
+      });
       setStep("done");
       setEmail("");
       setPhone("");

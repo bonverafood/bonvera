@@ -71,6 +71,12 @@ export function askPromptAskContact(locale: "fr" | "tr", name: string) {
     : `Merci ${safe} ! Pour pouvoir vous recontacter, puis-je avoir vos coordonnées ? E-mail et/ou téléphone suffisent.`;
 }
 
+export function askFollowUpAck(locale: "fr" | "tr") {
+  return locale === "tr"
+    ? "Mesajınız alındı, teşekkürler! Ekibimiz en kısa sürede size dönüş yapacak."
+    : "Message bien reçu, merci ! Notre équipe vous répondra bientôt.";
+}
+
 export function systemAck(locale: "fr" | "tr", source: "ask" | "contact") {
   if (locale === "tr") {
     return source === "contact"

@@ -11,6 +11,7 @@ import {
 
 import {
   askContactSchema,
+  askFollowUpAck,
   askMessageSchema,
   askNameSchema,
   askPromptAskContact,
@@ -56,10 +57,12 @@ export async function sendAskMessage(input: unknown): Promise<
   }
 
   try {
+    // Follow-up only when client explicitly continues an existing thread.
     if (parsed.data.conversationId) {
       const messages = await appendVisitorMessage(
         parsed.data.conversationId,
         parsed.data.body,
+        askFollowUpAck(parsed.data.locale),
       );
       revalidateInbox();
       return {

@@ -118,34 +118,37 @@ export async function createConversationWithMessage(
   if (convError) throw convError;
 
   const conversation = mapConversation(conv as ConversationRow);
-  const rows: { conversation_id: string; role: string; body: string }[] = [
-    {
+
+  const { data: visitorRow, error: visitorError } = await client()
+    .from("messages")
+    .insert({
       conversation_id: conversation.id,
       role: "visitor",
       body: input.visitorBody.trim(),
-    },
-  ];
+    })
+    .select("*")
+    .single();
+
+  if (visitorError) throw visitorError;
+
+  const messages: Message[] = [mapMessage(visitorRow as MessageRow)];
 
   if (input.systemBody?.trim()) {
-    rows.push({
-      conversation_id: conversation.id,
-      role: "system",
-      body: input.systemBody.trim(),
-    });
+    const { data: systemRow, error: systemError } = await client()
+      .from("messages")
+      .insert({
+        conversation_id: conversation.id,
+        role: "system",
+        body: input.systemBody.trim(),
+      })
+      .select("*")
+      .single();
+
+    if (systemError) throw systemError;
+    messages.push(mapMessage(systemRow as MessageRow));
   }
 
-  const { data: msgs, error: msgError } = await client()
-    .from("messages")
-    .insert(rows)
-    .select("*")
-    .order("created_at", { ascending: true });
-
-  if (msgError) throw msgError;
-
-  return {
-    conversation,
-    messages: (msgs as MessageRow[]).map(mapMessage),
-  };
+  return { conversation, messages };
 }
 
 export async function appendVisitorMessage(
@@ -171,22 +174,32 @@ export async function appendVisitorMessage(
   const rows: { conversation_id: string; role: string; body: string }[] = [
     { conversation_id: conversationId, role: "visitor", body: text },
   ];
-  if (systemBody?.trim()) {
-    rows.push({
-      conversation_id: conversationId,
-      role: "system",
-      body: systemBody.trim(),
-    });
-  }
 
-  const { data: msgs, error: msgError } = await client()
+  const { data: visitorRows, error: visitorError } = await client()
     .from("messages")
     .insert(rows)
-    .select("*")
-    .order("created_at", { ascending: true });
+    .select("*");
 
-  if (msgError) throw msgError;
-  return (msgs as MessageRow[]).map(mapMessage);
+  if (visitorError) throw visitorError;
+
+  const messages: Message[] = (visitorRows as MessageRow[]).map(mapMessage);
+
+  if (systemBody?.trim()) {
+    const { data: systemRow, error: systemError } = await client()
+      .from("messages")
+      .insert({
+        conversation_id: conversationId,
+        role: "system",
+        body: systemBody.trim(),
+      })
+      .select("*")
+      .single();
+
+    if (systemError) throw systemError;
+    messages.push(mapMessage(systemRow as MessageRow));
+  }
+
+  return messages;
 }
 
 export async function updateConversationVisitor(
