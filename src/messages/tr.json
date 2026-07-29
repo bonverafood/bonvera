@@ -264,11 +264,18 @@
     "contentLanguage": "Katalog dili",
     "contentLanguageTr": "Turkce",
     "contentLanguageFr": "Francais",
-    "pdfTitle": "Bonvera Urun Katalogu",
+    "pdfTitle": "Bonvera Urun Katalogu {year}",
     "pdfSubtitle": "Meze, sarma ve icli kofte seckisi — foodservice ve perakende.",
     "pdfGenerated": "Olusturma tarihi",
     "pdfPage": "Sayfa",
-    "pdfProductCount": "{count} urun"
+    "pdfProductCount": "{count} urun",
+    "pdfBackLocation": "Strasbourg · France",
+    "pdfBackEmail": "contact@bonvera.fr",
+    "pdfBackPhone": "",
+    "pdfBackWebsite": "www.bonvera.fr",
+    "pdfWebsiteUrl": "https://bonvera.fr",
+    "pdfBackTagline": "Afiyet olsun",
+    "pdfQrLabel": "bonvera.fr"
   },
   "ProductStudio": {
     "listTitle": "Urunler",

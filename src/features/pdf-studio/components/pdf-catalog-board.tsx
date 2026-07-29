@@ -30,8 +30,11 @@ function pdfCopyFor(locale: Locale): PdfCopy {
   return locale === "fr" ? frMessages.PdfStudio : trMessages.PdfStudio;
 }
 
-function interpolateCount(template: string, count: number): string {
-  return template.replaceAll("{count}", String(count));
+function interpolate(template: string, values: Record<string, string | number>) {
+  return Object.entries(values).reduce(
+    (text, [key, value]) => text.replaceAll(`{${key}}`, String(value)),
+    template,
+  );
 }
 
 function toCatalogProducts(
@@ -44,7 +47,6 @@ function toCatalogProducts(
       id: product.id,
       name: localized.name,
       summary: localized.summary,
-      body: localized.body,
       imageUrl: localized.imageUrl,
       slug: localized.slug,
     };
@@ -93,6 +95,8 @@ export function PdfCatalogBoard({ products }: PdfCatalogBoardProps) {
     const copy = pdfCopyFor(contentLocale);
     const logoUrl = `${window.location.origin}/brand/logo.png`;
     const stamp = new Date().toISOString().slice(0, 10);
+    const year = new Date().getFullYear();
+    const websiteUrl = copy.pdfWebsiteUrl;
 
     startTransition(async () => {
       try {
@@ -100,15 +104,24 @@ export function PdfCatalogBoard({ products }: PdfCatalogBoardProps) {
           products: catalogProducts,
           locale: contentLocale,
           logoUrl,
-          title: copy.pdfTitle,
+          title: interpolate(copy.pdfTitle, { year }),
           subtitle: copy.pdfSubtitle,
           generatedLabel: copy.pdfGenerated,
           pageLabel: copy.pdfPage,
-          productCountLabel: interpolateCount(
-            copy.pdfProductCount,
-            catalogProducts.length,
-          ),
-          fileName: `bonvera-katalog-${stamp}.pdf`,
+          productCountLabel: interpolate(copy.pdfProductCount, {
+            count: catalogProducts.length,
+          }),
+          back: {
+            location: copy.pdfBackLocation,
+            email: copy.pdfBackEmail,
+            phone: copy.pdfBackPhone,
+            website: copy.pdfBackWebsite,
+            websiteUrl,
+            tagline: copy.pdfBackTagline,
+            qrLabel: copy.pdfQrLabel,
+            qrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=8&data=${encodeURIComponent(websiteUrl)}`,
+          },
+          fileName: `Bonvera-Catalogue-${contentLocale.toUpperCase()}-${stamp}.pdf`,
         });
       } catch (err) {
         console.error("[pdf-studio] generate", err);

@@ -9,7 +9,11 @@ import {
   View,
 } from "@react-pdf/renderer";
 
-import type { CatalogDocumentProps } from "../types";
+import {
+  CATALOG_PRODUCTS_PER_PAGE,
+  type CatalogDocumentProps,
+  type CatalogProduct,
+} from "../types";
 
 const olive = "#3d5a3c";
 const oliveDark = "#2a3f29";
@@ -28,6 +32,12 @@ const styles = StyleSheet.create({
   coverTop: {
     alignItems: "flex-start",
   },
+  coverBrandBar: {
+    height: 6,
+    width: 72,
+    backgroundColor: olive,
+    marginBottom: 28,
+  },
   logo: {
     width: 140,
     height: 48,
@@ -35,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 36,
   },
   coverTitle: {
-    fontSize: 28,
+    fontSize: 26,
     fontFamily: "SourceSans3",
     fontWeight: 700,
     color: oliveDark,
@@ -47,7 +57,7 @@ const styles = StyleSheet.create({
     fontFamily: "SourceSans3",
     fontWeight: 400,
     color: muted,
-    maxWidth: 320,
+    maxWidth: 340,
     lineHeight: 1.5,
   },
   coverFooter: {
@@ -61,22 +71,18 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     color: muted,
   },
-  brandBar: {
-    height: 6,
-    backgroundColor: olive,
-    marginBottom: 28,
-  },
   productPage: {
     backgroundColor: "#ffffff",
-    padding: 40,
-    paddingBottom: 56,
+    paddingTop: 28,
+    paddingHorizontal: 36,
+    paddingBottom: 52,
   },
   productHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 24,
-    paddingBottom: 12,
+    marginBottom: 16,
+    paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: rule,
   },
@@ -92,21 +98,36 @@ const styles = StyleSheet.create({
     color: muted,
     letterSpacing: 1.2,
   },
-  productBody: {
-    flexDirection: "row",
-    gap: 24,
+  rows: {
     flexGrow: 1,
   },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+    height: 118,
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: rule,
+  },
+  rowLast: {
+    borderBottomWidth: 0,
+    marginBottom: 0,
+    paddingBottom: 0,
+  },
   imageWrap: {
-    width: 220,
-    height: 260,
+    width: 100,
+    height: 100,
     backgroundColor: cream,
+    justifyContent: "center",
+    alignItems: "center",
     overflow: "hidden",
   },
   productImage: {
     width: "100%",
     height: "100%",
-    objectFit: "cover",
+    objectFit: "contain",
   },
   imagePlaceholder: {
     width: "100%",
@@ -116,52 +137,112 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   placeholderText: {
-    fontSize: 10,
+    fontSize: 8,
     color: muted,
     fontFamily: "SourceSans3",
     fontWeight: 400,
   },
   copy: {
     flex: 1,
-    paddingTop: 8,
+    paddingRight: 4,
   },
   productName: {
-    fontSize: 20,
+    fontSize: 13,
     fontFamily: "SourceSans3",
     fontWeight: 700,
     color: oliveDark,
-    marginBottom: 10,
+    marginBottom: 4,
     lineHeight: 1.25,
   },
   productSummary: {
-    fontSize: 11,
-    fontFamily: "SourceSans3",
-    fontWeight: 400,
-    color: ink,
-    lineHeight: 1.55,
-    marginBottom: 14,
-  },
-  productBodyText: {
     fontSize: 9.5,
     fontFamily: "SourceSans3",
     fontWeight: 400,
-    color: muted,
-    lineHeight: 1.55,
+    color: ink,
+    lineHeight: 1.45,
   },
   pageFooter: {
     position: "absolute",
-    bottom: 28,
-    left: 40,
-    right: 40,
+    bottom: 24,
+    left: 36,
+    right: 36,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderTopWidth: 1,
     borderTopColor: rule,
-    paddingTop: 10,
+    paddingTop: 8,
   },
   footerText: {
     fontSize: 8,
+    fontFamily: "SourceSans3",
+    fontWeight: 400,
+    color: muted,
+  },
+  backPage: {
+    flex: 1,
+    backgroundColor: cream,
+    padding: 48,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  backLogo: {
+    width: 150,
+    height: 52,
+    objectFit: "contain",
+    marginBottom: 14,
+  },
+  backLocation: {
+    fontSize: 11,
+    fontFamily: "SourceSans3",
+    fontWeight: 400,
+    color: muted,
+    marginBottom: 22,
+  },
+  backRule: {
+    width: 56,
+    height: 3,
+    backgroundColor: olive,
+    marginBottom: 22,
+  },
+  backContact: {
+    alignItems: "center",
+    marginBottom: 22,
+  },
+  backLine: {
+    fontSize: 11,
+    fontFamily: "SourceSans3",
+    fontWeight: 400,
+    color: ink,
+    marginBottom: 6,
+    textAlign: "center",
+  },
+  backWebsite: {
+    fontSize: 12,
+    fontFamily: "SourceSans3",
+    fontWeight: 700,
+    color: oliveDark,
+    marginTop: 4,
+    textAlign: "center",
+  },
+  qrWrap: {
+    marginTop: 8,
+    alignItems: "center",
+  },
+  qrImage: {
+    width: 96,
+    height: 96,
+    marginBottom: 8,
+  },
+  qrLabel: {
+    fontSize: 9,
+    fontFamily: "SourceSans3",
+    fontWeight: 400,
+    color: muted,
+  },
+  backTagline: {
+    marginTop: 28,
+    fontSize: 11,
     fontFamily: "SourceSans3",
     fontWeight: 400,
     color: muted,
@@ -180,6 +261,46 @@ function formatDate(locale: string) {
   }
 }
 
+function chunkProducts(
+  products: CatalogProduct[],
+  size: number,
+): CatalogProduct[][] {
+  const pages: CatalogProduct[][] = [];
+  for (let i = 0; i < products.length; i += size) {
+    pages.push(products.slice(i, i + size));
+  }
+  return pages;
+}
+
+function ProductRow({
+  product,
+  isLast,
+}: {
+  product: CatalogProduct;
+  isLast: boolean;
+}) {
+  return (
+    <View style={isLast ? [styles.row, styles.rowLast] : styles.row} wrap={false}>
+      <View style={styles.imageWrap}>
+        {product.imageUrl ? (
+          // eslint-disable-next-line jsx-a11y/alt-text -- react-pdf Image
+          <Image src={product.imageUrl} style={styles.productImage} />
+        ) : (
+          <View style={styles.imagePlaceholder}>
+            <Text style={styles.placeholderText}>Bonvera</Text>
+          </View>
+        )}
+      </View>
+      <View style={styles.copy}>
+        <Text style={styles.productName}>{product.name}</Text>
+        {product.summary ? (
+          <Text style={styles.productSummary}>{product.summary}</Text>
+        ) : null}
+      </View>
+    </View>
+  );
+}
+
 export function CatalogDocument({
   products,
   locale,
@@ -189,8 +310,11 @@ export function CatalogDocument({
   generatedLabel,
   pageLabel,
   productCountLabel,
+  back,
 }: CatalogDocumentProps) {
   const date = formatDate(locale);
+  const productPages = chunkProducts(products, CATALOG_PRODUCTS_PER_PAGE);
+  const totalPages = 1 + productPages.length + 1;
 
   return (
     <Document
@@ -201,6 +325,7 @@ export function CatalogDocument({
     >
       <Page size="A4" style={styles.cover}>
         <View style={styles.coverTop}>
+          <View style={styles.coverBrandBar} />
           {/* eslint-disable-next-line jsx-a11y/alt-text -- react-pdf Image */}
           <Image src={logoUrl} style={styles.logo} />
           <Text style={styles.coverTitle}>{title}</Text>
@@ -213,51 +338,69 @@ export function CatalogDocument({
           <Text style={[styles.coverMeta, { marginTop: 4 }]}>
             Bonvera · {productCountLabel}
           </Text>
+          <Text style={[styles.coverMeta, { marginTop: 8 }]}>
+            {pageLabel} 1 / {totalPages}
+          </Text>
         </View>
       </Page>
 
-      {products.map((product, index) => (
-        <Page key={product.id} size="A4" style={styles.productPage}>
-          <View style={styles.brandBar} />
-          <View style={styles.productHeader}>
-            {/* eslint-disable-next-line jsx-a11y/alt-text -- react-pdf Image */}
-            <Image src={logoUrl} style={styles.headerLogo} />
-            <Text style={styles.headerMark}>Bonvera</Text>
-          </View>
-
-          <View style={styles.productBody}>
-            <View style={styles.imageWrap}>
-              {product.imageUrl ? (
-                // eslint-disable-next-line jsx-a11y/alt-text -- react-pdf Image
-                <Image src={product.imageUrl} style={styles.productImage} />
-              ) : (
-                <View style={styles.imagePlaceholder}>
-                  <Text style={styles.placeholderText}>Bonvera</Text>
-                </View>
-              )}
+      {productPages.map((pageProducts, pageIndex) => {
+        const pageNumber = pageIndex + 2;
+        return (
+          <Page
+            key={`products-${pageIndex}`}
+            size="A4"
+            style={styles.productPage}
+          >
+            <View style={styles.productHeader}>
+              {/* eslint-disable-next-line jsx-a11y/alt-text -- react-pdf Image */}
+              <Image src={logoUrl} style={styles.headerLogo} />
+              <Text style={styles.headerMark}>Bonvera</Text>
             </View>
-            <View style={styles.copy}>
-              <Text style={styles.productName}>{product.name}</Text>
-              {product.summary ? (
-                <Text style={styles.productSummary}>{product.summary}</Text>
-              ) : null}
-              {product.body ? (
-                <Text style={styles.productBodyText}>
-                  {product.body.slice(0, 900)}
-                  {product.body.length > 900 ? "…" : ""}
-                </Text>
-              ) : null}
-            </View>
-          </View>
 
-          <View style={styles.pageFooter} fixed>
-            <Text style={styles.footerText}>bonvera.fr</Text>
-            <Text style={styles.footerText}>
-              {pageLabel} {index + 1} / {products.length}
-            </Text>
-          </View>
-        </Page>
-      ))}
+            <View style={styles.rows}>
+              {pageProducts.map((product, rowIndex) => (
+                <ProductRow
+                  key={product.id}
+                  product={product}
+                  isLast={rowIndex === pageProducts.length - 1}
+                />
+              ))}
+            </View>
+
+            <View style={styles.pageFooter} fixed>
+              <Text style={styles.footerText}>bonvera.fr</Text>
+              <Text style={styles.footerText}>
+                {pageLabel} {pageNumber} / {totalPages}
+              </Text>
+            </View>
+          </Page>
+        );
+      })}
+
+      <Page size="A4" style={styles.backPage}>
+        {/* eslint-disable-next-line jsx-a11y/alt-text -- react-pdf Image */}
+        <Image src={logoUrl} style={styles.backLogo} />
+        <Text style={styles.backLocation}>{back.location}</Text>
+        <View style={styles.backRule} />
+        <View style={styles.backContact}>
+          <Text style={styles.backLine}>{back.email}</Text>
+          {back.phone ? <Text style={styles.backLine}>{back.phone}</Text> : null}
+          <Text style={styles.backWebsite}>{back.website}</Text>
+        </View>
+        <View style={styles.qrWrap}>
+          {/* eslint-disable-next-line jsx-a11y/alt-text -- react-pdf Image */}
+          <Image src={back.qrUrl} style={styles.qrImage} />
+          <Text style={styles.qrLabel}>{back.qrLabel}</Text>
+        </View>
+        <Text style={styles.backTagline}>{back.tagline}</Text>
+        <View style={styles.pageFooter} fixed>
+          <Text style={styles.footerText}>bonvera.fr</Text>
+          <Text style={styles.footerText}>
+            {pageLabel} {totalPages} / {totalPages}
+          </Text>
+        </View>
+      </Page>
     </Document>
   );
 }

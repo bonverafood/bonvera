@@ -264,11 +264,18 @@
     "contentLanguage": "Langue du catalogue",
     "contentLanguageTr": "Turc",
     "contentLanguageFr": "Francais",
-    "pdfTitle": "Catalogue produits Bonvera",
+    "pdfTitle": "Catalogue produits Bonvera {year}",
     "pdfSubtitle": "Selection mezze, dolma et icli kofte — foodservice et retail.",
     "pdfGenerated": "Date de creation",
     "pdfPage": "Page",
-    "pdfProductCount": "{count} produit(s)"
+    "pdfProductCount": "{count} produit(s)",
+    "pdfBackLocation": "Strasbourg · France",
+    "pdfBackEmail": "contact@bonvera.fr",
+    "pdfBackPhone": "",
+    "pdfBackWebsite": "www.bonvera.fr",
+    "pdfWebsiteUrl": "https://bonvera.fr",
+    "pdfBackTagline": "Bon appetit",
+    "pdfQrLabel": "bonvera.fr"
   },
   "ProductStudio": {
     "listTitle": "Produits",

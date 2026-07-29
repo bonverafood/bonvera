@@ -4,9 +4,19 @@ export type CatalogProduct = {
   id: string;
   name: string;
   summary: string;
-  body: string;
   imageUrl: string | null;
   slug: string;
+};
+
+export type CatalogBackCover = {
+  location: string;
+  email: string;
+  phone: string;
+  website: string;
+  websiteUrl: string;
+  tagline: string;
+  qrLabel: string;
+  qrUrl: string;
 };
 
 export type CatalogDocumentProps = {
@@ -18,4 +28,7 @@ export type CatalogDocumentProps = {
   generatedLabel: string;
   pageLabel: string;
   productCountLabel: string;
+  back: CatalogBackCover;
 };
+
+export const CATALOG_PRODUCTS_PER_PAGE = 5;

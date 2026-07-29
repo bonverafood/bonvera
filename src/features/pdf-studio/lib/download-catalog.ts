@@ -2,7 +2,7 @@ import { createElement } from "react";
 
 import type { Locale } from "@/config/i18n";
 
-import type { CatalogProduct } from "../types";
+import type { CatalogBackCover, CatalogProduct } from "../types";
 
 export type DownloadCatalogOptions = {
   products: CatalogProduct[];
@@ -13,6 +13,7 @@ export type DownloadCatalogOptions = {
   generatedLabel: string;
   pageLabel: string;
   productCountLabel: string;
+  back: CatalogBackCover;
   fileName: string;
 };
 
@@ -55,6 +56,7 @@ export async function downloadCatalogPdf(
       generatedLabel: options.generatedLabel,
       pageLabel: options.pageLabel,
       productCountLabel: options.productCountLabel,
+      back: options.back,
     }),
   ).toBlob();
 
