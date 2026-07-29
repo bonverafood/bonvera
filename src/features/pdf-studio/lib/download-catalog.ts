@@ -13,6 +13,7 @@ export type DownloadCatalogOptions = {
   generatedLabel: string;
   pageLabel: string;
   productCountLabel: string;
+  siteLabel: string;
   back: CatalogBackCover;
   fileName: string;
 };
@@ -56,6 +57,7 @@ export async function downloadCatalogPdf(
       generatedLabel: options.generatedLabel,
       pageLabel: options.pageLabel,
       productCountLabel: options.productCountLabel,
+      siteLabel: options.siteLabel,
       back: options.back,
     }),
   ).toBlob();

@@ -28,6 +28,7 @@ export type CatalogDocumentProps = {
   generatedLabel: string;
   pageLabel: string;
   productCountLabel: string;
+  siteLabel: string;
   back: CatalogBackCover;
 };
 

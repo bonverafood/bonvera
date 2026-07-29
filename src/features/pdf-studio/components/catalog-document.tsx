@@ -15,17 +15,18 @@ import {
   type CatalogProduct,
 } from "../types";
 
-const olive = "#3d5a3c";
-const oliveDark = "#2a3f29";
-const cream = "#f7f4ef";
-const ink = "#1c1a17";
-const muted = "#6b6560";
-const rule = "#ddd6cb";
+/** Palette aligned with Bonvera logo (navy + black + white). */
+const navy = "#0c2340";
+const navyDeep = "#071628";
+const paper = "#f3f5f8";
+const ink = "#0a0f18";
+const muted = "#5a6573";
+const rule = "#d0d5dd";
 
 const styles = StyleSheet.create({
   cover: {
     flex: 1,
-    backgroundColor: cream,
+    backgroundColor: paper,
     padding: 48,
     justifyContent: "space-between",
   },
@@ -35,20 +36,20 @@ const styles = StyleSheet.create({
   coverBrandBar: {
     height: 6,
     width: 72,
-    backgroundColor: olive,
-    marginBottom: 28,
+    backgroundColor: navy,
+    marginBottom: 24,
   },
   logo: {
-    width: 140,
-    height: 48,
+    width: 200,
+    height: 200,
     objectFit: "contain",
-    marginBottom: 36,
+    marginBottom: 28,
   },
   coverTitle: {
     fontSize: 26,
     fontFamily: "SourceSans3",
     fontWeight: 700,
-    color: oliveDark,
+    color: navyDeep,
     marginBottom: 10,
     letterSpacing: 0.4,
   },
@@ -87,8 +88,8 @@ const styles = StyleSheet.create({
     borderBottomColor: rule,
   },
   headerLogo: {
-    width: 88,
-    height: 30,
+    width: 56,
+    height: 56,
     objectFit: "contain",
   },
   headerMark: {
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   imageWrap: {
     width: 100,
     height: 100,
-    backgroundColor: cream,
+    backgroundColor: paper,
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     width: "100%",
     height: "100%",
-    backgroundColor: cream,
+    backgroundColor: paper,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: "SourceSans3",
     fontWeight: 700,
-    color: oliveDark,
+    color: navyDeep,
     marginBottom: 4,
     lineHeight: 1.25,
   },
@@ -181,14 +182,14 @@ const styles = StyleSheet.create({
   },
   backPage: {
     flex: 1,
-    backgroundColor: cream,
+    backgroundColor: paper,
     padding: 48,
     justifyContent: "center",
     alignItems: "center",
   },
   backLogo: {
-    width: 150,
-    height: 52,
+    width: 180,
+    height: 180,
     objectFit: "contain",
     marginBottom: 14,
   },
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
   backRule: {
     width: 56,
     height: 3,
-    backgroundColor: olive,
+    backgroundColor: navy,
     marginBottom: 22,
   },
   backContact: {
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "SourceSans3",
     fontWeight: 700,
-    color: oliveDark,
+    color: navyDeep,
     marginTop: 4,
     textAlign: "center",
   },
@@ -310,6 +311,7 @@ export function CatalogDocument({
   generatedLabel,
   pageLabel,
   productCountLabel,
+  siteLabel,
   back,
 }: CatalogDocumentProps) {
   const date = formatDate(locale);
@@ -369,7 +371,7 @@ export function CatalogDocument({
             </View>
 
             <View style={styles.pageFooter} fixed>
-              <Text style={styles.footerText}>bonvera.fr</Text>
+              <Text style={styles.footerText}>{siteLabel}</Text>
               <Text style={styles.footerText}>
                 {pageLabel} {pageNumber} / {totalPages}
               </Text>
@@ -395,7 +397,7 @@ export function CatalogDocument({
         </View>
         <Text style={styles.backTagline}>{back.tagline}</Text>
         <View style={styles.pageFooter} fixed>
-          <Text style={styles.footerText}>bonvera.fr</Text>
+          <Text style={styles.footerText}>{siteLabel}</Text>
           <Text style={styles.footerText}>
             {pageLabel} {totalPages} / {totalPages}
           </Text>

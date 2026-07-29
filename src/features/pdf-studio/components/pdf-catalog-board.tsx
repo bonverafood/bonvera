@@ -111,6 +111,7 @@ export function PdfCatalogBoard({ products }: PdfCatalogBoardProps) {
           productCountLabel: interpolate(copy.pdfProductCount, {
             count: catalogProducts.length,
           }),
+          siteLabel: copy.pdfQrLabel,
           back: {
             location: copy.pdfBackLocation,
             email: copy.pdfBackEmail,

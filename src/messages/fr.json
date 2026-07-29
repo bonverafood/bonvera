@@ -270,12 +270,12 @@
     "pdfPage": "Page",
     "pdfProductCount": "{count} produit(s)",
     "pdfBackLocation": "Strasbourg · France",
-    "pdfBackEmail": "contact@bonvera.fr",
+    "pdfBackEmail": "bonvera.food@gmail.com",
     "pdfBackPhone": "",
-    "pdfBackWebsite": "www.bonvera.fr",
-    "pdfWebsiteUrl": "https://bonvera.fr",
+    "pdfBackWebsite": "www.bonvera.food",
+    "pdfWebsiteUrl": "https://bonvera.food",
     "pdfBackTagline": "Bon appetit",
-    "pdfQrLabel": "bonvera.fr"
+    "pdfQrLabel": "bonvera.food"
   },
   "ProductStudio": {
     "listTitle": "Produits",

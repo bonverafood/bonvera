@@ -270,12 +270,12 @@
     "pdfPage": "Sayfa",
     "pdfProductCount": "{count} urun",
     "pdfBackLocation": "Strasbourg · France",
-    "pdfBackEmail": "contact@bonvera.fr",
+    "pdfBackEmail": "bonvera.food@gmail.com",
     "pdfBackPhone": "",
-    "pdfBackWebsite": "www.bonvera.fr",
-    "pdfWebsiteUrl": "https://bonvera.fr",
+    "pdfBackWebsite": "www.bonvera.food",
+    "pdfWebsiteUrl": "https://bonvera.food",
     "pdfBackTagline": "Afiyet olsun",
-    "pdfQrLabel": "bonvera.fr"
+    "pdfQrLabel": "bonvera.food"
   },
   "ProductStudio": {
     "listTitle": "Urunler",
