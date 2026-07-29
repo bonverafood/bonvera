@@ -246,6 +246,30 @@
       "edit": "Urunu duzenle"
     }
   },
+  "PdfStudio": {
+    "title": "PDF Katalog",
+    "description": "Yayinlanmis urunleri secin; logolu profesyonel katalog PDF'i indirin.",
+    "generate": "PDF olustur",
+    "generating": "PDF hazirlaniyor…",
+    "selectAll": "Tumunu sec",
+    "clearSelection": "Secimi temizle",
+    "selectedCount": "{count} urun secildi",
+    "selectProduct": "{name} sec",
+    "needSelection": "PDF icin en az bir urun secin.",
+    "generateError": "PDF olusturulamadi. Tekrar deneyin.",
+    "loadError": "Urun listesi yuklenemedi.",
+    "emptyTitle": "Yayinlanmis urun yok",
+    "emptyDescription": "Katalog icin once Urunler'de en az bir urunu yayinlayin.",
+    "emptyAction": "Urunlere git",
+    "contentLanguage": "Katalog dili",
+    "contentLanguageTr": "Turkce",
+    "contentLanguageFr": "Francais",
+    "pdfTitle": "Bonvera Urun Katalogu",
+    "pdfSubtitle": "Meze, sarma ve icli kofte seckisi — foodservice ve perakende.",
+    "pdfGenerated": "Olusturma tarihi",
+    "pdfPage": "Sayfa",
+    "pdfProductCount": "{count} urun"
+  },
   "ProductStudio": {
     "listTitle": "Urunler",
     "listDescription": "Bonvera urun icerikleri, SEO ve yayin durumu.",

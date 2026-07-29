@@ -246,6 +246,30 @@
       "edit": "Modifier le produit"
     }
   },
+  "PdfStudio": {
+    "title": "Catalogue PDF",
+    "description": "Selectionnez des produits publies et telechargez un catalogue PDF professionnel avec logo.",
+    "generate": "Creer le PDF",
+    "generating": "Preparation du PDF…",
+    "selectAll": "Tout selectionner",
+    "clearSelection": "Effacer la selection",
+    "selectedCount": "{count} produit(s) selectionne(s)",
+    "selectProduct": "Selectionner {name}",
+    "needSelection": "Selectionnez au moins un produit pour le PDF.",
+    "generateError": "Impossible de creer le PDF. Reessayez.",
+    "loadError": "Impossible de charger la liste des produits.",
+    "emptyTitle": "Aucun produit publie",
+    "emptyDescription": "Publiez au moins un produit dans Produits pour creer un catalogue.",
+    "emptyAction": "Aller aux produits",
+    "contentLanguage": "Langue du catalogue",
+    "contentLanguageTr": "Turc",
+    "contentLanguageFr": "Francais",
+    "pdfTitle": "Catalogue produits Bonvera",
+    "pdfSubtitle": "Selection mezze, dolma et icli kofte — foodservice et retail.",
+    "pdfGenerated": "Date de creation",
+    "pdfPage": "Page",
+    "pdfProductCount": "{count} produit(s)"
+  },
   "ProductStudio": {
     "listTitle": "Produits",
     "listDescription": "Contenu produits Bonvera, SEO et statut de publication.",
